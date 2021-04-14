@@ -15,3 +15,13 @@
 .navegacion{
     background-color: black;
 }
+
+
+body{
+    background-image:url("../IMG/Fondo.jpg");
+    background-repeat: no-repeat; 
+    background-size: cover;
+    background-position: center;
+    
+    
+}

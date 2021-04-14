@@ -28,59 +28,23 @@ public class Controller extends HttpServlet {
             HttpServletResponse response)
             throws ServletException, IOException, Exception {
         HttpSession session = request.getSession(true);
-        
+
         request.setAttribute("model", new Model());
         String urlView = "";
         switch (request.getServletPath()) {
             case "/presentation/Register":
                 urlView = "xd";
                 break;
-            case "/Presentation/Login": {
-                Usuario us = new Usuario("1", 111, "David");
-                us = Service.getInstance().login(us);
-                if (us != null) {
-                    
-                    session.setAttribute("usuario", us);
-                    urlView = "/index.jsp";
-                }else{
-                    urlView = "/index.jsp";
-                }
+            case "/Presentation/Login":
+                urlView = "/Presentation/Login/View.jsp";
                 //urlView = "/footer.jsp";
-
-            }
-            break;
+                break;
 
         }
         request.getRequestDispatcher(urlView).forward(request, response);
 
     }
 
-    private String getRestriccion(String placa) {
-        if (placa.length() == 0) {
-            return "Sin restriccion";
-        }
-        char d = placa.charAt(placa.length() - 1);
-        switch (d) {
-            case '1':
-            case '2':
-                return "Presentation/Lunes";
-            case '3':
-            case '4':
-                return "Martes";
-            default:
-                return "Sin restriccion";
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -91,14 +55,6 @@ public class Controller extends HttpServlet {
         }
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -109,14 +65,5 @@ public class Controller extends HttpServlet {
         }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }
