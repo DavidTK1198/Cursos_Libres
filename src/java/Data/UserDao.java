@@ -66,7 +66,7 @@ public class UserDao {
     public Usuario read(int id) throws Exception{
         String sql="select * from Usuario where Id_Usu=?";
         PreparedStatement stm = DataBase.instance().prepareStatement(sql);
-        stm.setInt(2, id);
+        stm.setInt(1, id);
         ResultSet rs =  DataBase.instance().executeQuery(stm);           
         if (rs.next()) {
             System.out.println("Hola que tal");

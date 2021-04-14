@@ -47,11 +47,12 @@ public class DataBase {
             String database = prop.getProperty("database_name");
             
             String URL_conexion="jdbc:mysql://"+ server+":"+port+"/"+
-                    database+"?user="+user+"&password="+password+"&serverTimezone=UTC";            
+                    database+"?user="+user+"&password="+password+"&serverTimezone=UTC&autoReconnect=true&useSSL=false";           
             Class.forName(driver).newInstance();
             return DriverManager.getConnection(URL_conexion);
         } catch (Exception e) {
             System.err.println(e.getMessage());
+            System.out.print(e);
             System.exit(-1);
         } 
         return null;
