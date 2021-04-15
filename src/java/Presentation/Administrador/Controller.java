@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Presentation.Login;
+package Presentation.Administrador;
 
+import Presentation.Login.*;
 import Logic.Service;
 import Logic.Usuario;
 import java.io.IOException;
@@ -21,7 +22,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author jsanchez
  */
-@WebServlet(name = "LoginController", urlPatterns = {"/Presentation/Login/Show", "/Presentation/Login", "/Presentation/Login/Logout"})
+@WebServlet(name = "AdminController", urlPatterns = {"/GestionarG", "/Presentation/Administrador", "/GestionarP"})
 public class Controller extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request,
@@ -32,13 +33,13 @@ public class Controller extends HttpServlet {
 
         String viewUrl = "";
         switch (request.getServletPath()) {
-            case "/Presentation/Login/Show":
+            case "/Presentation/Administrador":
                 viewUrl = this.show(request);
                 break;
-            case "/Presentation/Login":
+            case "/GestionarG":
                 viewUrl = this.login(request);
                 break;
-            case "/Presentation/Login/Logout":
+            case "/GestionarP":
                 viewUrl = this.logout(request);
                 break;
         }
@@ -125,11 +126,7 @@ public class Controller extends HttpServlet {
     }
 
     public String showAction(HttpServletRequest request) {
-        Model model = (Model) request.getAttribute("model");
-        model.getCurrent().setIdUsu(0);
-        model.getCurrent().setClave("");
-        model.getCurrent().setRol("");
-        return "/Presentation/Login/View.jsp";
+        return "/Presentation/Administrador/View.jsp";
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

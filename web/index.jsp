@@ -17,7 +17,7 @@
             <%@include file = "/header.jsp" %>
 
 
-
+            
             <%@include file = "/nav.jsp" %>
 
             <h1>Cursos en Oferta</h1>

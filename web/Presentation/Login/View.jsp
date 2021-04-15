@@ -6,33 +6,39 @@
 
 
 
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Map"%>
 <%@page import="Logic.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Logic.Service"%>
+<%@page import="Presentation.Login.Model"%>
 <!DOCTYPE html>
 <html>
     <%@include file = "/head.jsp" %>
     <main>
-        
-        <%@include file = "/header.jsp" %>
-      
-        <%@include file = "/nav.jsp" %>
 
-        <h1>Cursos en Oferta</h1>
+        <%@include file = "/header.jsp" %>
+        <% Model model = (Model) request.getAttribute("model"); %>
+        <% Map<String, String> errores = (Map<String, String>) request.getAttribute("errores"); %>
+        <% Map<String, String[]> form = (errores == null) ? this.getForm(model) : request.getParameterMap();%>
+
+        
+
+     
         <div class="container-fluid container-lg container-md container-sm container-xl" id="app1">
             <div>
-                <form  class="row" method = "post" action = "/Cursos_Libres/Presentation/Login">                     
-                    <div v-for="item in lista" class="col col-sm-8 col-md-4 col-xl-4">
-                        <ul class="border border-success">
-                            {{item.text}}
-                            <img src="${pageContext.request.contextPath}/IMG/4401280-768x432.jpg">
-                            <li class="border">
-                                <p class="mr-5">
-                                    {{item.descripcion}}
-                                    <button type="submit" class="btn btn-outline-success" >Prueba1</button>
-                                </p>
-                            </li>
-                        </ul> 
+                <form name="form" action="${pageContext.request.contextPath}/Presentation/Login" method="post" > 
+                    <div class="panel" style="width:30%;">
+                        <div class="fila encabezado">Login</div>
+                        <div class="fila">
+                            <div class="etiqueta">Cedula</div>
+                            <div class="campo"><input class="<%=erroneo("cedulaFld", errores)%>" placeholder="Cedula del usuario" type="text" name="cedulaFld" value="<%=form.get("cedulaFld")[0]%>" title="<%=title("cedulaFld", errores)%>"></div>
+                        </div>
+                        <div class="fila">
+                            <div class="etiqueta">Clave</div>
+                            <div class="campo"><input class="<%=erroneo("claveFld", errores)%>" placeholder="Clave del usuario" type="password" name="claveFld" value="<%=form.get("claveFld")[0]%>" title="<%=title("claveFld", errores)%>"></div>
+                        </div>
+                        <div class="fila encabezado"><button  style="margin-bottom: 15px">Ingresar</button> </div>
                     </div>
                 </form>
             </div>
@@ -41,23 +47,35 @@
     </main>
     <aside></aside>
         <%@include file = "/footer.jsp" %>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" Integeregrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" Integeregrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-    <script>
-const app1 = new Vue({
-    el: '#app1',
-    data: {
-        lista: [
-            {text: 'Programacion', descripcion: 'C++ pura vida'},
-            {text: 'Cocina', descripcion: 'C# pura vida'},
-            {text: 'Perreo Integerenso', descripcion: 'Ganoza'},
-            {text: 'Baile tipico', descripcion: 'Guanacaste'},
-            {text: 'Economia', descripcion: 'XD'},
-            {text: 'Filosofia', descripcion: 'ella no te ama'}
-        ]
-    }
-})
-    </script>
+   
 </body>
 </html>
+<%!
+    private String erroneo(String campo, Map<String, String> errores) {
+        if ((errores != null) && (errores.get(campo) != null)) {
+            return "is-invalid";
+        } else {
+            return "";
+        }
+    }
+
+    private String title(String campo, Map<String, String> errores) {
+        if ((errores != null) && (errores.get(campo) != null)) {
+            return errores.get(campo);
+        } else {
+            return "";
+        }
+    }
+
+    private Map<String, String[]> getForm(Model model) {
+        Map<String, String[]> values = new HashMap<>();
+        int id = model.getCurrent().getIdUsu();
+        String nuevoId = Integer.toString(id);
+        values.put("cedulaFld", new String[]{nuevoId});
+        values.put("claveFld", new String[]{model.getCurrent().getClave()});
+        return values;
+    }
+
+%> 

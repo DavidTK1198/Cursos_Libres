@@ -8,17 +8,22 @@ package Presentation.Login;
 import Logic.Usuario;
 
 public class Model {
-  Usuario current;
 
-  public Model() {
-    this.setCurrent(new Usuario());
-  }
+    Usuario current;
 
-  public final Usuario getCurrent() {
-    return current;
-  }
+    public Model() {
+        this.setCurrent(new Usuario());
+    }
 
-  public final void setCurrent(Usuario current) {
-    this.current = current;
-  }
+    public final Usuario getCurrent() {
+        return current;
+    }
+
+    public final void setCurrent(Usuario current) {
+        this.current = current;
+    }
+
+    public void reset() {
+        setCurrent(new Usuario());
+    }
 }
