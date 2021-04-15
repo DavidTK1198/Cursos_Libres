@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Escinf
  */
-@WebServlet(name = "Controller", urlPatterns = {"/Presentation/Login", "/presentation/Register"})
+@WebServlet(name = "Controller", urlPatterns = {"/Presentation/Login", "/Presentation/Register","/Presentation/Categorias"})
 public class Controller extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request,
@@ -39,6 +39,9 @@ public class Controller extends HttpServlet {
                 urlView = "/Presentation/Login/View.jsp";
                 //urlView = "/footer.jsp";
                 break;
+            case "/Presentation/Categorias":
+                
+                
 
         }
         request.getRequestDispatcher(urlView).forward(request, response);
