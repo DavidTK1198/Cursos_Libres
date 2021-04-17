@@ -11,6 +11,7 @@ package Data;
  * @author DavidTK1198
  */
 
+import Logic.Curso;
 import Logic.Grupo;
 import Logic.Profesor;
 import java.sql.PreparedStatement;
@@ -23,12 +24,13 @@ import java.util.List;
 public class GrupoDao {
 
       public void create(Grupo o) throws Exception {
-        String sql = "insert into Grupo (num_Grupo,Profesor_id_Profe,Horario) "
-                + "values(?,?,?)";
+        String sql = "insert into Grupo (num_Grupo,Profesor_id_Profe,Horario,Curso_NRC) "
+                + "values(?,?,?,?)";
         PreparedStatement stm = DataBase.instance().prepareStatement(sql);
         stm.setInt(1, o.getNumGrup());
         stm.setInt(2, o.getProfesoridProfe().getIdProfe());//preguntar
         stm.setString(3, o.getHorario());
+        stm.setInt(4, o.getCurso().getNrc());
         int count = DataBase.instance().executeUpdate(stm);
         if (count == 0) {
             throw new Exception("El grupo ya existe");
@@ -63,6 +65,20 @@ public class GrupoDao {
         }
         return r;
     }
+     public List<Grupo> findByCurso(int n) {
+        List<Grupo> r = new ArrayList<>();
+        String sql = "select * from Grupo where Curso_NRC = ?";
+        try {
+            PreparedStatement stm = DataBase.instance().prepareStatement(sql);
+            stm.setInt(4, n);
+            ResultSet rs = DataBase.instance().executeQuery(stm);
+            while (rs.next()) {
+                r.add(from(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return r;
+    }
     
     public Grupo read(int num) throws Exception{
         String sql="select * from Grupo where num_Grup=?";
@@ -84,6 +100,7 @@ public class GrupoDao {
             r.setNumGrup(rs.getInt("num_Grup"));
             r.setProfesoridProfe((Profesor)rs.getObject("Profesor_id_Profe"));
             r.setHorario(rs.getString("Horario"));
+            r.setCurso((Curso)rs.getObject("Curso_NRC"));
             return r;
         } catch (SQLException ex) {
             return null;

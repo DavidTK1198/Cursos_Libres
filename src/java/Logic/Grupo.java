@@ -8,7 +8,6 @@ package Logic;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -21,16 +20,21 @@ public class Grupo {
     private String horario;
     private List<Estudiante> inscripcionList;
     private Profesor profesoridProfe;
+    private Curso curso;
     public Grupo() {
-          this.inscripcionList=new ArrayList<>();
+        this.inscripcionList=new ArrayList<>();
         this.profesoridProfe=new Profesor();
+        this.curso = new Curso();
+        this.numGrup = 0;
+        this.horario = "";
     }
 
-    public Grupo(int numGrup, String horario) {
+    public Grupo(int numGrup, String horario,Curso cur) {
         this.numGrup = numGrup;
         this.horario = horario;
         this.inscripcionList=new ArrayList<>();
         this.profesoridProfe=new Profesor();
+        this.curso = cur;
     }
 
     public int getNumGrup() {
@@ -62,6 +66,14 @@ public class Grupo {
             return false;
         }
         return true;
+    }
+
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
     }
 
     @Override

@@ -5,20 +5,22 @@ package Data;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import Logic.Curso;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;;
+import java.util.List;
+
+;
 
 /**
  *
  * @author Daniel Madrigal
  */
 public class CursosDao {
-     public void create(Curso o) throws Exception {
+
+    public void create(Curso o) throws Exception {
         String sql = "insert into Curso (NRC,Nom_Cur,Des_Cur,Oferta,Precio) "
                 + "values(?,?,?,?,?)";
         PreparedStatement stm = DataBase.instance().prepareStatement(sql);
@@ -32,8 +34,8 @@ public class CursosDao {
             throw new Exception("El Curso ya existe");
         }
     }
-      
-        public List<Curso> findAll() {
+
+    public List<Curso> findAll() {
         List<Curso> r = new ArrayList<>();
         String sql = "select * from Curso";
         try {
@@ -52,7 +54,7 @@ public class CursosDao {
         String sql = "select * from Curso where Nom_Cur like ?";
         try {
             PreparedStatement stm = DataBase.instance().prepareStatement(sql);
-            stm.setString(2, "%" +o.getNomCur() + "%");
+            stm.setString(2, "%" + o.getNomCur() + "%");
             ResultSet rs = DataBase.instance().executeQuery(stm);
             while (rs.next()) {
                 r.add(from(rs));
@@ -61,23 +63,22 @@ public class CursosDao {
         }
         return r;
     }
-    
-    public Curso read(int nrc) throws Exception{
-        String sql="select * from Curso where NRC=?";
+
+    public Curso read(int nrc) throws Exception {
+        String sql = "select * from Curso where NRC=?";
         PreparedStatement stm = DataBase.instance().prepareStatement(sql);
         stm.setInt(1, nrc);
-        ResultSet rs =  DataBase.instance().executeQuery(stm);           
+        ResultSet rs = DataBase.instance().executeQuery(stm);
         if (rs.next()) {
             return from(rs);
-        }
-        else{
-            throw new Exception ("El Curso no Existe");
+        } else {
+            throw new Exception("El Curso no Existe");
         }
     }
 
-    public Curso from (ResultSet rs){
+    public Curso from(ResultSet rs) {
         try {
-            Curso r= new Curso();
+            Curso r = new Curso();
             r.setNrc(rs.getInt("NRC"));
             r.setNomCur(rs.getString("Nom_Cur"));
             r.setDesCur(rs.getString("Des_Cur"));
@@ -89,6 +90,20 @@ public class CursosDao {
         }
     }
 
-    public  void close(){
+    public boolean updateStatus(boolean oferta, int nrc) {
+        try {
+            String sql = "update Curso set oferta = ? where NRC = ?";
+            PreparedStatement stm = DataBase.instance().prepareStatement(sql);
+            stm.setBoolean(4, oferta);
+            stm.setInt(1, nrc);
+            DataBase.instance().executeUpdate(stm);
+            return true;
+
+        } catch (SQLException ex) {
+            return false;
+        }
+    }
+
+    public void close() {
     }
 }
