@@ -6,5 +6,7 @@
     <property name="keepgenerated" value="true">
       <description>Keep a copy of the generated servlet class' java code.</description>
     </property>
+	 <property name="compilerSourceVM" value="7"/> 
+    <property name="compilerTargetVM" value="7"/>  
   </jsp-config>
 </glassfish-web-app>
