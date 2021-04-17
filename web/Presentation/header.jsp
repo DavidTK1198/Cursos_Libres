@@ -2,10 +2,10 @@
 <%@page import="Logic.Usuario"%>
 <% Usuario usuario = (Usuario) session.getAttribute("usuario");  %>
 <header><h1>Bienvenidos a Cursos Libres.com</h1>
-    <img class="rounded-circle"src="IMG/logo.png" alt>
+    <img class="rounded-circle"src="${pageContext.request.contextPath}/IMG/logo.png" alt>
     <nav  class="navbar navegacion"">
         <div>
-            <a href="${pageContext.request.contextPath}/index.jsp">Inicio</a>
+            <a href="${pageContext.request.contextPath}/Presentation/index.jsp">Inicio</a>
         </div>
         <% if (usuario != null) { %>
         <% if (usuario.getRol() == "1") {  %>

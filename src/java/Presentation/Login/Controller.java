@@ -56,7 +56,7 @@ public class Controller extends HttpServlet {
                 return "/Presentation/Login/View.jsp";
             }
         } catch (Exception e) {
-            return "/presentation/Error.jsp";
+            return "/Presentation/Error.jsp";
         }
     }
 
