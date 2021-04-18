@@ -16,7 +16,7 @@
             <a href="/Presentation/GestionarG">Gestionar Grupos</a>
         </div>
         <div>
-            <a href="/Cursos_Libres/Presentation/Administrador/GestionP">Registrar Profesores</a>
+            <a href="${pageContext.request.contextPath}/Presentation/Profesor/Show">Registrar Profesores</a>
         </div>
                
                 <% }else if (rol == 2){  %>
@@ -42,7 +42,7 @@
         </div>
         <% } %> 
         <div >
-            <a  href="${pageContext.request.contextPath}/Presentation/Login/Logout"><Logout></a>
+            <a  href="${pageContext.request.contextPath}/Presentation/Login/Logout">Logout</a>
         </div>                
         <% } %>         
         <% if (usuario == null) {%>

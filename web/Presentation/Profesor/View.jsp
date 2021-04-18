@@ -22,7 +22,7 @@
 
         <div class="container-fluid container-lg container-md container-sm container-xl" id="app1">
 
-            <form name="form" action="/Presentation/GestionarP" method="post" > 
+            <form name="form" action="${pageContext.request.contextPath}/Presentation/Administrador/GestionP" method="post" > 
                 <div class="panel" style="width:30%;">
                     <div class="fila encabezado">Registrar Profesor</div>
                     <div class="fila">

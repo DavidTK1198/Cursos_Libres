@@ -73,7 +73,7 @@ public class ProfesorDao {
             return from(rs);
         }
         else{
-            throw new Exception ("El Profesor no Existe");
+            return null;
         }
     }
 

@@ -3,67 +3,46 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Presentation.Administrador;
-
+package Presentation.Estudiante;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author jsanchez
+ * @author Daniel Madrigal
  */
-@WebServlet(name = "AdminController", urlPatterns = {"/Presentation/GestionarG", "/Presentation/Administrador", "/Presentation/Administrador/GestionP"})
 public class Controller extends HttpServlet {
 
-    protected void processRequest(HttpServletRequest request,
-            HttpServletResponse response)
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        String viewUrl = "";
-        switch (request.getServletPath()) {
-            case "/Presentation/Administrador":
-                viewUrl = this.show(request);
-                break;
-            case "/Presentation/Administrador/GestionP":
-                viewUrl = this.RegistrarProfesores(request);
-                break;
-            
-            
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet Controller</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet Controller at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-        request.getRequestDispatcher(viewUrl).forward(request, response);
     }
-
-
-    Map<String, String> validar(HttpServletRequest request) {
-        Map<String, String> errores = new HashMap<>();
-        if (request.getParameter("cedulaFld").isEmpty()) {
-            errores.put("cedulaFld", "Cedula requerida");
-        }
-
-        if (request.getParameter("claveFld").isEmpty()) {
-            errores.put("claveFld", "Clave requerida");
-        }
-        return errores;
-    }
-
-    public String RegistrarProfesores(HttpServletRequest request){
-       return "/Presentation/Profesor/AgregrarProfesor";
-    }
-    public String show(HttpServletRequest request) {
-        return this.showAction(request);
-    }
-
-    public String showAction(HttpServletRequest request) {
-        return "/Presentation/Administrador/View.jsp";
-    }
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

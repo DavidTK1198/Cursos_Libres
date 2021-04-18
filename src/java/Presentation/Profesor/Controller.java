@@ -22,7 +22,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Daniel Madrigal
  */
-@WebServlet(name = "ProfesorController", urlPatterns = {"/Presentation/Profesor/AgregrarProfesor","/Presentation/Profesor/Show"})
+@WebServlet(name = "ProfesorController", urlPatterns = {"/Presentation/Profesor/AgregrarProfesor","/Presentation/Profesor/Show",
+"/Presentation/Profesor"})
 public class Controller extends HttpServlet {
 
 
@@ -37,6 +38,9 @@ public class Controller extends HttpServlet {
                 break;
             case "/Presentation/Profesor/Show":
                 viewUrl = this.showProfesor(request);
+                break;
+            case "/Presentation/Profesor":
+                viewUrl =this.ProfesorLogin(request);
                 break;
             
         }
@@ -87,8 +91,10 @@ public class Controller extends HttpServlet {
                 if (pr != null) {
                     return "/Presentation/Profesor/ErrorProfesor.jsp";
                 } else {
-                    Service.getInstance().agregarProfesor(pr);
-                    Service.getInstance().agregarUsuario(pr.getUsuarioIdUsu());
+                   
+                    Service.getInstance().agregarUsuario(model.getCurrent().getUsuarioIdUsu());
+                     Service.getInstance().agregarProfesor(model.getCurrent());
+                   
                     model.reset();
                     return "/Presentation/Administrador/View.jsp";
                 }
@@ -142,6 +148,10 @@ public class Controller extends HttpServlet {
 
     private String showProfesor(HttpServletRequest request) {
          return "/Presentation/Profesor/View.jsp";
+    }
+
+    private String ProfesorLogin(HttpServletRequest request) {
+        return "/Presentation/index.jsp";
     }
 
 }

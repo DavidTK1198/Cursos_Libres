@@ -23,7 +23,7 @@ public class UserDao {
 
       public void create(Usuario o) throws Exception {
         String sql = "insert into Usuario (Rol,Id_Usu,Clave) "
-                + "values(?,?)";
+                + "values(?,?,?)";
         PreparedStatement stm = DataBase.instance().prepareStatement(sql);
         stm.setString(1, o.getRol());
         stm.setInt(2, o.getIdUsu());
