@@ -15,6 +15,18 @@
         <div>
             <a href="/Presentation/GestionarG">Gestionar Grupos</a>
         </div>
+        <li class="nav-item dropdown lista">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Gestionar Cursos
+            </a>
+            <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="${pageContext.request.contextPath}/Presentation/Curso/Show">Agregar Cursos</a>
+                <a class="dropdown-item" href="#">Cambiarle status</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+        </li>
+         
         <div>
             <a href="${pageContext.request.contextPath}/Presentation/Profesor/Show">Registrar Profesores</a>
         </div>

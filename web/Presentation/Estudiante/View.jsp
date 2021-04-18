@@ -73,12 +73,11 @@
 
     private Map<String, String[]> getForm(Model model) {
         Map<String, String[]> values = new HashMap<>();
-        String n = Integer.toString(model.getCurrent().getIdProfe());
+        String n = Integer.toString(model.getCurrent().getIdEstudiante());
         values.put("cedulaFld", new String[]{n});
-        values.put("NombreFld", new String[]{model.getCurrent().getNomProfe()});
-        values.put("telFld", new String[]{model.getCurrent().getTelProfe()});
-        values.put("correoFld", new String[]{model.getCurrent().getCorreoProfe()});
-        values.put("espFld", new String[]{model.getCurrent().getEspecialidad()});
+        values.put("NombreFld", new String[]{model.getCurrent().getNomEst()});
+        values.put("telFld", new String[]{model.getCurrent().getTelEst()});
+        values.put("correoFld", new String[]{model.getCurrent().getCorreoEst()});
 
         return values;
     }

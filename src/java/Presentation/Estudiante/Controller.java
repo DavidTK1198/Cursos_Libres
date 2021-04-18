@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Daniel Madrigal
  */
 @WebServlet(name = "EstudianteController", urlPatterns = {"/Presentation/Estudiante/AgregrarEstudiante","/Presentation/Estudiante/Matricular","/Presentation/Estudiante/VInscrip",
-"/Presentation/Estudiante/Show"})
+"/Presentation/Estudiante/Show","/Presentation/Estudiante"})
 public class Controller extends HttpServlet {
 
 
@@ -44,6 +44,9 @@ public class Controller extends HttpServlet {
             case "/Presentation/Estudiante/Show":
                 viewUrl = this.show(request);
                 break;
+            case "/Presentation/Estudiante":
+                viewUrl = this.paginaPrincipal(request);
+                break;
                     
             
         }
@@ -62,9 +65,6 @@ public class Controller extends HttpServlet {
         }
         if (request.getParameter("correoFld").isEmpty()) {
             errores.put("correoFld", "Correo requerido");
-        }
-         if (request.getParameter("espFld").isEmpty()) {
-            errores.put("espFld", "Especialidad requerida");
         }
         return errores;
     }
@@ -150,5 +150,9 @@ public class Controller extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private String paginaPrincipal(HttpServletRequest request) {
+        return "/Presentation/index.jsp";
+    }
 
 }

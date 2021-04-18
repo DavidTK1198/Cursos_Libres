@@ -19,7 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jsanchez
  */
-@WebServlet(name = "AdminController", urlPatterns = {"/Presentation/GestionarG", "/Presentation/Administrador", "/Presentation/Administrador/GestionP"})
+@WebServlet(name = "AdminController", urlPatterns = {"/Presentation/GestionarG", "/Presentation/Administrador", "/Presentation/Administrador/GestionP",
+"/Presentation/GestionarCursos"})
 public class Controller extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request,
@@ -33,6 +34,9 @@ public class Controller extends HttpServlet {
                 break;
             case "/Presentation/Administrador/GestionP":
                 viewUrl = this.RegistrarProfesores(request);
+                break;
+            case "/Presentation/GestionarCursos":
+                viewUrl = this.crearCurso(request);
                 break;
             
             
@@ -103,5 +107,9 @@ public class Controller extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private String crearCurso(HttpServletRequest request) {
+        return "/Presentation/Curso/AgregarGrupos";
+    }
 
 }

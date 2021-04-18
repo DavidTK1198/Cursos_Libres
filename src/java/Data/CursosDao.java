@@ -72,7 +72,7 @@ public class CursosDao {
         if (rs.next()) {
             return from(rs);
         } else {
-            throw new Exception("El Curso no Existe");
+            return null;
         }
     }
 

@@ -18,8 +18,12 @@ public class Curso  {
     private Float precio;
 
     public Curso() {
+        this.nrc = 0;
+        this.nomCur = "";
+        this.desCur = "";
+        this.oferta = false;
+        this.precio = 0.0f;
     }
-
     public Curso(int nrc, String nomCur, String desCur, boolean oferta, Float precio) {
         this.nrc = nrc;
         this.nomCur = nomCur;

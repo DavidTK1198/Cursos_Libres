@@ -20,7 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Daniel Madrigal
  */
-@WebServlet(name = "CursoController", urlPatterns = {"/Presentation/Curso/Agregar", "/Presentation/Curso/CambiarStatus", "/Presentation/Curso/AgregarGrupos"})
+@WebServlet(name = "CursoController", urlPatterns = {"/Presentation/Curso/Agregar", "/Presentation/Curso/CambiarStatus", "/Presentation/Curso/AgregarGrupos",
+"/Presentation/Curso/Show"})
 public class Controller extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -36,6 +37,10 @@ public class Controller extends HttpServlet {
                 viewUrl = this.cambiarStatus(request);
                 break;
             case "/Presentation/Curso/AgregarGrupos":
+                viewUrl = this.agregarCurso(request);
+                break;
+            case "/Presentation/Curso/Show":
+                viewUrl = this.showCurso(request);
                 break;
            
         }
@@ -54,14 +59,14 @@ public class Controller extends HttpServlet {
                     return "/Presentation/Cursos/ErrorCurso";
                 } else {
                     service.agregarCurso(model.getCurrent());
-                    return "/Presentation/Cursos/ListarGrupos";
+                    return "/Presentation/Administrador/View.jsp";
                 }
             } else {
                 request.setAttribute("errores", errores);
-                return "/Presentation/Login/View.jsp";
+                return "/Presentation/Curso/View.jsp";
             }
         } catch (Exception e) {
-            return "/Presentation/Curso/AgregarCurso.jsp";
+            return "/Presentation/Curso/View.jsp";
         }
     }
 
@@ -94,12 +99,18 @@ public class Controller extends HttpServlet {
 
     Map<String, String> validar(HttpServletRequest request) {
         Map<String, String> errores = new HashMap<>();
-        if (request.getParameter("cedulaFld").isEmpty()) {
-            errores.put("cedulaFld", "Cedula requerida");
+        if (request.getParameter("NRC").isEmpty()) {
+            errores.put("NRC", "NRC requerido");
         }
 
-        if (request.getParameter("claveFld").isEmpty()) {
-            errores.put("claveFld", "Clave requerida");
+        if (request.getParameter("nomCur").isEmpty()) {
+            errores.put("nomCur", "Nombre requerido");
+        }
+         if (request.getParameter("desCur").isEmpty()) {
+            errores.put("desCur", "Descripcion requerido");
+        }
+          if (request.getParameter("Precio").isEmpty()) {
+            errores.put("Precio", "Precio requerido");
         }
         return errores;
     }
@@ -172,6 +183,10 @@ public class Controller extends HttpServlet {
     }
     private String agregarGrupo(HttpServletRequest request){
         return "";
+    }
+
+    private String showCurso(HttpServletRequest request) {
+        return "/Presentation/Curso/View.jsp";
     }
 
 }

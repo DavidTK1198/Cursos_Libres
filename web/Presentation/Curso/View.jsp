@@ -1,0 +1,102 @@
+<%-- 
+    Document   : View
+    Created on : Apr 18, 2021, 2:30:44 PM
+    Author     : Daniel Madrigal
+--%>
+
+
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Map"%>
+<%@page import="Logic.Usuario"%>
+<%@page import="Logic.Service"%>
+<%@page import="Presentation.Curso.Model"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<!DOCTYPE html>
+<html>
+    <%@include file = "/Presentation/head.jsp" %>
+    <main>
+        <%@include file = "/Presentation/header.jsp" %>
+        <% Model model = (Model) request.getAttribute("model"); %>
+        <% Map<String, String> errores = (Map<String, String>) request.getAttribute("errores"); %>
+        <% Map<String, String[]> form = (errores == null) ? this.getForm(model) : request.getParameterMap();%>
+
+        <div class="container-fluid container-lg container-md container-sm container-xl" id="app1">
+
+            <form name="form" action="${pageContext.request.contextPath}/Presentation/GestionarCursos" method="post" > 
+                <div class="panel" style="width:30%;">
+                    <div class="fila encabezado">Registrar Curso</div>
+                    <div class="fila">
+                        <div class="etiqueta">NRC</div>
+                        <div class="campo"><input class="<%=erroneo("NRC", errores)%>" placeholder="NRC del curso" type="text" name="NRC" value="<%=form.get("NRC")[0]%>" title="<%=title("NRC", errores)%>"></div>
+                    </div>
+                    <div class="fila">
+                        <div class="etiqueta">Nombre</div>
+                        <div class="campo"><input class="<%=erroneo("nomCur", errores)%>" placeholder="Nombre del Curso" type="text" name="nomCur" value="<%=form.get("nomCur")[0]%>" title="<%=title("nomCur", errores)%>"></div>
+                    </div>
+                    <div class="fila">
+                        <div class="etiqueta">Descripcion</div>
+                        <div class="campo"><input class="<%=erroneo("desCur", errores)%>" placeholder="Descripcion del curso" type="text" name="desCur" value="<%=form.get("desCur")[0]%>" title="<%=title("desCur", errores)%>"></div>
+                    </div>
+                    <div class="fila">
+                        <div class="flex-container">
+                            <label>Oferta</label>
+                            <div id="flex">
+                                <div class="flex-item">
+                                    <input type="radio" name="oferta" value="1" checked>Curso destacado
+                                </div>
+                            </div>
+                            
+                            <div id="flex">
+                                <div class="flex-item">
+                                    <input type="radio" name="oferta" value="0">Curso normal
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fila">
+                        <div class="etiqueta">Precio del curso</div>
+                        <div class="campo"><input class="<%=erroneo("Precio", errores)%>" placeholder="Precio del curso" type="number" name="Precio" value="<%=form.get("Precio")[0]%>" title="<%=title("Precio", errores)%>"></div>
+                    </div>
+
+                    <div class="fila encabezado"><button  style="margin-bottom: 15px">Registrar</button> </div>
+                </div>
+            </form>  
+        </div>
+    </main>
+
+    <aside></aside>
+        <%@include file = "/Presentation/footer.jsp" %>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" Integeregrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" Integeregrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+</body>
+</html>
+<%!
+    private String erroneo(String campo, Map<String, String> errores) {
+        if ((errores != null) && (errores.get(campo) != null)) {
+            return "is-invalid";
+        } else {
+            return "";
+        }
+    }
+
+    private String title(String campo, Map<String, String> errores) {
+        if ((errores != null) && (errores.get(campo) != null)) {
+            return errores.get(campo);
+        } else {
+            return "";
+        }
+    }
+
+    private Map<String, String[]> getForm(Model model) {
+        Map<String, String[]> values = new HashMap<>();
+        String n = Integer.toString(model.getCurrent().getNrc());
+        values.put("NRC", new String[]{n});
+        values.put("nomCur", new String[]{model.getCurrent().getNomCur()});
+        values.put("desCur", new String[]{model.getCurrent().getDesCur()});
+        String m = Float.toString(model.getCurrent().getPrecio());
+        values.put("Precio", new String[]{m});
+
+        return values;
+    }
+%>

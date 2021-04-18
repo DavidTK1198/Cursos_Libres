@@ -21,6 +21,12 @@ public class Estudiante  {
     private List<Inscripcion> inscripcion;
 
     public Estudiante() {
+        this.idEstudiante = 0;
+        this.nomEst = "";
+        this.telEst = "";
+        this.correoEst = "";
+        this.usuarioIdUsu = new Usuario();
+        this.inscripcion = new ArrayList<>();
     }
 
     public Estudiante(int idEstudiante, String nomEst, String telEst, String correoEst) {

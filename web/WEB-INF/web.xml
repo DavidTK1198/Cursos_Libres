@@ -20,11 +20,16 @@
         <servlet-name>LoginController</servlet-name>
         <servlet-class>Presentation.Login.Controller</servlet-class>
     </servlet>
+     <servlet>
+        <servlet-name>CursoController</servlet-name>
+        <servlet-class>Presentation.Curso.Controller</servlet-class>
+    </servlet>
     
     <servlet-mapping>
         <servlet-name>AdminController</servlet-name>
         <url-pattern>/Presentation/Administrador</url-pattern>
         <url-pattern>/Presentation/Administrador/GestionP</url-pattern>
+        <url-pattern>/Presentation/GestionarCursos</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -45,6 +50,14 @@
         <url-pattern>/Presentation/Estudiante/Matricular</url-pattern>
         <url-pattern>/Presentation/Estudiante/VInscrip</url-pattern>
         <url-pattern>/Presentation/Estudiante/Show</url-pattern>
+         <url-pattern>/Presentation/Estudiante</url-pattern>
+    </servlet-mapping>
+     <servlet-mapping>
+        <servlet-name>CursoController</servlet-name>
+        <url-pattern>/Presentation/Curso/Agregar</url-pattern>
+        <url-pattern>/Presentation/Curso/CambiarStatus</url-pattern>
+        <url-pattern>/Presentation/Curso/AgregarGrupos</url-pattern>
+        <url-pattern>/Presentation/Curso/Show</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
