@@ -88,5 +88,14 @@ public class Service {
      public void agregarUsuario(Usuario usu) throws Exception {
         users.create(usu);
     }
+      public void agregarEstudiante(Estudiante est) throws Exception {
+       this.estudiantes.create(est);
+    }
+
+    public Estudiante buscarEstudiante(int id) throws Exception {
+        Estudiante pr = this.estudiantes.read(id);
+        return pr;
+    }
+    
 
 }

@@ -9,7 +9,7 @@
         <servlet-class>Presentation.Profesor.Controller</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>estController</servlet-name>
+        <servlet-name>EstudianteController</servlet-name>
         <servlet-class>Presentation.Estudiante.Controller</servlet-class>
     </servlet>
     <servlet>
@@ -40,8 +40,11 @@
         <url-pattern>/Presentation/Profesor</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>estController</servlet-name>
-        <url-pattern>/aa</url-pattern>
+        <servlet-name>EstudianteController</servlet-name>
+       <url-pattern>/Presentation/Estudiante/AgregrarEstudiante</url-pattern>
+        <url-pattern>/Presentation/Estudiante/Matricular</url-pattern>
+        <url-pattern>/Presentation/Estudiante/VInscrip</url-pattern>
+        <url-pattern>/Presentation/Estudiante/Show</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

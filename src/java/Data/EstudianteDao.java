@@ -72,7 +72,7 @@ public class EstudianteDao {
             return from(rs);
         }
         else{
-            throw new Exception ("El Estudiante no Existe");
+            return null;
         }
     }
 

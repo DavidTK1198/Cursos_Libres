@@ -61,8 +61,8 @@
             <input class="form mr-5" type="search" placeholder="Buscar" aria-label="Buscar">
             <button class="btn btn-outline-info" type="submit">Buscar</button>
         </form>
-        <div><a href="#">Registrarse</a></div>
-        <div><a href="#">Iniciar Sesion</a></div>
+        <div><a href="${pageContext.request.contextPath}/Presentation/Estudiante/Show">Registrarse</a></div>
+        <div><a href="${pageContext.request.contextPath}/Presentation/Login/Show">Iniciar Sesion</a></div>
         
         <% }%>   
     </nav> 

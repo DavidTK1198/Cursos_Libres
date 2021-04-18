@@ -64,7 +64,7 @@ public class Usuario{
     }
     public void generarClave(){
         String contra = "";
-        int n = 0;
+        int n =3;
         String p = "";
         for(int i=0; i<5; i++){
             n =(int) (Math.random() * n) + 1;
