@@ -1,7 +1,9 @@
 package Logic;
 
 import Data.CursosDao;
+import Data.EstudianteDao;
 import Data.GrupoDao;
+import Data.ProfesorDao;
 import Data.UserDao;
 
 /*
@@ -20,13 +22,16 @@ public class Service {
     UserDao users;
     CursosDao cursos;
     GrupoDao grupos;
+    ProfesorDao profesores;
+    EstudianteDao estudiantes;
 
-    
     public Service() {
         users = new UserDao();
         cursos = new CursosDao();
         grupos = new GrupoDao();
-        
+        profesores = new ProfesorDao();
+        estudiantes = new EstudianteDao();
+
     }
 
     public static Service getInstance() {
@@ -36,29 +41,52 @@ public class Service {
 
         return my_instance;
     }
-     public Usuario login(Usuario u) throws Exception{
-        Usuario result=users.read(u.getIdUsu());
-        if(result==null)  throw new Exception("Usuario no existe");
-        if(!result.getClave().equals(u.getClave()))throw new Exception("User does not exist");
+
+    public Usuario login(Usuario u) throws Exception {
+        Usuario result = users.read(u.getIdUsu());
+        if (result == null) {
+            throw new Exception("Usuario no existe");
+        }
+        if (!result.getClave().equals(u.getClave())) {
+            throw new Exception("User does not exist");
+        }
         return result;
-    } 
-     public void agregarCurso(Curso cursito) throws Exception{
-         cursos.create(cursito);
-     }
-     public Curso buscarCurso(int id) throws Exception{
-         Curso cur = cursos.read(id);
-         return cur;
-     }
-     public boolean actualizarStatusCurso(boolean ofer,int nrc) throws Exception{
-         boolean b = cursos.updateStatus(ofer, nrc);
-         return b;
-     }
-      public void agregarGrupo(Grupo Grupito) throws Exception{
-         grupos.create(Grupito);
-     }
-       public Grupo buscarGrupo(int id) throws Exception{
-         Grupo grup = grupos.read(id);
-         return grup;
-     }
-     
+    }
+
+    public void agregarCurso(Curso cursito) throws Exception {
+        cursos.create(cursito);
+    }
+
+    public Curso buscarCurso(int id) throws Exception {
+        Curso cur = cursos.read(id);
+        return cur;
+    }
+
+    public boolean actualizarStatusCurso(boolean ofer, int nrc) throws Exception {
+        boolean b = cursos.updateStatus(ofer, nrc);
+        return b;
+    }
+
+    public void agregarGrupo(Grupo Grupito) throws Exception {
+        grupos.create(Grupito);
+    }
+
+    public Grupo buscarGrupo(int id) throws Exception {
+        Grupo grup = grupos.read(id);
+        return grup;
+    }
+
+    public void agregarProfesor(Profesor pro) throws Exception {
+        profesores.create(pro);
+    }
+
+    public Profesor buscarProfesor(int id) throws Exception {
+        Profesor pr = profesores.read(id);
+        return pr;
+    }
+    
+     public void agregarUsuario(Usuario usu) throws Exception {
+        users.create(usu);
+    }
+
 }

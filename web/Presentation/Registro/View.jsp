@@ -1,9 +1,8 @@
 <%-- 
     Document   : View
-    Created on : Apr 14, 2021, 3:49:57 PM
+    Created on : Apr 17, 2021, 2:06:58 PM
     Author     : Daniel Madrigal
 --%>
-
 
 
 <%@page import="java.util.HashMap"%>
@@ -24,7 +23,7 @@
         
         <div class="container-fluid container-lg container-md container-sm container-xl" id="app1">
       
-              <form name="form" action="${pageContext.request.contextPath}/Presentation/Login" method="post" > 
+              <form name="form" action="/Presentation/GestionarP" method="post" > 
             <div class="panel" style="width:30%;">
                 <div class="fila encabezado">Login</div>
                 <div class="fila">
@@ -69,4 +68,4 @@
        values.put("claveFld", new String[]{model.getCurrent().getClave()});
        return values;
     }   
-%> 
+%>

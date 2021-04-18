@@ -1,6 +1,6 @@
 <%-- 
-    Document   : View
-    Created on : Apr 15, 2021, 11:15:26 AM
+    Document   : GestionarGrupos
+    Created on : Apr 17, 2021, 3:27:38 PM
     Author     : Daniel Madrigal
 --%>
 

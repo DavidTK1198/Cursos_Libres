@@ -24,7 +24,7 @@
         
         <div class="container-fluid container-lg container-md container-sm container-xl" id="app1">
       
-              <form name="form" action="/Guia/presentation/login/login" method="post" > 
+              <form name="form" action="${pageContext.request.contextPath}/Presentation/Login" method="post" > 
             <div class="panel" style="width:30%;">
                 <div class="fila encabezado">Login</div>
                 <div class="fila">

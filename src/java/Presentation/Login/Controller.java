@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author jsanchez
  */
-@WebServlet(name = "LoginController", urlPatterns = {"/Presentation/Login/Show", "/Presentation/Login", "/Presentation/Login/Logout"})
+@WebServlet(name = "LoginController", urlPatterns = {"/Presentation/Login/Show", "/Presentation/Login", "/Presentation/Login/Logout","/Presentation/Registro"})
 public class Controller extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request,
@@ -40,6 +40,9 @@ public class Controller extends HttpServlet {
                 break;
             case "/Presentation/Login/Logout":
                 viewUrl = this.logout(request);
+                break;
+            case "/Presentation/Registro":
+                viewUrl = this.showRegister(request);
                 break;
         }
         request.getRequestDispatcher(viewUrl).forward(request, response);
@@ -78,6 +81,7 @@ public class Controller extends HttpServlet {
         int idd = Integer.parseInt(id);
         model.getCurrent().setIdUsu((idd));
         model.getCurrent().setClave(request.getParameter("claveFld"));
+         
     }
 
     public String loginAction(HttpServletRequest request) {
@@ -117,7 +121,7 @@ public class Controller extends HttpServlet {
         HttpSession session = request.getSession(true);
         session.removeAttribute("usuario");
         session.invalidate();
-        return "/index.jsp";
+        return "/Presentation/index.jsp";
     }
 
     public String show(HttpServletRequest request) {
@@ -170,5 +174,9 @@ public class Controller extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private String showRegister(HttpServletRequest request) {
+        return "/Presentation/Register/View.jsp";
+    }
 
 }

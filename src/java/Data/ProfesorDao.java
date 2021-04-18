@@ -20,14 +20,15 @@ import java.util.List;;
  */
 public class ProfesorDao {
      public void create(Profesor o) throws Exception {
-        String sql = "insert into Profesor (id_Profe,Nom_Profe,Tel_Profe,Correo_Profe,Usuario_Id_Usu) "
-                + "values(?,?,?,?,?)";
+        String sql = "insert into Profesor (id_Profe,Nom_Profe,Tel_Profe,Correo_Profe,Usuario_Id_Usu, Especialidad) "
+                + "values(?,?,?,?,?,?)";
         PreparedStatement stm = DataBase.instance().prepareStatement(sql);
         stm.setInt(1, o.getIdProfe());
         stm.setString(2, o.getNomProfe());
         stm.setString(3, o.getTelProfe());
         stm.setString(4, o.getCorreoProfe());
         stm.setInt(5, o.getUsuarioIdUsu().getIdUsu());
+        stm.setString(6, o.getEspecialidad());
         int count = DataBase.instance().executeUpdate(stm);
         if (count == 0) {
             throw new Exception("El profesor ya existe");
@@ -86,6 +87,7 @@ public class ProfesorDao {
             Object us = rs.getObject(5);
             Usuario usario = (Usuario)us;
             r.setUsuarioIdUsu(usario);
+            r.setEspecialidad("Especialidad");
             return r;
         } catch (SQLException ex) {
             return null;

@@ -3,27 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Presentation.Login;
+package Presentation.Profesor;
 
-import Logic.Usuario;
+import Logic.Profesor;
 
+/**
+ *
+ * @author Daniel Madrigal
+ */
 public class Model {
 
-    Usuario current;
+    Profesor current;
 
     public Model() {
-        this.setCurrent(new Usuario());
+        this.setCurrent(new Profesor());
     }
 
-    public final Usuario getCurrent() {
+    public final Profesor getCurrent() {
         return current;
     }
 
-    public void setCurrent(Usuario current) {
+    public void setCurrent(Profesor current) {
         this.current = current;
     }
 
     public void reset() {
-        setCurrent(new Usuario());
+        setCurrent(new Profesor());
     }
 }

@@ -9,12 +9,15 @@ import java.util.Objects;
  *
  * @author DavidTK1198
  */
-public class Usuario  {
+public class Usuario{
     private String rol;
     private int idUsu;
     private String clave;
 
     public Usuario() {
+        rol = "";
+        idUsu = 0;
+        clave = "";
     }
 
     public Usuario(String rol, int idUsu, String clave) {
@@ -58,6 +61,17 @@ public class Usuario  {
             return false;
         }
         return true;
+    }
+    public void generarClave(){
+        String contra = "";
+        int n = 0;
+        String p = "";
+        for(int i=0; i<5; i++){
+            n =(int) (Math.random() * n) + 1;
+            p = Integer.toString(n);
+            contra = contra.concat(p);
+        }
+        this.setClave(contra);
     }
 
  

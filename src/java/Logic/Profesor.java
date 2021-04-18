@@ -20,18 +20,36 @@ public class Profesor  {
     private String correoProfe;
     private List<Grupo> grupoList;
     private Usuario usuarioIdUsu;
+    private String especialidad;
 
-    public Profesor(int idProfe, String nomProfe, String telProfe, String correoProfe) {
+    public Profesor(int idProfe, String nomProfe, String telProfe, String correoProfe,String esp) {
         this.idProfe = idProfe;
         this.nomProfe = nomProfe;
         this.telProfe = telProfe;
         this.correoProfe = correoProfe;
         this.usuarioIdUsu=new Usuario();
         this.grupoList=new ArrayList<>();
+        this.especialidad = esp;
     }
 
     public Profesor() {
+         this.idProfe = 0;
+        this.nomProfe = "";
+        this.telProfe = "";
+        this.correoProfe ="";
+        this.usuarioIdUsu=new Usuario();
+        this.grupoList=new ArrayList<>();
+        this.especialidad = "";
     }
+
+    public String getEspecialidad() {
+        return especialidad;
+    }
+
+    public void setEspecialidad(String especialidad) {
+        this.especialidad = especialidad;
+    }
+    
 
     @Override
     public boolean equals(Object obj) {
