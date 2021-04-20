@@ -6,16 +6,20 @@
 package Presentation.Grupo;
 
 import Logic.Grupo;
+import Logic.Profesor;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author Daniel Madrigal
  */
 public class Model {
-        Grupo current;
-
+        private Grupo current;
+        private Profesor encargado;
+        private List<Profesor> profesores;
     public Model() {
-        this.setCurrent(new Grupo());
+        this.reset();
     }
 
     public Grupo getCurrent() {
@@ -27,6 +31,24 @@ public class Model {
     }
 
     public void reset() {
-        setCurrent(new Grupo());
+       this.current=new Grupo();
+       this.profesores=new ArrayList<>();
+       this.encargado=new Profesor();
+    }
+
+    public Profesor getEncargado() {
+        return encargado;
+    }
+
+    public void setEncargado(Profesor encargado) {
+        this.encargado = encargado;
+    }
+
+    public List<Profesor> getProfesores() {
+        return profesores;
+    }
+
+    public void setProfesores(List<Profesor> profesores) {
+        this.profesores = profesores;
     }
 }

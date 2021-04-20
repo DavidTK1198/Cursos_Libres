@@ -3,6 +3,8 @@
     Created on : Apr 19, 2021, 10:01:31 PM
     Author     : Daniel Madrigal
 --%>
+<%@page import="Logic.Profesor"%>
+<%@page import="java.util.List"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
 <%@page import="Logic.Usuario"%>
@@ -19,6 +21,7 @@
         <% Model model = (Presentation.Grupo.Model) request.getAttribute("model"); %>
         <% Map<String, String> errores = (Map<String, String>) request.getAttribute("errores"); %>
         <% Map<String, String[]> form = (errores == null) ? this.getForm(model) : request.getParameterMap();%>
+        <% List<Profesor> lista = model.getProfesores();%>
 
         <div class="container-fluid container-lg container-md container-sm container-xl" id="app1">
 
@@ -28,10 +31,15 @@
                     <div>Horario</div>
                     <div><input class="form-control <%=erroneo("horFld", errores)%>" placeholder="Horario del grupo" type="text" name="horFld" value="<%=form.get("horFld")[0]%>" title="<%=title("horFld", errores)%>"></div>
                 </div>
-               
-
-
-                <div><button class="py-2 px-4 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75">Registrar</button> </div>
+                <div class="select">
+                    <p>Elija un Profesor</p>
+                    <select name="profFld">
+                        <% for (Profesor c : lista) {%>
+                        <option value="<%=c.getIdProfe()%>"><%=c.getNomProfe()%>/<%=c.getIdProfe()%></option>
+                        <%}%>
+                    </select>
+                </div>
+                <div class="d-flex justify-content-center"><button class="py-2 px-4 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75">Registrar</button> </div>
             </form>  
         </div>
     </main>
@@ -61,9 +69,8 @@
 
     private Map<String, String[]> getForm(Model model) {
         Map<String, String[]> values = new HashMap<>();
-       
+
         values.put("horFld", new String[]{model.getCurrent().getHorario()});
-       
 
         return values;
     }

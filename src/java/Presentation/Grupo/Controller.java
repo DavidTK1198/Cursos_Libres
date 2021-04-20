@@ -11,6 +11,7 @@ import Logic.Profesor;
 import Logic.Service;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -60,10 +61,10 @@ public class Controller extends HttpServlet {
                 }
             } else {
                 request.setAttribute("errores", errores);
-                return "/Presentation/Grupo/View.jsp";
+                return "/Presentation/Grupo/Show";
             }
         } catch (Exception e) {
-            return "/Presentation/Grupo/View.jsp";
+            return "/Presentation/Grupo/Show";
         }
     }
 
@@ -128,8 +129,9 @@ public class Controller extends HttpServlet {
             String nrc = (String) session.getAttribute("NRC");
 
             int nrcc = Integer.parseInt(nrc);
-            //String id = request.getParameter("profFld");
-           // int idProf = Integer.parseInt(id);
+            String id = request.getParameter("profFld");
+            int idProf = Integer.parseInt(id);
+          
 
             try {
                 //Profesor pr = Service.getInstance().buscarProfesor(idProf);
@@ -152,7 +154,11 @@ public class Controller extends HttpServlet {
 
     private String showGrupo(HttpServletRequest request) {
         HttpSession session = request.getSession(true);
+        Model m=(Model)request.getAttribute("model");
         String nrc = request.getParameter("NRC");
+        List<Profesor> profes=Service.getInstance().obtenerProfesores();
+        m.setProfesores(profes);
+        request.setAttribute("model",m);
         session.setAttribute("NRC", nrc);
        
         return "/Presentation/Grupo/View.jsp";

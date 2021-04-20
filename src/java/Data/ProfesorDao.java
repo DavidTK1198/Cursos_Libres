@@ -7,12 +7,15 @@ package Data;
  */
 
 import Logic.Profesor;
+import Logic.Service;
 import Logic.Usuario;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;;
+import java.util.List;import java.util.logging.Level;
+import java.util.logging.Logger;
+;
 
 /**
  *
@@ -84,10 +87,15 @@ public class ProfesorDao {
             r.setNomProfe(rs.getString("Nom_Profe"));
             r.setTelProfe(rs.getString("Tel_Profe"));
             r.setCorreoProfe(rs.getString("Correo_Profe"));
-            Object us = rs.getObject(5);
-            Usuario usario = (Usuario)us;
-            r.setUsuarioIdUsu(usario);
-            r.setEspecialidad("Especialidad");
+            int us = rs.getInt(5);
+            Usuario es;
+            try {
+                es = Service.getInstance().buscarUsuario(us);
+            } catch (Exception ex) {
+                return null;
+            }
+            r.setUsuarioIdUsu(es);
+            r.setEspecialidad(rs.getString("Especialidad"));
             return r;
         } catch (SQLException ex) {
             return null;

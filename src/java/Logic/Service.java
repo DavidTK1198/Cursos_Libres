@@ -98,8 +98,17 @@ public class Service {
         return pr;
     }
     
+     public Usuario buscarUsuario(int id) throws Exception {
+        Usuario pr = this.users.read(id);
+        return pr;
+    }
+    
     public List<Curso> obtenerCursos(){
        return cursos.findAll();
+    }
+    
+     public List<Profesor> obtenerProfesores(){
+       return profesores.findAll();
     }
     
 
