@@ -1,12 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE glassfish-web-app PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Servlet 3.0//EN" "http://glassfish.org/dtds/glassfish-web-app_3_0-1.dtd">
 <glassfish-web-app error-url="">
-  <class-loader delegate="true"/>
-  <jsp-config>
-    <property name="keepgenerated" value="true">
-      <description>Keep a copy of the generated servlet class' java code.</description>
-    </property>
-	 <property name="compilerSourceVM" value="7"/> 
-    <property name="compilerTargetVM" value="7"/>  
-  </jsp-config>
+    <class-loader delegate="true"/>
+    <jsp-config>
+        <property name="keepgenerated" value="true">
+            <description>Keep a copy of the generated servlet class' java code.</description>
+        </property>
+        <property name="compilerSourceVM" value="7"/> 
+        <property name="compilerTargetVM" value="7"/>  
+    </jsp-config>
+    <servlet>
+        <servlet-name>RegisterController</servlet-name>
+        <servlet-class>Presentation.Inscripcion.Controller</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CursosController</servlet-name>
+        <servlet-class>Presentation.Curso.Cursos.Controller</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProfesorController</servlet-name>
+        <servlet-class>Presentation.Profesor.Controller</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EstudianteController</servlet-name>
+        <servlet-class>Presentation.Estudiante.Controller</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminController</servlet-name>
+        <servlet-class>Presentation.Administrador.Controller</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoginController</servlet-name>
+        <servlet-class>Presentation.Login.Controller</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CursoController</servlet-name>
+        <servlet-class>Presentation.Curso.Controller</servlet-class>
+    </servlet>
+        <servlet>
+        <servlet-name>GrupoController</servlet-name>
+        <servlet-class>Presentation.Grupo.Controller</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>AdminController</servlet-name>
+        <url-pattern>/Presentation/Administrador</url-pattern>
+        <url-pattern>/Presentation/Administrador/GestionP</url-pattern>
+        <url-pattern>/Presentation/GestionarCursos</url-pattern>
+        <url-pattern>/Presentation/Administrador/Listar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CursosController</servlet-name>
+        <url-pattern>/Presentation/Cursos/Show</url-pattern>
+        <url-pattern>/Presentation/Curso/CambiarStatus</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginController</servlet-name>
+        <url-pattern>/Presentation/Login/Show</url-pattern>
+        <url-pattern>/Presentation/Login</url-pattern>
+        <url-pattern>/Presentation/Login/Logout</url-pattern>
+        <url-pattern>/Presentation/Registro</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProfesorController</servlet-name>
+        <url-pattern>/Presentation/Profesor/AgregrarProfesor</url-pattern>
+        <url-pattern>/Presentation/Profesor/Show</url-pattern>
+        <url-pattern>/Presentation/Profesor</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EstudianteController</servlet-name>
+        <url-pattern>/Presentation/Estudiante/AgregrarEstudiante</url-pattern>
+        <url-pattern>/Presentation/Estudiante/Matricular</url-pattern>
+        <url-pattern>/Presentation/Estudiante/VInscrip</url-pattern>
+        <url-pattern>/Presentation/Estudiante/Show</url-pattern>
+        <url-pattern>/Presentation/Estudiante</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CursoController</servlet-name>
+        <url-pattern>/Presentation/Curso/Agregar</url-pattern>
+        <url-pattern>/Presentation/Curso/AgregarGrupos</url-pattern>
+        <url-pattern>/Presentation/Curso/Show</url-pattern>
+    </servlet-mapping>
+       <servlet-mapping>
+        <servlet-name>GrupoController</servlet-name>
+        <url-pattern>/Presentation/Grupo/AgregarGrupo</url-pattern>
+        <url-pattern>/Presentation/Grupo/Show</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
 </glassfish-web-app>

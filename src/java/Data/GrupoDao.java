@@ -24,13 +24,12 @@ import java.util.List;
 public class GrupoDao {
 
       public void create(Grupo o) throws Exception {
-        String sql = "insert into Grupo (num_Grupo,Profesor_id_Profe,Horario,Curso_NRC) "
-                + "values(?,?,?,?)";
+        String sql = "insert into Grupo (num_Grup,Profesor_id_Profe,Horario,Curso_NRC) "
+                + "values(default,?,?,?)";
         PreparedStatement stm = DataBase.instance().prepareStatement(sql);
-        stm.setInt(1, o.getNumGrup());
-        stm.setInt(2, o.getProfesoridProfe().getIdProfe());//preguntar
-        stm.setString(3, o.getHorario());
-        stm.setInt(4, o.getCurso().getNrc());
+        stm.setInt(1, o.getProfesoridProfe().getIdProfe());//preguntar
+        stm.setString(2, o.getHorario());
+        stm.setInt(3, o.getCurso().getNrc());
         int count = DataBase.instance().executeUpdate(stm);
         if (count == 0) {
             throw new Exception("El grupo ya existe");
@@ -56,7 +55,7 @@ public class GrupoDao {
         String sql = "select * from Grupo where Profesor_id_Profe like ?";
         try {
             PreparedStatement stm = DataBase.instance().prepareStatement(sql);
-            stm.setString(2, "%" +o.getProfesoridProfe().getIdProfe() + "%");
+            stm.setString(1, "%" +o.getProfesoridProfe().getIdProfe() + "%");
             ResultSet rs = DataBase.instance().executeQuery(stm);
             while (rs.next()) {
                 r.add(from(rs));
@@ -90,7 +89,7 @@ public class GrupoDao {
             return from(rs);
         }
         else{
-            throw new Exception ("El usuario no Existe");
+            return null;
         }
     }
 

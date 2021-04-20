@@ -35,7 +35,7 @@ public class Controller extends HttpServlet {
                 viewUrl = this.agregarCurso(request);
                 break;
             case "/Presentation/Curso/AgregarGrupos":
-                viewUrl = this.agregarCurso(request);
+                viewUrl = this.agregarGrupo(request);
                 break;
             case "/Presentation/Curso/Show":
                 viewUrl = this.showCurso(request);
@@ -154,7 +154,8 @@ public class Controller extends HttpServlet {
         }
     }
     private String agregarGrupo(HttpServletRequest request){
-        return "";
+     
+        return "/Presentation/Grupo/AgregarGrupo";
     }
 
     private String showCurso(HttpServletRequest request) {

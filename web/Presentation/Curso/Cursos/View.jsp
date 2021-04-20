@@ -19,23 +19,27 @@
         <%@include file = "/Presentation/header.jsp" %>
         <% Model m = (Model) request.getAttribute("model"); %>
         <% List<Curso> lista = m.getCursos(); %>
-        <% Curso cur; %>
+
         <div class="container-fluid container-lg container-md container-sm container-xl bg-fixed">
-            <div  class="row">
+            <div  class="text-white row">
                 <% for (Curso c : lista) {%>
-                        <div class="col col-sm-8 col-md-4 col-xl-4">
-                            <ul class="border border-success">
-                                <img src="${pageContext.request.contextPath}/IMG/4401280-768x432.jpg">
-                                <li class="border">
-                                    <p class="mr-5">
-                                        <a href="${pageContext.request.contextPath}/Presentation/Cursos/Show?NRC=<%=c.getNrc()%>" class="btn btn-primary">Go somewhere</a>
-                                    </p>
-                                </li>
-                            </ul> 
+                <div class="col col-sm-8 col-md-4 col-xl-4">
+                    <ul class="border border-success">
+                        <img src="${pageContext.request.contextPath}/IMG/4401280-768x432.jpg">
+                        <div class = "d-flex justify-content-center">
+                            <p><%=c.getNomCur()%></p>
                         </div>
-                    <%}%>
+                        <li class="border">
+                            <p class="mr-5">
+                                <a href="${pageContext.request.contextPath}/Presentation/Cursos/Show?NRC=<%=c.getNrc()%>" class="btn btn-primary">Cambiar estatus</a>
+                                <a href="${pageContext.request.contextPath}/Presentation/Grupo/Show?NRC=<%=c.getNrc()%>" class="btn btn-primary">Agregar Grupo</a>
+                            </p>
+                        </li>
+                    </ul> 
                 </div>
+                <%}%>
             </div>
+        </div>
     </main>
     <aside></aside>
         <%@include file = "/Presentation/footer.jsp" %>
