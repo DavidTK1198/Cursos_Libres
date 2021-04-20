@@ -37,7 +37,7 @@
         <servlet-name>CursoController</servlet-name>
         <servlet-class>Presentation.Curso.Controller</servlet-class>
     </servlet>
-        <servlet>
+    <servlet>
         <servlet-name>GrupoController</servlet-name>
         <servlet-class>Presentation.Grupo.Controller</servlet-class>
     </servlet>
@@ -53,6 +53,7 @@
         <servlet-name>CursosController</servlet-name>
         <url-pattern>/Presentation/Cursos/Show</url-pattern>
         <url-pattern>/Presentation/Curso/CambiarStatus</url-pattern>
+         <url-pattern>/Presentation/PresentarCursos</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -81,10 +82,16 @@
         <url-pattern>/Presentation/Curso/AgregarGrupos</url-pattern>
         <url-pattern>/Presentation/Curso/Show</url-pattern>
     </servlet-mapping>
-       <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>GrupoController</servlet-name>
         <url-pattern>/Presentation/Grupo/AgregarGrupo</url-pattern>
         <url-pattern>/Presentation/Grupo/Show</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>RegisterController</servlet-name>
+        <url-pattern>/Presentation/Inscripcion/Matricular</url-pattern>
+        <url-pattern>/Presentation/MostrarG</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

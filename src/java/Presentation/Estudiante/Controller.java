@@ -38,6 +38,7 @@ public class Controller extends HttpServlet {
                 break;
           
             case "/Presentation/Estudiante/Matricular":
+                viewUrl = this.matricular(request);
                 break;
             case "/Presentation/Estudiante/VInscrip":
                 break;
@@ -153,6 +154,11 @@ public class Controller extends HttpServlet {
 
     private String paginaPrincipal(HttpServletRequest request) {
         return "/Presentation/index.jsp";
+    }
+
+    private String matricular(HttpServletRequest request) {
+        
+        return "/Presentation/PresentarCursos";
     }
 
 }

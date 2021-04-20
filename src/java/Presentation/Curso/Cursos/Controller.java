@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "CursosController", urlPatterns = {"/Presentation/Cursos/Show", "/Presentation/Curso/CambiarStatus"})
+@WebServlet(name = "CursosController", urlPatterns = {"/Presentation/Cursos/Show/", "/Presentation/Curso/CambiarStatus","/Presentation/PresentarCursos"})
 public class Controller extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request,
@@ -31,6 +31,9 @@ public class Controller extends HttpServlet {
                 break;
             case "/Presentation/Curso/CambiarStatus":
                 viewUrl = this.cambiarStatus(request);
+                break;
+            case "/Presentation/PresentarCursos":
+                viewUrl = this.ListarCursos(request);
                 break;
         }
         request.getRequestDispatcher(viewUrl).forward(request, response);
@@ -108,5 +111,14 @@ public class Controller extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private String ListarCursos(HttpServletRequest request) {
+        
+        Model model = (Model) request.getAttribute("model");
+        List<Curso> c = Service.getInstance().obtenerCursos();
+        model.setCursos(c);
+        request.setAttribute("model",model);
+        return "/Presentation/Inscripcion/ViewC.jsp";
+    }
 
 }

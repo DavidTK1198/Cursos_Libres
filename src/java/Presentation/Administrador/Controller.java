@@ -112,7 +112,7 @@ public class Controller extends HttpServlet {
     }// </editor-fold>
 
     private String crearCurso(HttpServletRequest request) {
-        return "/Presentation/Curso/AgregarGrupos";
+        return "/Presentation/Curso/Agregar";
     }
 
     private String enviar() {

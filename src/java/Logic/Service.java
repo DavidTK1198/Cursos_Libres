@@ -3,6 +3,7 @@ package Logic;
 import Data.CursosDao;
 import Data.EstudianteDao;
 import Data.GrupoDao;
+import Data.InscripcionDao;
 import Data.ProfesorDao;
 import Data.UserDao;
 import java.util.List;
@@ -24,6 +25,7 @@ public class Service {
     CursosDao cursos;
     GrupoDao grupos;
     ProfesorDao profesores;
+    InscripcionDao inscripciones;
     EstudianteDao estudiantes;
 
     public Service() {
@@ -32,6 +34,7 @@ public class Service {
         grupos = new GrupoDao();
         profesores = new ProfesorDao();
         estudiantes = new EstudianteDao();
+        inscripciones = new InscripcionDao();
 
     }
 
@@ -80,35 +83,44 @@ public class Service {
     public void agregarProfesor(Profesor pro) throws Exception {
         profesores.create(pro);
     }
+    
+    public void agregarInscripcion(Inscripcion ins) throws Exception {
+       inscripciones.create(ins);
+    }
 
     public Profesor buscarProfesor(int id) throws Exception {
         Profesor pr = profesores.read(id);
         return pr;
     }
-    
-     public void agregarUsuario(Usuario usu) throws Exception {
+
+    public void agregarUsuario(Usuario usu) throws Exception {
         users.create(usu);
     }
-      public void agregarEstudiante(Estudiante est) throws Exception {
-       this.estudiantes.create(est);
+
+    public void agregarEstudiante(Estudiante est) throws Exception {
+        this.estudiantes.create(est);
     }
 
     public Estudiante buscarEstudiante(int id) throws Exception {
         Estudiante pr = this.estudiantes.read(id);
         return pr;
     }
-    
-     public Usuario buscarUsuario(int id) throws Exception {
+
+    public Usuario buscarUsuario(int id) throws Exception {
         Usuario pr = this.users.read(id);
         return pr;
     }
-    
-    public List<Curso> obtenerCursos(){
-       return cursos.findAll();
+
+    public List<Curso> obtenerCursos() {
+        return cursos.findAll();
     }
-    
-     public List<Profesor> obtenerProfesores(){
-       return profesores.findAll();
+
+    public List<Profesor> obtenerProfesores() {
+        return profesores.findAll();
+    }
+
+    public List<Grupo> obtenerGrupoPorCurso(int nrc) {
+        return grupos.findByCurso(nrc);
     }
     
 

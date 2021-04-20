@@ -22,6 +22,7 @@ public class Inscripcion  {
         this.estudiante=new Estudiante();
         this.gruponumGrup=new Grupo();
         this.Sec_inscripcion = 0;
+        this.nota = 0.0f;
     }
 
     public int getSec_inscripcion() {

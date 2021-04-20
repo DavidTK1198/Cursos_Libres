@@ -11,9 +11,7 @@
         <% if (usuario != null) { %>
         <% int rol = Integer.parseInt(usuario.getRol()); %>
         <%if (rol == 1) {  %>
-        <div>
-            <a href="/Presentation/GestionarG">Gestionar Grupos</a>
-        </div>
+        
         <li class="nav-item dropdown lista">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Gestionar Cursos
@@ -43,7 +41,7 @@
         <% } %> 
         <% if (rol == 3) {  %>
         <div>
-            <a href=#>Matricular</a>
+            <a href="${pageContext.request.contextPath}/Presentation/Estudiante/Matricular">Matricular</a>
         </div>
         <div>
             <a href=#>Ver historial</a>

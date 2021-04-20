@@ -5,10 +5,65 @@
  */
 package Presentation.Inscripcion;
 
+import Logic.Estudiante;
+import Logic.Grupo;
+import Logic.Inscripcion;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Daniel Madrigal
  */
 public class Model {
+     private Estudiante current;
+     private List<Grupo> grupito;
+     private Inscripcion inscrip;
+     private Grupo grupo;
+     
+
+    public Model() {
+        this.reset();
+    }
+
+    public final Estudiante getCurrent() {
+        return current;
+    }
+
+    public final void setCurrent(Estudiante current) {
+        this.current = current;
+    }
+
+    public void reset() {
+        setCurrent(new Estudiante());
+        this.setGrupito(new ArrayList<>());
+        this.setGrupo(new Grupo());
+        this.setInscrip(new Inscripcion());
+       
+    }
+
+    public List<Grupo> getGrupito() {
+        return grupito;
+    }
+
+    public void setGrupito(List<Grupo> grupito) {
+        this.grupito = grupito;
+    }
+
+    public Inscripcion getInscrip() {
+        return inscrip;
+    }
+
+    public void setInscrip(Inscripcion inscrip) {
+        this.inscrip = inscrip;
+    }
+
+    public Grupo getGrupo() {
+        return grupo;
+    }
+
+    public void setGrupo(Grupo grupo) {
+        this.grupo = grupo;
+    }
     
 }

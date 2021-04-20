@@ -74,9 +74,9 @@ public class Controller extends HttpServlet {
         if (request.getParameter("horFld").isEmpty()) {
             errores.put("horFld", "Horario requerido");
         }
-        // if (request.getParameter("profFld").isEmpty()) {
-        // errores.put("profFld", "Profesor requerido");
-        // }
+        if (request.getParameter("profFld").isEmpty()) {
+         errores.put("profFld", "Profesor requerido");
+        }
 
         return errores;
     }
@@ -134,14 +134,14 @@ public class Controller extends HttpServlet {
           
 
             try {
-                //Profesor pr = Service.getInstance().buscarProfesor(idProf);
+                Profesor pr = Service.getInstance().buscarProfesor(idProf);
                 Curso cur = Service.getInstance().buscarCurso(nrcc);
                 if (cur != null) {
                     model.getCurrent().setCurso(cur);
                 }
-               // if (pr != null) {
-                    //model.getCurrent().setProfesoridProfe(pr);
-                //}
+               if (pr != null) {
+                    model.getCurrent().setProfesoridProfe(pr);
+                }
             } catch (Exception e) {
                 return;
             }

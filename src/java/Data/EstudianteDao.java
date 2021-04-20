@@ -83,9 +83,7 @@ public class EstudianteDao {
             r.setNomEst(rs.getString("Nom_Est"));
             r.setTelEst(rs.getString("Tel_Est"));
             r.setCorreoEst(rs.getString("Correo_Est"));
-            Object us = rs.getObject(5);
-            Usuario usario = (Usuario)us;
-            r.setUsuarioIdUsu(usario);
+           
             return r;
         } catch (SQLException ex) {
             return null;

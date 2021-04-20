@@ -24,13 +24,12 @@ import java.util.List;
 public class InscripcionDao {
 
       public void create(Inscripcion o) throws Exception {
-        String sql = "insert into Inscripcion (Estudiante_id,Grupo_num_Grup,Nota,Sec_Inscripcion) "
-                + "values(?,?,?,?)";
+        String sql = "insert into Inscripcion (Estudiante_id,Grupo_num_Grup,Nota) "
+                + "values(?,?,?)";
         PreparedStatement stm = DataBase.instance().prepareStatement(sql);
         stm.setInt(1, o.getEstudiante().getIdEstudiante());
         stm.setInt(2, o.getGruponumGrup().getNumGrup());
         stm.setFloat(3, o.getNota());
-         stm.setInt(4, o.getSec_inscripcion());
         int count = DataBase.instance().executeUpdate(stm);
         if (count == 0) {
             throw new Exception("La incripcion ya existe");

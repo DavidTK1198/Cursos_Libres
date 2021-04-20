@@ -14,18 +14,21 @@ package Data;
 import Logic.Curso;
 import Logic.Grupo;
 import Logic.Profesor;
+import Logic.Service;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class GrupoDao {
 
       public void create(Grupo o) throws Exception {
-        String sql = "insert into Grupo (num_Grup,Profesor_id_Profe,Horario,Curso_NRC) "
-                + "values(default,?,?,?)";
+        String sql = "insert into Grupo (Profesor_id_Profe,Horario,Curso_NRC) "
+                + "values(?,?,?)";
         PreparedStatement stm = DataBase.instance().prepareStatement(sql);
         stm.setInt(1, o.getProfesoridProfe().getIdProfe());//preguntar
         stm.setString(2, o.getHorario());
@@ -69,12 +72,13 @@ public class GrupoDao {
         String sql = "select * from Grupo where Curso_NRC = ?";
         try {
             PreparedStatement stm = DataBase.instance().prepareStatement(sql);
-            stm.setInt(4, n);
+            stm.setInt(1, n);
             ResultSet rs = DataBase.instance().executeQuery(stm);
             while (rs.next()) {
                 r.add(from(rs));
             }
         } catch (SQLException ex) {
+            
         }
         return r;
     }
@@ -97,13 +101,22 @@ public class GrupoDao {
         try {
             Grupo r= new Grupo();
             r.setNumGrup(rs.getInt("num_Grup"));
-            r.setProfesoridProfe((Profesor)rs.getObject("Profesor_id_Profe"));
+            String id = rs.getString("Profesor_id_Profe");
+            int idd = Integer.parseInt(id);
+            Profesor pr = Service.getInstance().buscarProfesor(idd);
+            r.setProfesoridProfe(pr);
             r.setHorario(rs.getString("Horario"));
-            r.setCurso((Curso)rs.getObject("Curso_NRC"));
+            String nrc = rs.getString("Curso_NRC");
+            int nrcc = Integer.parseInt(nrc);
+            Curso cursito = Service.getInstance().buscarCurso(nrcc);
+            r.setCurso(cursito);
+       
             return r;
         } catch (SQLException ex) {
             return null;
-        }
+        } catch (Exception ex) {
+              return null;
+          }
     }
 
     public  void close(){
