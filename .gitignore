@@ -43,6 +43,7 @@ nb-configuration.xml
 # IntelliJ
 .idea/
 banca.iml
+web.xml
 /nbproject/private/
 /dist/
 /build/

@@ -3,74 +3,72 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Presentation.Administrador;
+package Presentation.Curso.Cursos;
 
-
+import Logic.Curso;
+import Logic.Service;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author jsanchez
- */
-@WebServlet(name = "AdminController", urlPatterns = {"/Presentation/GestionarG", "/Presentation/Administrador", "/Presentation/Administrador/GestionP",
-"/Presentation/GestionarCursos","/Presentation/Administrador/Listar"})
+@WebServlet(name = "CursosController", urlPatterns = {"/Presentation/Cursos/Show", "/Presentation/Curso/CambiarStatus"})
 public class Controller extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException {
 
+        request.setAttribute("model", new Model());
+
         String viewUrl = "";
         switch (request.getServletPath()) {
-            case "/Presentation/Administrador":
+            case "/Presentation/Cursos/Show":
                 viewUrl = this.show(request);
                 break;
-            case "/Presentation/Administrador/GestionP":
-                viewUrl = this.RegistrarProfesores(request);
+            case "/Presentation/Curso/CambiarStatus":
+                viewUrl = this.cambiarStatus(request);
                 break;
-            case "/Presentation/GestionarCursos":
-                viewUrl = this.crearCurso(request);
-                break;
-            case"/Presentation/Administrador/Listar":
-            viewUrl=this.enviar();
-                
         }
-        
-        
         request.getRequestDispatcher(viewUrl).forward(request, response);
     }
 
-
-    Map<String, String> validar(HttpServletRequest request) {
-        Map<String, String> errores = new HashMap<>();
-        if (request.getParameter("cedulaFld").isEmpty()) {
-            errores.put("cedulaFld", "Cedula requerida");
-        }
-
-        if (request.getParameter("claveFld").isEmpty()) {
-            errores.put("claveFld", "Clave requerida");
-        }
-        return errores;
-    }
-
-    public String RegistrarProfesores(HttpServletRequest request){
-       return "/Presentation/Profesor/AgregrarProfesor";
-    }
     public String show(HttpServletRequest request) {
         return this.showAction(request);
     }
 
-    public String showAction(HttpServletRequest request) {
-        return "/Presentation/Administrador/View.jsp";
+    private String cambiarStatus(HttpServletRequest request) {
+        Model model = (Model) request.getAttribute("model");
+        List<Curso> c = Service.getInstance().obtenerCursos();
+        model.setCursos(c);
+        return "/Presentation/Curso/Cursos/View.jsp";
     }
-    
+
+    public String showAction(HttpServletRequest request) {
+        Model model = (Model) request.getAttribute("model");
+        try {
+            String ss =  request.getParameter("NRC");
+            int s=Integer.parseInt(ss);
+            Curso cur = Service.getInstance().buscarCurso(s);
+            model.setSeleccionado(cur);
+            if (cur != null) {
+                if (cur.getOferta() == false) {
+                    Service.getInstance().actualizarStatusCurso(true, cur.getNrc());
+                } else {
+                    Service.getInstance().actualizarStatusCurso(false, cur.getNrc());
+                }
+                request.setAttribute("alertapapu", true);
+                return "/Presentation/Curso/CambiarStatus";
+
+            }
+        } catch (Exception ex) {
+            System.out.println("hola");
+        }
+        return "/Presentation/Curso/CambiarStatus";
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -110,13 +108,5 @@ public class Controller extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    private String crearCurso(HttpServletRequest request) {
-        return "/Presentation/Curso/AgregarGrupos";
-    }
-
-    private String enviar() {
-       return "/Presentation/Curso/CambiarStatus"; //To change body of generated methods, choose Tools | Templates.
-    }
 
 }

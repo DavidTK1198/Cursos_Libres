@@ -5,6 +5,7 @@ import Data.EstudianteDao;
 import Data.GrupoDao;
 import Data.ProfesorDao;
 import Data.UserDao;
+import java.util.List;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -95,6 +96,10 @@ public class Service {
     public Estudiante buscarEstudiante(int id) throws Exception {
         Estudiante pr = this.estudiantes.read(id);
         return pr;
+    }
+    
+    public List<Curso> obtenerCursos(){
+       return cursos.findAll();
     }
     
 

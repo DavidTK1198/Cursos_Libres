@@ -9,6 +9,7 @@ import Logic.Curso;
 import Logic.Service;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Daniel Madrigal
  */
-@WebServlet(name = "CursoController", urlPatterns = {"/Presentation/Curso/Agregar", "/Presentation/Curso/CambiarStatus", "/Presentation/Curso/AgregarGrupos",
+@WebServlet(name = "CursoController", urlPatterns = {"/Presentation/Curso/Agregar","/Presentation/Curso/AgregarGrupos",
 "/Presentation/Curso/Show"})
 public class Controller extends HttpServlet {
 
@@ -32,9 +33,6 @@ public class Controller extends HttpServlet {
         switch (request.getServletPath()) {
             case "/Presentation/Curso/Agregar":
                 viewUrl = this.agregarCurso(request);
-                break;
-            case "/Presentation/Curso/CambiarStatus":
-                viewUrl = this.cambiarStatus(request);
                 break;
             case "/Presentation/Curso/AgregarGrupos":
                 viewUrl = this.agregarCurso(request);
@@ -70,32 +68,7 @@ public class Controller extends HttpServlet {
         }
     }
 
-    private String cambiarStatus(HttpServletRequest request) {
-        try {
-            Map<String, String> errores = this.validar(request);
-            if (errores.isEmpty()) {
-                Model model = (Model) request.getAttribute("model");
-                Curso cur = Service.getInstance().buscarCurso(model.getCurrent().getNrc());
-                if (cur != null) {
-                    if (cur.getOferta() == false) {
-                        Service.getInstance().actualizarStatusCurso(true, cur.getNrc());
-                    } else {
-                        Service.getInstance().actualizarStatusCurso(false, cur.getNrc());
-                    }
-                    return "/Presentation/Curso/ListarGrupo.jsp";
-                } else {
-                    errores.put("NotFind", "Curso no encontrado");
-                    request.setAttribute("errores", errores);
-                    return "/Presentation/Curso/View.jsp";
-                }
-            } else {
-                request.setAttribute("errores", errores);
-                return "/Presentation/Curso/View.jsp";
-            }
-        } catch (Exception e) {
-            return "";
-        }
-    }
+   
 
     Map<String, String> validar(HttpServletRequest request) {
         Map<String, String> errores = new HashMap<>();
@@ -153,7 +126,6 @@ public class Controller extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
     private void updateModel(HttpServletRequest request) {
         try {
             Model model = (Model) request.getAttribute("model");
@@ -188,5 +160,7 @@ public class Controller extends HttpServlet {
     private String showCurso(HttpServletRequest request) {
         return "/Presentation/Curso/View.jsp";
     }
+
+    
 
 }

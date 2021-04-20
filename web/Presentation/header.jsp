@@ -3,15 +3,14 @@
 <% Usuario usuario = (Usuario) session.getAttribute("usuario");  %>
 
 
-<header><h1>Bienvenidos a Cursos Libres.com</h1>
-    <img class="rounded-circle"src="${pageContext.request.contextPath}/IMG/logo.png" alt>
-    <nav  class="navbar navegacion"">
+<header class="bg-fixed">
+    <nav  class="navbar navegacion text-white">
         <div>
             <a href="${pageContext.request.contextPath}/Presentation/index.jsp">Inicio</a>
         </div>
-                <% if (usuario != null){ %>
-                <% int rol = Integer.parseInt(usuario.getRol()); %>
-                <%if (rol == 1){  %>
+        <% if (usuario != null) { %>
+        <% int rol = Integer.parseInt(usuario.getRol()); %>
+        <%if (rol == 1) {  %>
         <div>
             <a href="/Presentation/GestionarG">Gestionar Grupos</a>
         </div>
@@ -21,17 +20,17 @@
             </a>
             <div class="dropdown-menu " aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="${pageContext.request.contextPath}/Presentation/Curso/Show">Agregar Cursos</a>
-                <a class="dropdown-item" href="#">Cambiarle status</a>
+                <a class="dropdown-item" href="${pageContext.request.contextPath}/Presentation/Administrador/Listar">Cambiarle status</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#">Something else here</a>
             </div>
         </li>
-         
+
         <div>
             <a href="${pageContext.request.contextPath}/Presentation/Profesor/Show">Registrar Profesores</a>
         </div>
-               
-                <% }else if (rol == 2){  %>
+
+        <% } else if (rol == 2) {  %>
         <div>
             <a href=#>Ver Grupos</a>
         </div>
@@ -42,7 +41,7 @@
             <a href=#>Ingresar notas</a>
         </div>
         <% } %> 
-        <% if (rol == 3){  %>
+        <% if (rol == 3) {  %>
         <div>
             <a href=#>Matricular</a>
         </div>
@@ -54,28 +53,20 @@
         </div>
         <% } %> 
         <div >
-            <a  href="${pageContext.request.contextPath}/Presentation/Login/Logout">Logout</a>
+            <a  href="${pageContext.request.contextPath}/Presentation/Login/Logout">Salir</a>
         </div>                
         <% } %>         
         <% if (usuario == null) {%>
-        <li class="nav-item dropdown lista">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Categorias
-            </a>
-            <div class="dropdown-menu " aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-        </li>
         <form class="form">
-            <input class="form mr-5" type="search" placeholder="Buscar" aria-label="Buscar">
+            <input class="form mr-5" type="search" placeholder="Buscar Curso" aria-label="Buscar">
             <button class="btn btn-outline-info" type="submit">Buscar</button>
         </form>
         <div><a href="${pageContext.request.contextPath}/Presentation/Estudiante/Show">Registrarse</a></div>
         <div><a href="${pageContext.request.contextPath}/Presentation/Login/Show">Iniciar Sesion</a></div>
-        
+
         <% }%>   
     </nav> 
+     <div class="d-flex justify-content-center">
+        <img class="border border-secondary border-5 rounded-circle imagen" src="${pageContext.request.contextPath}/IMG/logo.png">
+    </div>
 </header>

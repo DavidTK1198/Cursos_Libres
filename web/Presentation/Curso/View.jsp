@@ -15,7 +15,7 @@
 <!DOCTYPE html>
 <html>
     <%@include file = "/Presentation/head.jsp" %>
-    <main>
+   <main class="bg-fixed ">
         <%@include file = "/Presentation/header.jsp" %>
         <% Model model = (Model) request.getAttribute("model"); %>
         <% Map<String, String> errores = (Map<String, String>) request.getAttribute("errores"); %>
@@ -23,22 +23,21 @@
 
         <div class="container-fluid container-lg container-md container-sm container-xl" id="app1">
 
-            <form name="form" action="${pageContext.request.contextPath}/Presentation/GestionarCursos" method="post" > 
-                <div class="panel" style="width:30%;">
-                    <div class="fila encabezado">Registrar Curso</div>
-                    <div class="fila">
-                        <div class="etiqueta">NRC</div>
-                        <div class="campo"><input class="<%=erroneo("NRC", errores)%>" placeholder="NRC del curso" type="text" name="NRC" value="<%=form.get("NRC")[0]%>" title="<%=title("NRC", errores)%>"></div>
+            <form class="text-white mt-5" name="form" action="${pageContext.request.contextPath}/Presentation/GestionarCursos" method="post" > 
+                    <div class="d-flex justify-content-center" >Registrar Curso</div>
+                    <div class="mb-2">
+                        <div>NRC</div>
+                        <div><input class="form-control <%=erroneo("NRC", errores)%>" placeholder="NRC del curso" type="text" name="NRC" value="<%=form.get("NRC")[0]%>" title="<%=title("NRC", errores)%>"></div>
                     </div>
-                    <div class="fila">
-                        <div class="etiqueta">Nombre</div>
-                        <div class="campo"><input class="<%=erroneo("nomCur", errores)%>" placeholder="Nombre del Curso" type="text" name="nomCur" value="<%=form.get("nomCur")[0]%>" title="<%=title("nomCur", errores)%>"></div>
+                    <div class="mb-2">
+                        <div>Nombre</div>
+                        <div class=><input class="form-control <%=erroneo("nomCur", errores)%>" placeholder="Nombre del Curso" type="text" name="nomCur" value="<%=form.get("nomCur")[0]%>" title="<%=title("nomCur", errores)%>"></div>
                     </div>
-                    <div class="fila">
-                        <div class="etiqueta">Descripcion</div>
-                        <div class="campo"><input class="<%=erroneo("desCur", errores)%>" placeholder="Descripcion del curso" type="text" name="desCur" value="<%=form.get("desCur")[0]%>" title="<%=title("desCur", errores)%>"></div>
+                    <div class="mb-2">
+                        <div>Descripcion</div>
+                        <div><input class="form-control <%=erroneo("desCur", errores)%>" placeholder="Descripcion del curso" type="text" name="desCur" value="<%=form.get("desCur")[0]%>" title="<%=title("desCur", errores)%>"></div>
                     </div>
-                    <div class="fila">
+                    <div class="mb-2">
                         <div class="flex-container">
                             <label>Oferta</label>
                             <div id="flex">
@@ -54,19 +53,18 @@
                             </div>
                         </div>
                     </div>
-                    <div class="fila">
-                        <div class="etiqueta">Precio del curso</div>
-                        <div class="campo"><input class="<%=erroneo("Precio", errores)%>" placeholder="Precio del curso" type="number" name="Precio" value="<%=form.get("Precio")[0]%>" title="<%=title("Precio", errores)%>"></div>
+                    <div class="mb-2">
+                        <div>Precio del curso</div>
+                        <div><input class="form-control <%=erroneo("Precio", errores)%>" placeholder="Precio del curso" type="number" name="Precio" value="<%=form.get("Precio")[0]%>" title="<%=title("Precio", errores)%>"></div>
                     </div>
 
-                    <div class="fila encabezado"><button  style="margin-bottom: 15px">Registrar</button> </div>
-                </div>
+                    <div><button class="py-2 px-4 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75">Registrar</button> </div>
             </form>  
         </div>
     </main>
 
     <aside></aside>
-        <%@include file = "/Presentation/footer.jsp" %>
+            <%@include file = "/Presentation/footer.jsp" %>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" Integeregrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" Integeregrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 </body>

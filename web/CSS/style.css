@@ -16,12 +16,15 @@
     background-color: black;
 }
 
-
 body{
     background-image:url("../IMG/Fondo.jpg");
     background-repeat: no-repeat; 
     background-size: cover;
-    background-position: center;
-    
-    
+    background-position: center;    
 }
+.imagen{
+    height: 200px;
+    witdh:200px;
+}
+
+

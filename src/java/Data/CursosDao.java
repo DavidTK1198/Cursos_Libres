@@ -94,8 +94,9 @@ public class CursosDao {
         try {
             String sql = "update Curso set oferta = ? where NRC = ?";
             PreparedStatement stm = DataBase.instance().prepareStatement(sql);
-            stm.setBoolean(4, oferta);
-            stm.setInt(1, nrc);
+            stm.setInt(2, nrc);
+            stm.setBoolean(1, oferta);
+          
             DataBase.instance().executeUpdate(stm);
             return true;
 

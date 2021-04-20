@@ -14,35 +14,35 @@
 <!DOCTYPE html>
 <html>
     <%@include file = "/Presentation/head.jsp" %>
-    <main>
+   <main class="bg-fixed text-white">
         <%@include file = "/Presentation/header.jsp" %>
         <% Model model = (Model) request.getAttribute("model"); %>
         <% Map<String, String> errores = (Map<String, String>) request.getAttribute("errores"); %>
         <% Map<String, String[]> form = (errores == null) ? this.getForm(model) : request.getParameterMap();%>
 
-        <div class="container-fluid container-lg container-md container-sm container-xl" id="app1">
+        <div class="container-fluid container-lg container-md container-sm container-xl text-white">
 
             <form name="form" action="${pageContext.request.contextPath}/Presentation/Estudiante/AgregrarEstudiante" method="post" > 
-                <div class="panel" style="width:30%;">
-                    <div class="fila encabezado">Registrar Estudiante</div>
-                    <div class="fila">
-                        <div class="etiqueta">Cedula</div>
-                        <div class="campo"><input class="<%=erroneo("cedulaFld", errores)%>" placeholder="Cedula del Estudiante" type="text" name="cedulaFld" value="<%=form.get("cedulaFld")[0]%>" title="<%=title("cedulaFld", errores)%>"></div>
+                <div class="text-white">
+                    <div class="d-flex justify-content-center text-white mt-5">Registrar Estudiante</div>
+                    <div class="mb-2">
+                        <div class>Cedula</div>
+                        <div class="campo"><input class="form-control <%=erroneo("cedulaFld", errores)%>" placeholder="Cedula del Estudiante" type="text" name="cedulaFld" value="<%=form.get("cedulaFld")[0]%>" title="<%=title("cedulaFld", errores)%>"></div>
                     </div>
-                    <div class="fila">
-                        <div class="etiqueta">Nombre</div>
-                        <div class="campo"><input class="<%=erroneo("NombreFld", errores)%>" placeholder="Nombre del Estudiante" type="text" name="NombreFld" value="<%=form.get("NombreFld")[0]%>" title="<%=title("NombreFld", errores)%>"></div>
+                    <div class>
+                        <div class="mb-2">Nombre</div>
+                        <div><input class="form-control <%=erroneo("NombreFld", errores)%>" placeholder="Nombre del Estudiante" type="text" name="NombreFld" value="<%=form.get("NombreFld")[0]%>" title="<%=title("NombreFld", errores)%>"></div>
                     </div>
-                    <div class="fila">
+                    <div class="mb-2">
                         <div class="etiqueta">Telefono</div>
-                        <div class="campo"><input class="<%=erroneo("telFld", errores)%>" placeholder="Telefono del Estudiante" type="text" name="telFld" value="<%=form.get("telFld")[0]%>" title="<%=title("telFld", errores)%>"></div>
+                        <div class="campo"><input class="form-control <%=erroneo("telFld", errores)%>" placeholder="Telefono del Estudiante" type="text" name="telFld" value="<%=form.get("telFld")[0]%>" title="<%=title("telFld", errores)%>"></div>
                     </div>
-                    <div class="fila">
+                    <div class="mb-2">
                         <div class="etiqueta">Correo electronico</div>
-                        <div class="campo"><input class="<%=erroneo("correoFld", errores)%>" placeholder="Correo del Estudiante" type="text" name="correoFld" value="<%=form.get("correoFld")[0]%>" title="<%=title("correoFld", errores)%>"></div>
+                        <div class="campo"><input class="form-control <%=erroneo("correoFld", errores)%>" placeholder="Correo del Estudiante" type="text" name="correoFld" value="<%=form.get("correoFld")[0]%>" title="<%=title("correoFld", errores)%>"></div>
                     </div>
 
-                    <div class="fila encabezado"><button  style="margin-bottom: 15px">Registrar</button> </div>
+                    <div class><button  class="py-2 px-4 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75">Registrar</button> </div>
                 </div>
             </form>  
         </div>

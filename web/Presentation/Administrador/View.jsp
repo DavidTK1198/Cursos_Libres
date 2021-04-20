@@ -13,12 +13,9 @@
 <!DOCTYPE html>
 <html>
     <%@include file = "/Presentation/head.jsp" %>
-    <main>
+    <main class="bg-fixed ">
         <%@include file = "/Presentation/header.jsp" %>
-     
-       
       </main>
-
         <aside></aside>
             <%@include file = "/Presentation/footer.jsp" %>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" Integeregrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

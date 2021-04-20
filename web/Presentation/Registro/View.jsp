@@ -15,7 +15,7 @@
 <!DOCTYPE html>
 <html>
     <%@include file = "/Presentation/head.jsp" %>
-    <main>
+    <main class="bg-fixed ">
         <%@include file = "/Presentation/header.jsp" %>
       <% Model model= (Model) request.getAttribute("model"); %>
         <% Map<String,String> errores = (Map<String,String>) request.getAttribute("errores"); %>
