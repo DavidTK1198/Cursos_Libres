@@ -5,7 +5,11 @@
  */
 package Presentation.Profesor;
 
+import Logic.Curso;
+import Logic.Grupo;
 import Logic.Profesor;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -13,10 +17,12 @@ import Logic.Profesor;
  */
 public class Model {
 
-    Profesor current;
+    private Profesor current;
+    private List<Grupo> mios;
+    private List<Curso> misCursos;
 
     public Model() {
-        this.setCurrent(new Profesor());
+        this.reset();
     }
 
     public final Profesor getCurrent() {
@@ -29,5 +35,26 @@ public class Model {
 
     public void reset() {
         setCurrent(new Profesor());
+        this.setMios(new ArrayList<>());
+        this.setMisCursos(new ArrayList<>());
+        
     }
+
+    public List<Grupo> getMios() {
+        return mios;
+    }
+
+    public void setMios(List<Grupo> mios) {
+        this.mios = mios;
+    }
+
+    public List<Curso> getMisCursos() {
+        return misCursos;
+    }
+
+    public void setMisCursos(List<Curso> misCursos) {
+        this.misCursos = misCursos;
+    }
+    
+    
 }

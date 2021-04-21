@@ -24,7 +24,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Daniel Madrigal
  */
-@WebServlet(name = "GrupoController", urlPatterns = {"/Presentation/Grupo/AgregarGrupo", "/Presentation/Grupo/Show"})
+@WebServlet(name = "GrupoController", urlPatterns = {"/Presentation/Grupo/AgregarGrupo", "/Presentation/Grupo/Show","/Presentation/Grupo/Notas"})
 public class Controller extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -39,7 +39,9 @@ public class Controller extends HttpServlet {
             case "/Presentation/Grupo/Show":
                 viewUrl = this.showGrupo(request);
                 break;
-
+            case "/Presentation/Grupo/Notas":
+                viewUrl = this.registrarNotas(request);
+                break;
         }
         request.getRequestDispatcher(viewUrl).forward(request, response);
     }
@@ -162,6 +164,20 @@ public class Controller extends HttpServlet {
         session.setAttribute("NRC", nrc);
        
         return "/Presentation/Grupo/View.jsp";
+    }
+    private String registrarNotas(HttpServletRequest request){
+         try{
+             Model m = (Model) request.getAttribute("model");
+             Grupo gr = (Grupo)request.getAttribute("Grupo");
+            
+             return "";
+             
+             
+             
+             
+         }catch(Exception ex){
+             return "";
+         }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

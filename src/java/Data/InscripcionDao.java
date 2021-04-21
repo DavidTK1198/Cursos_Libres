@@ -50,12 +50,13 @@ public class InscripcionDao {
         return r;
     }
 
-    public List<Inscripcion> findByNombre(Inscripcion o) {
+    public List<Inscripcion> findByNombre(int idest, int numGrup) {
         List<Inscripcion> r = new ArrayList<>();
-        String sql = "select * from Inscripcion where Grup_num_Grup like ?";
+        String sql = "select * from Inscripcion where Grup_num_Grup = ? AND Estudiante_id = ?";
         try {
             PreparedStatement stm = DataBase.instance().prepareStatement(sql);
-            stm.setString(4, "%" +o.getGruponumGrup().getNumGrup() + "%");
+            stm.setInt(1, numGrup);
+            stm.setInt(2, idest);
             ResultSet rs = DataBase.instance().executeQuery(stm);
             while (rs.next()) {
                 r.add(from(rs));
@@ -77,6 +78,7 @@ public class InscripcionDao {
             throw new Exception ("La inscripcion no Existe");
         }
     }
+   
 
     public Inscripcion from (ResultSet rs){
         try {

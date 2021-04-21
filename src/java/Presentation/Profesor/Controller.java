@@ -5,12 +5,16 @@
  */
 package Presentation.Profesor;
 
+import Logic.Curso;
+import Logic.Grupo;
 import Logic.Profesor;
 import Logic.Usuario;
 import Logic.Service;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,10 +26,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Daniel Madrigal
  */
-@WebServlet(name = "ProfesorController", urlPatterns = {"/Presentation/Profesor/AgregrarProfesor","/Presentation/Profesor/Show",
-"/Presentation/Profesor"})
+@WebServlet(name = "ProfesorController", urlPatterns = {"/Presentation/Profesor/AgregrarProfesor", "/Presentation/Profesor/Show",
+    "/Presentation/Profesor", "/Presentation/Profesor/GruposMios", "/Presentation/Profesor/CursosMios", "/Presentation/Profesor/IngresarNotas"})
 public class Controller extends HttpServlet {
-
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -40,13 +43,24 @@ public class Controller extends HttpServlet {
                 viewUrl = this.showProfesor(request);
                 break;
             case "/Presentation/Profesor":
-                viewUrl =this.ProfesorLogin(request);
+                viewUrl = this.ProfesorLogin(request);
                 break;
-            
+            case "/Presentation/Profesor/GruposMios":
+
+                viewUrl = this.misGrupos(request);
+                break;
+            case "/Presentation/Profesor/CursosMios":
+                viewUrl = this.misCursos(request);
+                break;
+            case "/Presentation/Profesor/IngresarNotas":
+                viewUrl = this.RegistrarNotas(request);
+                break;
+
         }
         request.getRequestDispatcher(viewUrl).forward(request, response);
     }
-     Map<String, String> validar(HttpServletRequest request) {
+
+    Map<String, String> validar(HttpServletRequest request) {
         Map<String, String> errores = new HashMap<>();
         if (request.getParameter("cedulaFld").isEmpty()) {
             errores.put("cedulaFld", "Cedula requerida");
@@ -60,7 +74,7 @@ public class Controller extends HttpServlet {
         if (request.getParameter("correoFld").isEmpty()) {
             errores.put("correoFld", "Correo requerido");
         }
-         if (request.getParameter("espFld").isEmpty()) {
+        if (request.getParameter("espFld").isEmpty()) {
             errores.put("espFld", "Especialidad requerida");
         }
         return errores;
@@ -75,26 +89,27 @@ public class Controller extends HttpServlet {
         model.getCurrent().setTelProfe(request.getParameter("telFld"));
         model.getCurrent().setCorreoProfe(request.getParameter("correoFld"));
         model.getCurrent().setEspecialidad(request.getParameter("espFld"));
-        Usuario us = new Usuario("2",model.getCurrent().getIdProfe(),"");
+        Usuario us = new Usuario("2", model.getCurrent().getIdProfe(), "");
         us.generarClave();
         model.getCurrent().setUsuarioIdUsu(us);
-     
+
     }
-    private String registrarProfesor(HttpServletRequest request){
-          try {
+
+    private String registrarProfesor(HttpServletRequest request) {
+        try {
             Map<String, String> errores = this.validar(request);
             if (errores.isEmpty()) {
                 this.updateModel(request);
-              
+
                 Model model = (Model) request.getAttribute("model");
                 Profesor pr = Service.getInstance().buscarProfesor(model.getCurrent().getIdProfe());
                 if (pr != null) {
                     return "/Presentation/Profesor/ErrorProfesor.jsp";
                 } else {
-                   
+
                     Service.getInstance().agregarUsuario(model.getCurrent().getUsuarioIdUsu());
-                     Service.getInstance().agregarProfesor(model.getCurrent());
-                   
+                    Service.getInstance().agregarProfesor(model.getCurrent());
+
                     model.reset();
                     return "/Presentation/Administrador/View.jsp";
                 }
@@ -147,11 +162,96 @@ public class Controller extends HttpServlet {
     }// </editor-fold>
 
     private String showProfesor(HttpServletRequest request) {
-         return "/Presentation/Profesor/View.jsp";
+        return "/Presentation/Profesor/View.jsp";
     }
 
     private String ProfesorLogin(HttpServletRequest request) {
         return "/Presentation/index.jsp";
     }
 
+    private String misGrupos(HttpServletRequest request) {
+        try {
+            Model model = (Model) request.getAttribute("model");
+            String boo = request.getParameter("tipo");
+            int n = 0;
+            if (!"".equals(boo)) {
+
+                n = Integer.parseInt(boo);
+
+            }
+            String id = (String) request.getParameter("idprof");
+            int idd = Integer.parseInt(id);
+
+            Profesor pr = Service.getInstance().buscarProfesor(idd);
+            model.setCurrent(pr);
+            List<Grupo> misGrupos = Service.getInstance().obtenerGrupoPorProfesor(idd);
+            if (!misGrupos.isEmpty()) {
+                model.setMios(misGrupos);
+
+            } else {
+                return ""; //analizar un poco mas...
+            }
+            request.setAttribute("model", model);
+            if (n == 0) {
+                return "/Presentation/Grupo/Grupos/ViewGxP.jsp";
+            } else {
+                return "/Presentation/Profesor/Grupos/View.jsp";
+            }
+        } catch (Exception ex) {
+            return "";
+
+        }
+
+    }
+
+    private String misCursos(HttpServletRequest request) {
+        try {
+            Model model = (Model) request.getAttribute("model");
+            String id = (String) request.getParameter("idprof");
+            int idd = Integer.parseInt(id);
+
+            Profesor pr = Service.getInstance().buscarProfesor(idd);
+            model.setCurrent(pr);
+            List<Grupo> misGrupos = Service.getInstance().obtenerGrupoPorProfesor(idd);
+            List<Curso> misCursos = new ArrayList<>();
+            Grupo aux = null;
+            Curso aux2 = null;
+            for (int i = 0; i < misGrupos.size(); i++) {
+                aux = misGrupos.get(i);
+                aux2 = aux.getCurso();
+                if (!misCursos.contains((Curso) aux2)) {
+                    misCursos.add(aux2);
+                }
+            }
+
+            if (!misCursos.isEmpty()) {
+                model.setMisCursos(misCursos);
+
+            } else {
+                return ""; //analizar un poco mas...
+            }
+            request.setAttribute("model", model);
+            return "/Presentation/Profesor/Cursos/View.jsp";
+
+        } catch (Exception ex) {
+            return "";
+
+        }
+
+    }
+
+    private String RegistrarNotas(HttpServletRequest request) {
+        try {
+           
+            String num = (String) request.getParameter("num_Grup");
+            int numerG = Integer.parseInt(num);
+            Grupo gr = Service.getInstance().buscarGrupo(numerG);
+            request.setAttribute("Grupo", gr);
+            return "/Presentation/Grupo/Notas";
+
+        } catch (Exception ex) {
+            return "";
+
+        }
+    }
 }

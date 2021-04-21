@@ -53,12 +53,12 @@ public class GrupoDao {
         return r;
     }
 
-    public List<Grupo> findByNombre(Grupo o) {
+    public List<Grupo> findByNombre(int id) {
         List<Grupo> r = new ArrayList<>();
         String sql = "select * from Grupo where Profesor_id_Profe like ?";
         try {
             PreparedStatement stm = DataBase.instance().prepareStatement(sql);
-            stm.setString(1, "%" +o.getProfesoridProfe().getIdProfe() + "%");
+            stm.setInt(1,id);
             ResultSet rs = DataBase.instance().executeQuery(stm);
             while (rs.next()) {
                 r.add(from(rs));

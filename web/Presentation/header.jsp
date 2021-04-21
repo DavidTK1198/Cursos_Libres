@@ -30,13 +30,14 @@
 
         <% } else if (rol == 2) {  %>
         <div>
-            <a href=#>Ver Grupos</a>
+            <a href="${pageContext.request.contextPath}/Presentation/Profesor/GruposMios?idprof=<%=usuario.getIdUsu()%>">Ver Grupos</a>
         </div>
         <div>
-            <a href=#>Ver Cursos</a>
+              <a href="${pageContext.request.contextPath}/Presentation/Profesor/CursosMios?idprof=<%=usuario.getIdUsu()%>">Ver Cursos</a>
         </div>
         <div>
-            <a href=#>Ingresar notas</a>
+            
+            <a href="${pageContext.request.contextPath}/Presentation/Profesor/CursosMios?tipo=1">Ingresar notas</a>
         </div>
         <% } %> 
         <% if (rol == 3) {  %>

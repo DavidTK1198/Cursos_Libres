@@ -122,6 +122,9 @@ public class Service {
     public List<Grupo> obtenerGrupoPorCurso(int nrc) {
         return grupos.findByCurso(nrc);
     }
+    public List<Grupo> obtenerGrupoPorProfesor(int id){
+        return grupos.findByNombre(id);
+    }
     
 
 }

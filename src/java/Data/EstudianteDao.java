@@ -7,6 +7,7 @@ package Data;
  */
 
 import Logic.Estudiante;
+import Logic.Profesor;
 import Logic.Usuario;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -47,6 +48,22 @@ public class EstudianteDao {
         }
         return r;
     }
+    public List<Estudiante> buscar(int idest, int numGrup, Profesor pr) {
+        List<Estudiante> r = new ArrayList<>();
+        String sql = "select * from Inscripcion where Grup_num_Grup = ? AND Estudiante_id = ?";
+        try {
+            PreparedStatement stm = DataBase.instance().prepareStatement(sql);
+            stm.setInt(1, numGrup);
+            stm.setInt(2, idest);
+            ResultSet rs = DataBase.instance().executeQuery(stm);
+            while (rs.next()) {
+                
+                r.add(from(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return r;
+    }
 
     public List<Estudiante> findByNombre(Estudiante o) {
         List<Estudiante> r = new ArrayList<>();
@@ -75,6 +92,7 @@ public class EstudianteDao {
             return null;
         }
     }
+    
 
     public Estudiante from (ResultSet rs){
         try {
