@@ -79,6 +79,17 @@ public class InscripcionDao {
         }
     }
    
+    public boolean actualizarNota(int idEst,int nota)throws Exception{
+         String sql="update inscripcion set Nota=? where Estudiante_id=?";
+        PreparedStatement stm = DataBase.instance().prepareStatement(sql);
+        stm.setInt(1, nota);
+        stm.setInt(2, idEst);
+          int count = DataBase.instance().executeUpdate(stm);
+        if (count == 0) {
+            throw new Exception("Error al cargar la nota");
+        }
+        return true;
+    }
 
     public Inscripcion from (ResultSet rs){
         try {

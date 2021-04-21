@@ -11,7 +11,6 @@ import Logic.Profesor;
 import Logic.Usuario;
 import Logic.Service;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +20,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -171,20 +171,12 @@ public class Controller extends HttpServlet {
 
     private String misGrupos(HttpServletRequest request) {
         try {
-            Model model = (Model) request.getAttribute("model");
-            String boo = request.getParameter("tipo");
-            int n = 0;
-            if (!"".equals(boo)) {
-
-                n = Integer.parseInt(boo);
-
-            }
-            String id = (String) request.getParameter("idprof");
-            int idd = Integer.parseInt(id);
-
-            Profesor pr = Service.getInstance().buscarProfesor(idd);
+                Model model=(Model)request.getAttribute("model");
+             HttpSession session = request.getSession(true);
+             Usuario usuario = (Usuario) session.getAttribute("usuario"); 
+            Profesor pr = Service.getInstance().buscarProfesor(usuario.getIdUsu());
             model.setCurrent(pr);
-            List<Grupo> misGrupos = Service.getInstance().obtenerGrupoPorProfesor(idd);
+            List<Grupo> misGrupos = Service.getInstance().obtenerGrupoPorProfesor(pr.getIdProfe());
             if (!misGrupos.isEmpty()) {
                 model.setMios(misGrupos);
 
@@ -192,11 +184,7 @@ public class Controller extends HttpServlet {
                 return ""; //analizar un poco mas...
             }
             request.setAttribute("model", model);
-            if (n == 0) {
-                return "/Presentation/Grupo/Grupos/ViewGxP.jsp";
-            } else {
-                return "/Presentation/Profesor/Grupos/View.jsp";
-            }
+            return "/Presentation/Profesor/Grupos/View.jsp";
         } catch (Exception ex) {
             return "";
 

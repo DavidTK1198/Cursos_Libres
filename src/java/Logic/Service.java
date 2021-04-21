@@ -126,5 +126,13 @@ public class Service {
         return grupos.findByNombre(id);
     }
     
+    public List<Estudiante> obtenerEstudiantesG(int id,Profesor p) throws Exception{
+        return this.grupos.buscarNota(id, p);
+    }
+    
+    public boolean ActualizarNota(int id,int nota) throws Exception{
+        inscripciones.actualizarNota(id, nota);
+        return true;
+    }
 
 }

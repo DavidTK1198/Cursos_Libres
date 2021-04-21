@@ -6,9 +6,11 @@
 package Presentation.Grupo;
 
 import Logic.Curso;
+import Logic.Estudiante;
 import Logic.Grupo;
 import Logic.Profesor;
 import Logic.Service;
+import Logic.Usuario;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -24,13 +26,13 @@ import javax.servlet.http.HttpSession;
  *
  * @author Daniel Madrigal
  */
-@WebServlet(name = "GrupoController", urlPatterns = {"/Presentation/Grupo/AgregarGrupo", "/Presentation/Grupo/Show","/Presentation/Grupo/Notas"})
+@WebServlet(name = "GrupoController", urlPatterns = {"/Presentation/Grupo/AgregarGrupo", "/Presentation/Grupo/Show", "/Presentation/Grupo/Notas","/Presentation/Digitar/Notas"})
 public class Controller extends HttpServlet {
-
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setAttribute("model", new Presentation.Grupo.Model());
-
+        
         String viewUrl = "";
         switch (request.getServletPath()) {
             case "/Presentation/Grupo/AgregarGrupo":
@@ -42,15 +44,18 @@ public class Controller extends HttpServlet {
             case "/Presentation/Grupo/Notas":
                 viewUrl = this.registrarNotas(request);
                 break;
+            case "/Presentation/Digitar/Notas":
+                viewUrl=this.actualizarHistorial(request);
+            
         }
         request.getRequestDispatcher(viewUrl).forward(request, response);
     }
-
+    
     private String agregarGrupo(HttpServletRequest request) {
         try {
             Map<String, String> errores = this.validar(request);
             if (errores.isEmpty()) {
-
+                
                 this.updateModel(request);
                 Logic.Service service = Service.getInstance();
                 Presentation.Grupo.Model model = (Presentation.Grupo.Model) request.getAttribute("model");
@@ -69,17 +74,17 @@ public class Controller extends HttpServlet {
             return "/Presentation/Grupo/Show";
         }
     }
-
+    
     Map<String, String> validar(HttpServletRequest request) {
         Map<String, String> errores = new HashMap<>();
-
+        
         if (request.getParameter("horFld").isEmpty()) {
             errores.put("horFld", "Horario requerido");
         }
         if (request.getParameter("profFld").isEmpty()) {
-         errores.put("profFld", "Profesor requerido");
+            errores.put("profFld", "Profesor requerido");
         }
-
+        
         return errores;
     }
 
@@ -129,56 +134,75 @@ public class Controller extends HttpServlet {
             model.getCurrent().setHorario(horario);
             HttpSession session = request.getSession(true);
             String nrc = (String) session.getAttribute("NRC");
-
+            
             int nrcc = Integer.parseInt(nrc);
             String id = request.getParameter("profFld");
             int idProf = Integer.parseInt(id);
-          
-
+            
             try {
                 Profesor pr = Service.getInstance().buscarProfesor(idProf);
                 Curso cur = Service.getInstance().buscarCurso(nrcc);
                 if (cur != null) {
                     model.getCurrent().setCurso(cur);
                 }
-               if (pr != null) {
+                if (pr != null) {
                     model.getCurrent().setProfesoridProfe(pr);
                 }
             } catch (Exception e) {
                 return;
             }
-
+            
         } catch (Exception e) {
             System.out.print("Tipos invalidados");
+            
+        }
+    }
+    
+    private String showGrupo(HttpServletRequest request) {
+        HttpSession session = request.getSession(true);
+        Model m = (Model) request.getAttribute("model");
+        String nrc = request.getParameter("NRC");
+        List<Profesor> profes = Service.getInstance().obtenerProfesores();
+        m.setProfesores(profes);
+        request.setAttribute("model", m);
+        session.setAttribute("NRC", nrc);
+        
+        return "/Presentation/Grupo/View.jsp";
+    }
 
+    private String registrarNotas(HttpServletRequest request) {
+        try {
+            Model m = (Model) request.getAttribute("model");
+            Grupo gr = (Grupo) request.getAttribute("Grupo");
+            HttpSession session = request.getSession(true);
+            Usuario usuario = (Usuario) session.getAttribute("usuario");            
+            Profesor pr = Service.getInstance().buscarProfesor(usuario.getIdUsu());
+            List<Estudiante> lista = Service.getInstance().obtenerEstudiantesG(gr.getNumGrup(), pr);
+            m.setCurrent(gr);
+            m.setEstudiantes(lista);
+            request.setAttribute("model", m);
+            return "/Presentation/Profesor/Estudiantes/View.jsp";
+            
+        } catch (Exception ex) {
+            return "";
         }
     }
 
-    private String showGrupo(HttpServletRequest request) {
-        HttpSession session = request.getSession(true);
-        Model m=(Model)request.getAttribute("model");
-        String nrc = request.getParameter("NRC");
-        List<Profesor> profes=Service.getInstance().obtenerProfesores();
-        m.setProfesores(profes);
-        request.setAttribute("model",m);
-        session.setAttribute("NRC", nrc);
-       
-        return "/Presentation/Grupo/View.jsp";
+    private String actualizarHistorial(HttpServletRequest request) {
+        String nota=request.getParameter("nota");
+        String grupo=request.getParameter("num_Grup");
+        String isEst= request.getParameter("idest");
+        int ced_Est=Integer.parseInt(isEst);
+        int nFinal=Integer.parseInt(nota);
+        try{
+            Service.getInstance().ActualizarNota(ced_Est, nFinal);
+        }catch(Exception e){
+            return "/Presentation/Profesor/IngresarNotas?num_Grup="+grupo;
+        }
+        return "/Presentation/Profesor/IngresarNotas?num_Grup="+grupo;
     }
-    private String registrarNotas(HttpServletRequest request){
-         try{
-             Model m = (Model) request.getAttribute("model");
-             Grupo gr = (Grupo)request.getAttribute("Grupo");
-            
-             return "";
-             
-             
-             
-             
-         }catch(Exception ex){
-             return "";
-         }
-    }
+
+   
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
