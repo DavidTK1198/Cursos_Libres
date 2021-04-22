@@ -166,14 +166,17 @@ public class Controller extends HttpServlet {
     }
 
     private String ProfesorLogin(HttpServletRequest request) {
-        return "/Presentation/index.jsp";
+        HttpSession session = request.getSession(true);
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        String id = Integer.toString(usuario.getIdUsu());
+        return "/Presentation/Profesor/CursosMios?idprof=" + id;
     }
 
     private String misGrupos(HttpServletRequest request) {
         try {
-                Model model=(Model)request.getAttribute("model");
-             HttpSession session = request.getSession(true);
-             Usuario usuario = (Usuario) session.getAttribute("usuario"); 
+            Model model = (Model) request.getAttribute("model");
+            HttpSession session = request.getSession(true);
+            Usuario usuario = (Usuario) session.getAttribute("usuario");
             Profesor pr = Service.getInstance().buscarProfesor(usuario.getIdUsu());
             model.setCurrent(pr);
             List<Grupo> misGrupos = Service.getInstance().obtenerGrupoPorProfesor(pr.getIdProfe());
@@ -230,7 +233,7 @@ public class Controller extends HttpServlet {
 
     private String RegistrarNotas(HttpServletRequest request) {
         try {
-           
+
             String num = (String) request.getParameter("num_Grup");
             int numerG = Integer.parseInt(num);
             Grupo gr = Service.getInstance().buscarGrupo(numerG);

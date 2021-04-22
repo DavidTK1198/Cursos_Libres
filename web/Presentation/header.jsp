@@ -20,7 +20,7 @@
                 <a class="dropdown-item" href="${pageContext.request.contextPath}/Presentation/Curso/Show">Agregar Cursos</a>
                 <a class="dropdown-item" href="${pageContext.request.contextPath}/Presentation/Administrador/Listar">Cambiarle status</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Something else here</a>
+               
             </div>
         </li>
 
@@ -30,9 +30,7 @@
 
         <% } else if (rol == 2) {  %>
       
-        <div>
-              <a href="${pageContext.request.contextPath}/Presentation/Profesor/CursosMios?idprof=<%=usuario.getIdUsu()%>">Mis Cursos</a>
-        </div>
+            
         <% } %> 
         <% if (rol == 3) {  %>
         <div>
@@ -47,7 +45,12 @@
         <% } %> 
         <div >
             <a  href="${pageContext.request.contextPath}/Presentation/Login/Logout">Salir</a>
-        </div>                
+        </div> 
+        
+         <div >
+             <p>Usuario: </p><%=usuario.getIdUsu()%>
+        </div> 
+        
         <% } %>         
         <% if (usuario == null) {%>
         <form class="form">

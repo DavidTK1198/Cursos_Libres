@@ -61,6 +61,7 @@
         <url-pattern>/Presentation/Login</url-pattern>
         <url-pattern>/Presentation/Login/Logout</url-pattern>
         <url-pattern>/Presentation/Registro</url-pattern>
+         <url-pattern>/Presentation/Inicio</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ProfesorController</servlet-name>

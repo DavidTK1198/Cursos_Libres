@@ -21,7 +21,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author jsanchez
  */
-@WebServlet(name = "LoginController", urlPatterns = {"/Presentation/Login/Show", "/Presentation/Login", "/Presentation/Login/Logout","/Presentation/Registro"})
+@WebServlet(name = "LoginController", urlPatterns = {"/Presentation/Login/Show", "/Presentation/Login", "/Presentation/Login/Logout","/Presentation/Registro",
+"/Presentation/Inicio"})
 public class Controller extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request,
@@ -43,6 +44,9 @@ public class Controller extends HttpServlet {
                 break;
             case "/Presentation/Registro":
                 viewUrl = this.showRegister(request);
+                break;
+            case "/Presentation/Inicio":
+                viewUrl = this.mostrarInicio();
                 break;
         }
         request.getRequestDispatcher(viewUrl).forward(request, response);
@@ -102,6 +106,7 @@ public class Controller extends HttpServlet {
                 case "3":
                     viewUrl = "/Presentation/Estudiante";
                     break;
+                    
             }
             return viewUrl;
         } catch (Exception ex) {
@@ -121,7 +126,7 @@ public class Controller extends HttpServlet {
         HttpSession session = request.getSession(true);
         session.removeAttribute("usuario");
         session.invalidate();
-        return "/Presentation/index.jsp";
+        return "/Presentation/Inicio";
     }
 
     public String show(HttpServletRequest request) {
@@ -177,6 +182,10 @@ public class Controller extends HttpServlet {
 
     private String showRegister(HttpServletRequest request) {
         return "/Presentation/Register/View.jsp";
+    }
+
+    private String mostrarInicio() {
+        return "/Presentation/index.jsp";
     }
 
 }
