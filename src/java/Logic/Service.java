@@ -134,5 +134,10 @@ public class Service {
         inscripciones.actualizarNota(id, nota);
         return true;
     }
+    public List<Inscripcion> InscripcionesPorEstudiante(int id){
+        List<Inscripcion> list = this.inscripciones.findByEstudiante(id);
+        return list;
+      
+    }
 
 }

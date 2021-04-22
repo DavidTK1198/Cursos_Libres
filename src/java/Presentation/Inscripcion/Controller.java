@@ -5,6 +5,7 @@
  */
 package Presentation.Inscripcion;
 
+import Logic.Curso;
 import Logic.Estudiante;
 import Logic.Grupo;
 import Logic.Inscripcion;
@@ -43,20 +44,28 @@ public class Controller extends HttpServlet {
         request.getRequestDispatcher(viewUrl).forward(request, response);
     }
 
-
-
     public String Matricular(HttpServletRequest request) {
         Model model = (Model) request.getAttribute("model");
         HttpSession session = request.getSession(true);
+        Usuario real = (Usuario) session.getAttribute("usuario");
+        List<Inscripcion> listaIn = Service.getInstance().InscripcionesPorEstudiante(real.getIdUsu());
+        model.setInscripciones(listaIn);
         try {
-            Usuario real = (Usuario) session.getAttribute("usuario");
-            this.UpdateModel(request, real);
-            Service.getInstance().agregarInscripcion(model.getInscrip());
-            return "/Presentation/PresentarCursos";
-            
+             this.UpdateModel(request, real);
+            if (listaIn.isEmpty()) {
+               
+                Service.getInstance().agregarInscripcion(model.getInscrip());
+                return "/Presentation/PresentarCursos";
+            }else{
+                this.validadUnicaInscripcion(listaIn, request);
+                Service.getInstance().agregarInscripcion(model.getInscrip());
+                return "/Presentation/PresentarCursos";
+            }
+
         } catch (Exception ex) {
-            
-            return "/Presentation/PresentarCursos";
+            boolean bandera = false;
+            request.setAttribute("bandera", bandera);
+            return "/Presentation/PresentarCursos";//verificar despues
         }
     }
 
@@ -64,7 +73,7 @@ public class Controller extends HttpServlet {
         return this.showAction(request);
     }
 
-    public void UpdateModel(HttpServletRequest request, Usuario real)throws Exception {
+    public void UpdateModel(HttpServletRequest request, Usuario real) throws Exception {
         Model model = (Model) request.getAttribute("model");
         int idEs = real.getIdUsu();
         Estudiante est = Service.getInstance().buscarEstudiante(idEs);
@@ -87,6 +96,24 @@ public class Controller extends HttpServlet {
         List<Grupo> grupos = Service.getInstance().obtenerGrupoPorCurso(nr);
         model.setGrupito(grupos);
         return "/Presentation/Grupo/Grupos/View.jsp";
+    }
+    public void validadUnicaInscripcion(List<Inscripcion> ls,HttpServletRequest request) throws Exception{
+        Model model = (Model) request.getAttribute("model");
+        Grupo gr = model.getGrupo();
+        Grupo gr2 = null;
+        Curso cursito2 = gr.getCurso();
+        Curso cursito = null;
+        for(Inscripcion s: ls){
+             gr2 = s.getGruponumGrup();
+             cursito = gr2.getCurso();
+             if(cursito.getNrc()==cursito2.getNrc()){
+                 throw new Exception("hola");
+             }
+             if(gr2.getNumGrup() == gr.getNumGrup()){
+                  throw new Exception("hola");
+             }
+             
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -127,7 +154,5 @@ public class Controller extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    
 
 }

@@ -36,6 +36,7 @@ public class AdministradorDao {
         }
     }
       
+      
         public List<Administrador> findAll() {
         List<Administrador> r = new ArrayList<>();
         String sql = "select * from Administrador";

@@ -69,6 +69,8 @@ public class DataBase {
             return 0;
         }
     }
+    
+    
     public ResultSet executeQuery(PreparedStatement statement){
         try {
             return statement.executeQuery();

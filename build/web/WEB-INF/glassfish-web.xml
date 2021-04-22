@@ -89,6 +89,7 @@
         <servlet-name>GrupoController</servlet-name>
         <url-pattern>/Presentation/Grupo/AgregarGrupo</url-pattern>
         <url-pattern>/Presentation/Grupo/Show</url-pattern>
+        <url-pattern>/Presentation/Digitar/Notas</url-pattern>
          <url-pattern>/Presentation/Grupo/Notas</url-pattern>
     </servlet-mapping>
 

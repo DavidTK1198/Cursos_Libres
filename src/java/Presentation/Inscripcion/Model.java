@@ -19,6 +19,7 @@ public class Model {
      private Estudiante current;
      private List<Grupo> grupito;
      private Inscripcion inscrip;
+     private List<Inscripcion> inscripciones;
      private Grupo grupo;
      
 
@@ -39,12 +40,22 @@ public class Model {
         this.setGrupito(new ArrayList<>());
         this.setGrupo(new Grupo());
         this.setInscrip(new Inscripcion());
+        this.setInscripciones(new ArrayList<>());
        
     }
 
     public List<Grupo> getGrupito() {
         return grupito;
     }
+
+    public List<Inscripcion> getInscripciones() {
+        return inscripciones;
+    }
+
+    public void setInscripciones(List<Inscripcion> inscripciones) {
+        this.inscripciones = inscripciones;
+    }
+    
 
     public void setGrupito(List<Grupo> grupito) {
         this.grupito = grupito;

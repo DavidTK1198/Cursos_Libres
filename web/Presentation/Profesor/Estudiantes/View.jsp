@@ -36,7 +36,7 @@
                         </div>
                         <div>
                             <form name="form" action="${pageContext.request.contextPath}/Presentation/Digitar/Notas" method="post">
-                            <input type="number" name="nota">
+                            <input type="number" min ="1" max="100" name="nota">
                             <input type="hidden" name="idest" value="<%=c.getIdEstudiante()%>">
                             <input type="hidden" name="num_Grup" value="<%=gr.getNumGrup()%>">
                             <button type="submit">HACER CLICK</button>
