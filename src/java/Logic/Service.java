@@ -139,5 +139,15 @@ public class Service {
         return list;
       
     }
+    
+    public List buscar(String clase,String atributo){
+        switch(clase){
+            case "Profesor":
+                return profesores.findByNombre(atributo);
+            case "Curso":
+                
+                
+        }
+    }
 
 }

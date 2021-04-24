@@ -23,11 +23,17 @@
                
             </div>
         </li>
-
-        <div>
-            <a href="${pageContext.request.contextPath}/Presentation/Profesor/Show">Registrar Profesores</a>
-        </div>
-
+         <li class="nav-item dropdown lista">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Gestionar Profesores
+            </a>
+            <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="${pageContext.request.contextPath}/Presentation/Profesor/Show">Registrar Profesores</a>
+                <a class="dropdown-item" href="${pageContext.request.contextPath}/Presentation/Administrador/Listar/Profesores">Listar Profesores</a>
+                <div class="dropdown-divider"></div>
+               
+            </div>
+        </li>
         <% } else if (rol == 2) {  %>
       
             

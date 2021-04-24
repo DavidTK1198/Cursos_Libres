@@ -52,12 +52,12 @@ public class ProfesorDao {
         return r;
     }
 
-    public List<Profesor> findByNombre(Profesor o) {
+    public List<Profesor> findByNombre(String atributo) {
         List<Profesor> r = new ArrayList<>();
-        String sql = "select * from Profesor where Id_Profe like ?";
+        String sql = "select * from Profesor where Nom_Profe like ?";
         try {
             PreparedStatement stm = DataBase.instance().prepareStatement(sql);
-            stm.setString(2, "%" +o.getIdProfe() + "%");
+            stm.setString(1, "%" +atributo + "%");
             ResultSet rs = DataBase.instance().executeQuery(stm);
             while (rs.next()) {
                 r.add(from(rs));

@@ -11,17 +11,19 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 /**
  *
  * @author Daniel Madrigal
  */
 @WebServlet(name = "CursoController", urlPatterns = {"/Presentation/Curso/Agregar","/Presentation/Curso/AgregarGrupos",
-"/Presentation/Curso/Show"})
+"/Presentation/Curso/Show"})@MultipartConfig(location="C:/AAA/images")
 public class Controller extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -45,8 +47,10 @@ public class Controller extends HttpServlet {
     }
 
     private String agregarCurso(HttpServletRequest request) {
+        final Part imagen; 
         try {
             Map<String, String> errores = this.validar(request);
+             imagen = request.getPart("imagen");
             if (errores.isEmpty()) {
                 this.updateModel(request);
                 Logic.Service service = Service.getInstance();
@@ -56,6 +60,8 @@ public class Controller extends HttpServlet {
                     return "/Presentation/Cursos/ErrorCurso";
                 } else {
                     service.agregarCurso(model.getCurrent());
+                    String s=Integer.toString(model.getCurrent().getNrc());
+                    imagen.write(s);
                     return "/Presentation/Administrador/View.jsp";
                 }
             } else {
@@ -71,10 +77,6 @@ public class Controller extends HttpServlet {
 
     Map<String, String> validar(HttpServletRequest request) {
         Map<String, String> errores = new HashMap<>();
-        if (request.getParameter("NRC").isEmpty()) {
-            errores.put("NRC", "NRC requerido");
-        }
-
         if (request.getParameter("nomCur").isEmpty()) {
             errores.put("nomCur", "Nombre requerido");
         }
@@ -83,6 +85,9 @@ public class Controller extends HttpServlet {
         }
           if (request.getParameter("Precio").isEmpty()) {
             errores.put("Precio", "Precio requerido");
+        }
+            if (request.getParameter("NRC").isEmpty()) {
+            errores.put("NRC", "NRC requerido");
         }
         return errores;
     }

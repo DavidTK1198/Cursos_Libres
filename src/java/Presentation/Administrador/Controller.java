@@ -6,6 +6,7 @@
 package Presentation.Administrador;
 
 
+import Logic.Profesor;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,19 +15,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
  * @author jsanchez
  */
 @WebServlet(name = "AdminController", urlPatterns = {"/Presentation/GestionarG", "/Presentation/Administrador", "/Presentation/Administrador/GestionP",
-"/Presentation/GestionarCursos","/Presentation/Administrador/Listar"})
+"/Presentation/GestionarCursos","/Presentation/Administrador/Listar","/Presentation/Administrador/Listar/Profesores"})
 public class Controller extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException {
-
+           request.setAttribute("model", new Model());
         String viewUrl = "";
         switch (request.getServletPath()) {
             case "/Presentation/Administrador":
@@ -40,6 +42,10 @@ public class Controller extends HttpServlet {
                 break;
             case"/Presentation/Administrador/Listar":
             viewUrl=this.enviar();
+           break;
+            case "/Presentation/Administrador/Listar/Profesores":
+                viewUrl=this.listarProfesores(request);
+                break;
                 
         }
         
@@ -117,6 +123,14 @@ public class Controller extends HttpServlet {
 
     private String enviar() {
        return "/Presentation/Curso/CambiarStatus"; //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private String listarProfesores(HttpServletRequest request) {
+        Model m= (Model) request.getAttribute("model");
+        List<Profesor> profesores=Service.getInstance().obtenerProfesores();
+        m.setProfesores(profesores);
+        request.setAttribute("model", m);
+        return "/Presentation/Administrador/Profesores/View.jsp";
     }
 
 }

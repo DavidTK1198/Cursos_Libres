@@ -6,6 +6,10 @@
 package Presentation.Administrador;
 
 import Logic.Administrador;
+import Logic.Curso;
+import Logic.Profesor;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -13,20 +17,40 @@ import Logic.Administrador;
  */
 public class Model {
     private Administrador current;
+     private List<Profesor> profesores;
+     private List<Curso> cursos;
+
+    public List<Curso> getCursos() {
+        return cursos;
+    }
+
+    public void setCursos(List<Curso> cursos) {
+        this.cursos = cursos;
+    }
         public Model() {
-        this.setCurrent(new Administrador());
+       this.reset();
     }
 
     public final Administrador getCurrent() {
         return current;
     }
 
+    public List<Profesor> getProfesores() {
+        return profesores;
+    }
+
+    public void setProfesores(List<Profesor> profesores) {
+        this.profesores = profesores;
+    }
+
     public final void setCurrent(Administrador current) {
         this.current = current;
     }
 
-    public void reset() {
+    private void reset() {
         setCurrent(new Administrador());
+         this.profesores=new ArrayList<>();
+         this.cursos=new ArrayList<>();
     }
     
 }
