@@ -48,9 +48,11 @@ public class Controller extends HttpServlet {
 
     private String agregarCurso(HttpServletRequest request) {
         final Part imagen; 
+        
         try {
+              imagen = request.getPart("imagen");
             Map<String, String> errores = this.validar(request);
-             imagen = request.getPart("imagen");
+           
             if (errores.isEmpty()) {
                 this.updateModel(request);
                 Logic.Service service = Service.getInstance();

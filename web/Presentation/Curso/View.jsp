@@ -59,9 +59,8 @@
                         <div><input class="form-control <%=erroneo("Precio", errores)%>" placeholder="Precio del curso" type="number" name="Precio" value="<%=form.get("Precio")[0]%>" title="<%=title("Precio", errores)%>"></div>
                     </div>
                     <div class="mb-2">Imagen del Curso
-                        <input type="file" id="img" "name="imagen"" accept="image/*"></div>
-
-                    <div><button class="py-2 px-4 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75">Registrar</button> </div>
+                        <input type="file" id="img" "name="imagen" accept="image/*"></div>
+                    <div><input type="submit"  class="py-2 px-4 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75" value="Agregar">Registrar </div>
             </form>  
         </div>
     </main>

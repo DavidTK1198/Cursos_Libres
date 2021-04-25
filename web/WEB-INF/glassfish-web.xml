@@ -36,6 +36,9 @@
     <servlet>
         <servlet-name>CursoController</servlet-name>
         <servlet-class>Presentation.Curso.Controller</servlet-class>
+        <multipart-config>
+            <location>C:/AAA/images</location>
+        </multipart-config>
     </servlet>
     <servlet>
         <servlet-name>GrupoController</servlet-name>
@@ -48,7 +51,7 @@
         <url-pattern>/Presentation/Administrador/GestionP</url-pattern>
         <url-pattern>/Presentation/GestionarCursos</url-pattern>
         <url-pattern>/Presentation/Administrador/Listar</url-pattern>
-        <url-pattern>/Presentation/Administrador/Buscar</url-pattern>
+        <url-pattern>/Presentation/Administrador/Listar/Profesores</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CursosController</servlet-name>
@@ -62,9 +65,6 @@
         <url-pattern>/Presentation/Login</url-pattern>
         <url-pattern>/Presentation/Login/Logout</url-pattern>
         <url-pattern>/Presentation/Registro</url-pattern>
-        <url-pattern>/Presentation/Inicio</url-pattern>
-        <url-pattern>/Presentation/buscarcurnom</url-pattern>
-         
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ProfesorController</servlet-name>
@@ -101,7 +101,6 @@
         <servlet-name>RegisterController</servlet-name>
         <url-pattern>/Presentation/Inscripcion/Matricular</url-pattern>
         <url-pattern>/Presentation/MostrarG</url-pattern>
-        <url-pattern>/Presentation/Cursoest</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
