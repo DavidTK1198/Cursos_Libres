@@ -16,6 +16,7 @@ public class Curso  {
     private String desCur;
     private boolean oferta;
     private Float precio;
+    private String tematica;
 
     public Curso() {
         this.nrc = 0;
@@ -23,13 +24,23 @@ public class Curso  {
         this.desCur = "";
         this.oferta = false;
         this.precio = 0.0f;
+        this.tematica = "";
     }
-    public Curso(int nrc, String nomCur, String desCur, boolean oferta, Float precio) {
+    public Curso(int nrc, String nomCur, String desCur, boolean oferta, Float precio,String tem) {
         this.nrc = nrc;
         this.nomCur = nomCur;
         this.desCur = desCur;
         this.oferta = oferta;
         this.precio = precio;
+        this.tematica = tem;
+    }
+
+    public String getTematica() {
+        return tematica;
+    }
+
+    public void setTematica(String tematica) {
+        this.tematica = tematica;
     }
 
 

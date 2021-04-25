@@ -21,14 +21,15 @@ import java.util.List;
 public class CursosDao {
 
     public void create(Curso o) throws Exception {
-        String sql = "insert into Curso (NRC,Nom_Cur,Des_Cur,Oferta,Precio) "
-                + "values(?,?,?,?,?)";
+        String sql = "insert into Curso (NRC,Nom_Cur,Des_Cur,Oferta,Precio,Tematica) "
+                + "values(?,?,?,?,?,?)";
         PreparedStatement stm = DataBase.instance().prepareStatement(sql);
         stm.setInt(1, o.getNrc());
         stm.setString(2, o.getNomCur());
         stm.setString(3, o.getDesCur());
         stm.setBoolean(4, o.getOferta());
         stm.setFloat(5, o.getPrecio());
+         stm.setString(6, o.getTematica());
         int count = DataBase.instance().executeUpdate(stm);
         if (count == 0) {
             throw new Exception("El Curso ya existe");
@@ -65,10 +66,24 @@ public class CursosDao {
 
     public List<Curso> findByNombre(String nrc) {
         List<Curso> r = new ArrayList<>();
-        String sql = "select * from Curso where Nom_Cur like ? OR ";
+        String sql = "select * from Curso where Nom_Cur like ? ";
         try {
             PreparedStatement stm = DataBase.instance().prepareStatement(sql);
             stm.setString(1, "%" + nrc + "%");
+            ResultSet rs = DataBase.instance().executeQuery(stm);
+            while (rs.next()) {
+                r.add(from(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return r;
+    }
+     public List<Curso> findByTematica(String tem) {
+        List<Curso> r = new ArrayList<>();
+        String sql = "select * from Curso where Tematica=?";
+        try {
+            PreparedStatement stm = DataBase.instance().prepareStatement(sql);
+            stm.setString(1, "%" + tem + "%");
             ResultSet rs = DataBase.instance().executeQuery(stm);
             while (rs.next()) {
                 r.add(from(rs));
@@ -98,6 +113,7 @@ public class CursosDao {
             r.setDesCur(rs.getString("Des_Cur"));
             r.setOferta(rs.getBoolean("Oferta"));
             r.setPrecio(rs.getFloat("Precio"));
+            r.setTematica(rs.getString("Tematica"));
             return r;
         } catch (SQLException ex) {
             return null;

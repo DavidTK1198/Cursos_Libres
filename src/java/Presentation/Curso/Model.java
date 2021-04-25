@@ -12,10 +12,10 @@ import Logic.Curso;
  * @author Daniel Madrigal
  */
 public class Model {
-    Curso current;
+    private Curso current;
 
     public Model() {
-        this.setCurrent(new Curso());
+        this.reset();
     }
 
     public final Curso getCurrent() {
@@ -26,7 +26,7 @@ public class Model {
         this.current = current;
     }
 
-    public void reset() {
+    private void reset() {
         setCurrent(new Curso());
     }
     
