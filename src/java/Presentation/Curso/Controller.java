@@ -8,7 +8,12 @@ package Presentation.Curso;
 import Logic.Curso;
 import Logic.Service;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -25,6 +30,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.fileupload.FileUpload;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.io.FileUtils;
 
 /**
  *
@@ -60,7 +66,8 @@ public class Controller extends HttpServlet {
         Map<String, String> errores;
         try {
             errores = this.isMultipart(request);
-
+         
+                  
             if (errores.isEmpty()) {
                 this.updateModel(request);
                 Logic.Service service = Service.getInstance();
@@ -257,13 +264,22 @@ public class Controller extends HttpServlet {
 
                     if (!item.isFormField()) {
                         File seshdir = new File("c:\\servlet");
-                       
+
                         if (!seshdir.exists()) {
                             seshdir.mkdirs();
                         }
-                        
+
+                        byte[] fileBytes = item.get();
                         File file = new File(seshdir, item.getName());
-                        System.out.print("hola");
+
+                        FileOutputStream fileOutputStream = new FileOutputStream(file);
+                        fileOutputStream.write(fileBytes);
+                        fileOutputStream.flush();
+
+// File (or directory) with new name
+                        String nr = Integer.toString(model.getCurrent().getNrc());
+                        boolean p = this.cambiarNombre(file, nr);
+                       
                     }
 
                 }
@@ -275,6 +291,18 @@ public class Controller extends HttpServlet {
         }
         return errores;
 
+    }
+    private boolean cambiarNombre(File f,String nrc){
+        File oldName = new File(f.getPath());
+      File newName = new File("c:/servlet/"+nrc+".png");
+      
+      if(oldName.renameTo(newName)) {
+         System.out.println("renamed");
+         return true;
+      } else {
+         System.out.println("Error");
+         return false;
+      }
     }
 
 }
