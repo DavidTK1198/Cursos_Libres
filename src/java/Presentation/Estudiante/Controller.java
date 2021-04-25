@@ -152,7 +152,7 @@ public class Controller extends HttpServlet {
     }// </editor-fold>
 
     private String paginaPrincipal(HttpServletRequest request) {
-        return "/Presentation/index.jsp";
+        return "/Presentation/Cursoest";
     }
 
     private String matricular(HttpServletRequest request) {

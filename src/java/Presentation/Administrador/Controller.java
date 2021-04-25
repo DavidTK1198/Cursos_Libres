@@ -133,7 +133,7 @@ public class Controller extends HttpServlet {
         List<Profesor> profesores=Service.getInstance().obtenerProfesores();
         m.setProfesores(profesores);
         request.setAttribute("model", m);
-        return "/Presentation/Administrador/Profesores/View.jsp";
+        return "/Presentation/Administrador/Profesores/View.jsp?bandera=1";
     }
     
 

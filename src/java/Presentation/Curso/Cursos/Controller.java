@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "CursosController", urlPatterns = {"/Presentation/Cursos/Show/", "/Presentation/Curso/CambiarStatus","/Presentation/PresentarCursos"})
+@WebServlet(name = "CursosController", urlPatterns = {"/Presentation/Cursos/Show", "/Presentation/Curso/CambiarStatus","/Presentation/PresentarCursos"})
 public class Controller extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request,
@@ -47,6 +47,7 @@ public class Controller extends HttpServlet {
         Model model = (Model) request.getAttribute("model");
         List<Curso> c = Service.getInstance().obtenerCursos();
         model.setCursos(c);
+        request.setAttribute("model", model);
         return "/Presentation/Curso/Cursos/View.jsp";
     }
 

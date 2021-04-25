@@ -40,7 +40,7 @@ public class Controller extends HttpServlet {
             case "/Presentation/Inscripcion/Matricular":
                 viewUrl = this.Matricular(request);
                 break;
-            case "Presentation/Cursoest":
+            case "/Presentation/Cursoest":
                 viewUrl = this.CursosEst(request);
                 break;
 

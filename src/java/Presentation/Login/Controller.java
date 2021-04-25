@@ -23,8 +23,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author jsanchez
  */
-@WebServlet(name = "LoginController", urlPatterns = {"/Presentation/Login/Show", "/Presentation/Login", "/Presentation/Login/Logout","/Presentation/Registro",
-"/Presentation/Inicio","/Presentation/buscarcurnom"})
+@WebServlet(name = "LoginController", urlPatterns = {"/Presentation/Login/Show", "/Presentation/Login", "/Presentation/Login/Logout", "/Presentation/Registro",
+    "/Presentation/Inicio", "/Presentation/buscarcurnom"})
 public class Controller extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request,
@@ -111,7 +111,7 @@ public class Controller extends HttpServlet {
                 case "3":
                     viewUrl = "/Presentation/Estudiante";
                     break;
-                    
+
             }
             return viewUrl;
         } catch (Exception ex) {
@@ -190,14 +190,20 @@ public class Controller extends HttpServlet {
     }
 
     private String mostrarInicio(HttpServletRequest request) {
-         Model model = (Model) request.getAttribute("model");
-      
+        Model model = (Model) request.getAttribute("model");
         List<Curso> lc = Service.getInstance().buscarPorOferta();
         model.setCursos(lc);
         request.setAttribute("model", model);
-        return "/Presentation/index.jsp";
+        HttpSession session = request.getSession(true);
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        if (usuario != null) {
+            return "/Presentation/index.jsp";
+        } else {
+            return "/Presentation/index.jsp?bandera=1";
+        }
     }
-    private String Buscar(HttpServletRequest request){
+
+    private String Buscar(HttpServletRequest request) {
         Model model = (Model) request.getAttribute("model");
         String atributo = request.getParameter("id");
         List<Curso> lc = Service.getInstance().buscar("Curso", atributo);

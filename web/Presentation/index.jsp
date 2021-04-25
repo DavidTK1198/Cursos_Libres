@@ -34,9 +34,9 @@
                         <ul class="border border-success">
                             <img src="${pageContext.request.contextPath}/IMG/4401280-768x432.jpg">
                             <div class = "d-flex justify-content-center">
-                                <p>Nombre:&n&nbsp;<%=c.getNomCur()%></p><br>
-                                <p>NRC:&n&nbsp;<%=c.getNrc()%></p><br>
-                                <p>Descripcion:&n&nbsp;<%=c.getDesCur()%> </p>
+                                <div>Nombre:&nbsp;<%=c.getNomCur()%></div><br>
+                                <div>NRC:&nbsp;<%=c.getNrc()%></div><br>
+                                <div>Descripcion:&nbsp;<%=c.getDesCur()%> </div>
                             </div>
                             <li class="border">
                                 <p class="mr-5">

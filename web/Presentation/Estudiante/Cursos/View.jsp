@@ -5,7 +5,7 @@
 --%>
 
 <%@page import="Logic.Curso"%>
-<%@page import="Presentation.Estudiante.Model"%>
+<%@page import="Presentation.Inscripcion.Model"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
@@ -18,12 +18,12 @@
     <%@include file = "/Presentation/head.jsp" %>
     <main class="bg-fixed ">
         <%@include file = "/Presentation/header.jsp" %>
-        <% Model m = (Presentation.Estudiante.Model) request.getAttribute("model"); %>
-        <% List<Curso> lista = m.getCursosMios(); %>
+        <% Model m = (Model) request.getAttribute("model"); %>
+        <% List<Curso> lista = m.getLc(); %>
 
         <div class="container-fluid container-lg container-md container-sm container-xl bg-fixed">
+            <h2>MIS CURSOS</h2>
             <div  class="text-white row">
-                <h2>MIS CURSOS</h2>
                 <% for (Curso c : lista) {%>
                 <div class="col col-sm-8 col-md-4 col-xl-4">
                     <ul class="border border-success">
