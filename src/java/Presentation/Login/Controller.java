@@ -5,10 +5,12 @@
  */
 package Presentation.Login;
 
+import Logic.Curso;
 import Logic.Service;
 import Logic.Usuario;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,7 +24,7 @@ import javax.servlet.http.HttpSession;
  * @author jsanchez
  */
 @WebServlet(name = "LoginController", urlPatterns = {"/Presentation/Login/Show", "/Presentation/Login", "/Presentation/Login/Logout","/Presentation/Registro",
-"/Presentation/Inicio"})
+"/Presentation/Inicio","/Presentation/buscarcurnom"})
 public class Controller extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request,
@@ -46,7 +48,10 @@ public class Controller extends HttpServlet {
                 viewUrl = this.showRegister(request);
                 break;
             case "/Presentation/Inicio":
-                viewUrl = this.mostrarInicio();
+                viewUrl = this.mostrarInicio(request);
+                break;
+            case "/Presentation/buscarcurnom":
+                viewUrl = this.Buscar(request);
                 break;
         }
         request.getRequestDispatcher(viewUrl).forward(request, response);
@@ -85,7 +90,7 @@ public class Controller extends HttpServlet {
         int idd = Integer.parseInt(id);
         model.getCurrent().setIdUsu((idd));
         model.getCurrent().setClave(request.getParameter("claveFld"));
-         
+        request.setAttribute("model", model);
     }
 
     public String loginAction(HttpServletRequest request) {
@@ -184,7 +189,20 @@ public class Controller extends HttpServlet {
         return "/Presentation/Register/View.jsp";
     }
 
-    private String mostrarInicio() {
+    private String mostrarInicio(HttpServletRequest request) {
+         Model model = (Model) request.getAttribute("model");
+      
+        List<Curso> lc = Service.getInstance().buscarPorOferta();
+        model.setCursos(lc);
+        request.setAttribute("model", model);
+        return "/Presentation/index.jsp";
+    }
+    private String Buscar(HttpServletRequest request){
+        Model model = (Model) request.getAttribute("model");
+        String atributo = request.getParameter("id");
+        List<Curso> lc = Service.getInstance().buscar("Curso", atributo);
+        model.setCursos(lc);
+        request.setAttribute("model", model);
         return "/Presentation/index.jsp";
     }
 

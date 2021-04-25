@@ -48,8 +48,7 @@ public class Controller extends HttpServlet {
             case "/Presentation/Estudiante":
                 viewUrl = this.paginaPrincipal(request);
                 break;
-                    
-            
+          
         }
         request.getRequestDispatcher(viewUrl).forward(request, response);
     }
@@ -98,7 +97,7 @@ public class Controller extends HttpServlet {
                     Service.getInstance().agregarUsuario(model.getCurrent().getUsuarioIdUsu());
                      Service.getInstance().agregarEstudiante(model.getCurrent());
                    
-                    model.reset();
+                   
                     return "/Presentation/Login/Show";
                 }
             } else {

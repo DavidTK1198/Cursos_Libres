@@ -5,6 +5,7 @@
  */
 package Presentation.Inscripcion;
 
+import Logic.Curso;
 import Logic.Estudiante;
 import Logic.Grupo;
 import Logic.Inscripcion;
@@ -21,7 +22,7 @@ public class Model {
      private Inscripcion inscrip;
      private List<Inscripcion> inscripciones;
      private Grupo grupo;
-     
+     private List<Curso> lc;
 
     public Model() {
         this.reset();
@@ -41,7 +42,16 @@ public class Model {
         this.setGrupo(new Grupo());
         this.setInscrip(new Inscripcion());
         this.setInscripciones(new ArrayList<>());
+        this.setLc(new ArrayList<>());
        
+    }
+
+    public List<Curso> getLc() {
+        return lc;
+    }
+
+    public void setLc(List<Curso> lc) {
+        this.lc = lc;
     }
 
     public List<Grupo> getGrupito() {

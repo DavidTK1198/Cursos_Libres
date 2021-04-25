@@ -5,17 +5,22 @@
  */
 package Presentation.Estudiante;
 
+import Logic.Curso;
 import Logic.Estudiante;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author Daniel Madrigal
  */
 public class Model {
-        Estudiante current;
-
+      private Estudiante current;
+      private List<Curso> cursosMios;
+      
     public Model() {
-        this.setCurrent(new Estudiante());
+        this.reset();
+        
     }
 
     public final Estudiante getCurrent() {
@@ -26,8 +31,18 @@ public class Model {
         this.current = current;
     }
 
-    public void reset() {
+    private void reset() {
         setCurrent(new Estudiante());
+        this.setCursosMios(new ArrayList<>());
     }
+
+    public List<Curso> getCursosMios() {
+        return cursosMios;
+    }
+
+    public void setCursosMios(List<Curso> cursosMios) {
+        this.cursosMios = cursosMios;
+    }
+    
     
 }

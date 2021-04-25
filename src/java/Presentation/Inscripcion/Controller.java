@@ -12,6 +12,7 @@ import Logic.Inscripcion;
 import Logic.Service;
 import Logic.Usuario;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,7 +25,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Daniel Madrigal
  */
-@WebServlet(name = "RegisterController", urlPatterns = {"/Presentation/Inscripcion/Matricular", "/Presentation/MostrarG"})
+@WebServlet(name = "RegisterController", urlPatterns = {"/Presentation/Inscripcion/Matricular", "/Presentation/MostrarG", "/Presentation/Cursoest"})
 public class Controller extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -39,6 +40,9 @@ public class Controller extends HttpServlet {
             case "/Presentation/Inscripcion/Matricular":
                 viewUrl = this.Matricular(request);
                 break;
+            case "Presentation/Cursoest":
+                viewUrl = this.CursosEst(request);
+                break;
 
         }
         request.getRequestDispatcher(viewUrl).forward(request, response);
@@ -48,15 +52,18 @@ public class Controller extends HttpServlet {
         Model model = (Model) request.getAttribute("model");
         HttpSession session = request.getSession(true);
         Usuario real = (Usuario) session.getAttribute("usuario");
+        if (real == null) {
+            return "/Presentation/Inicio";
+        }
         List<Inscripcion> listaIn = Service.getInstance().InscripcionesPorEstudiante(real.getIdUsu());
         model.setInscripciones(listaIn);
         try {
-             this.UpdateModel(request, real);
+            this.UpdateModel(request, real);
             if (listaIn.isEmpty()) {
-               
+
                 Service.getInstance().agregarInscripcion(model.getInscrip());
                 return "/Presentation/PresentarCursos";
-            }else{
+            } else {
                 this.validadUnicaInscripcion(listaIn, request);
                 Service.getInstance().agregarInscripcion(model.getInscrip());
                 return "/Presentation/PresentarCursos";
@@ -97,22 +104,23 @@ public class Controller extends HttpServlet {
         model.setGrupito(grupos);
         return "/Presentation/Grupo/Grupos/View.jsp";
     }
-    public void validadUnicaInscripcion(List<Inscripcion> ls,HttpServletRequest request) throws Exception{
+
+    public void validadUnicaInscripcion(List<Inscripcion> ls, HttpServletRequest request) throws Exception {
         Model model = (Model) request.getAttribute("model");
         Grupo gr = model.getGrupo();
         Grupo gr2 = null;
         Curso cursito2 = gr.getCurso();
         Curso cursito = null;
-        for(Inscripcion s: ls){
-             gr2 = s.getGruponumGrup();
-             cursito = gr2.getCurso();
-             if(cursito.getNrc()==cursito2.getNrc()){
-                 throw new Exception("hola");
-             }
-             if(gr2.getNumGrup() == gr.getNumGrup()){
-                  throw new Exception("hola");
-             }
-             
+        for (Inscripcion s : ls) {
+            gr2 = s.getGruponumGrup();
+            cursito = gr2.getCurso();
+            if (cursito.getNrc() == cursito2.getNrc()) {
+                throw new Exception("hola");
+            }
+            if (gr2.getNumGrup() == gr.getNumGrup()) {
+                throw new Exception("hola");
+            }
+
         }
     }
 
@@ -154,5 +162,45 @@ public class Controller extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private String CursosEst(HttpServletRequest request) {
+        try {
+            HttpSession session = request.getSession(true);
+            Usuario real = (Usuario) session.getAttribute("usuario");
+            Model model = (Model) request.getAttribute("model");
+           
+            int idd = real.getIdUsu();
+
+            Estudiante pr = Service.getInstance().buscarEstudiante(idd);
+            model.setCurrent(pr);
+            List<Inscripcion> misIns = Service.getInstance().InscripcionesPorEstudiante(idd);
+            List<Curso> misCursos = new ArrayList<>();
+            Inscripcion aux = null;
+            Grupo grupoAux = null;
+            Curso aux2 = null;
+            for (int i = 0; i < misIns.size(); i++) {
+                aux = misIns.get(i);
+                grupoAux = aux.getGruponumGrup();
+                aux2 = grupoAux.getCurso();
+                if (!misCursos.contains((Curso) aux2)) {
+                    misCursos.add(aux2);
+                }
+            }
+
+            if (!misCursos.isEmpty()) {
+                model.setLc(misCursos);
+                model.setCurrent(pr);
+
+            } else {
+                return ""; //analizar un poco mas...
+            }
+            request.setAttribute("model", model);
+            return "/Presentation/Estudiante/Cursos/View.jsp";
+
+        } catch (Exception ex) {
+            return "";
+
+        }
+    }
 
 }

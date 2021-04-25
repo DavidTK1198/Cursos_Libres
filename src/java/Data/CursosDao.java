@@ -48,13 +48,27 @@ public class CursosDao {
         }
         return r;
     }
-
-    public List<Curso> findByNombre(Curso o) {
+    
+    public List<Curso> findxOferta() {
         List<Curso> r = new ArrayList<>();
-        String sql = "select * from Curso where Nom_Cur like ?";
+        String sql = "select * from Curso where Oferta = 1";
         try {
             PreparedStatement stm = DataBase.instance().prepareStatement(sql);
-            stm.setString(2, "%" + o.getNomCur() + "%");
+            ResultSet rs = DataBase.instance().executeQuery(stm);
+            while (rs.next()) {
+                r.add(from(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return r;
+    }
+
+    public List<Curso> findByNombre(String nrc) {
+        List<Curso> r = new ArrayList<>();
+        String sql = "select * from Curso where Nom_Cur like ? OR ";
+        try {
+            PreparedStatement stm = DataBase.instance().prepareStatement(sql);
+            stm.setString(1, "%" + nrc + "%");
             ResultSet rs = DataBase.instance().executeQuery(stm);
             while (rs.next()) {
                 r.add(from(rs));

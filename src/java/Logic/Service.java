@@ -83,9 +83,9 @@ public class Service {
     public void agregarProfesor(Profesor pro) throws Exception {
         profesores.create(pro);
     }
-    
+
     public void agregarInscripcion(Inscripcion ins) throws Exception {
-       inscripciones.create(ins);
+        inscripciones.create(ins);
     }
 
     public Profesor buscarProfesor(int id) throws Exception {
@@ -122,32 +122,39 @@ public class Service {
     public List<Grupo> obtenerGrupoPorCurso(int nrc) {
         return grupos.findByCurso(nrc);
     }
-    public List<Grupo> obtenerGrupoPorProfesor(int id){
+
+    public List<Grupo> obtenerGrupoPorProfesor(int id) {
         return grupos.findByNombre(id);
     }
-    
-    public List<Estudiante> obtenerEstudiantesG(int id,Profesor p) throws Exception{
+
+    public List<Estudiante> obtenerEstudiantesG(int id, Profesor p) throws Exception {
         return this.grupos.buscarNota(id, p);
     }
-    
-    public boolean ActualizarNota(int id,int nota) throws Exception{
+
+    public boolean ActualizarNota(int id, int nota) throws Exception {
         inscripciones.actualizarNota(id, nota);
         return true;
     }
-    public List<Inscripcion> InscripcionesPorEstudiante(int id){
+
+    public List<Inscripcion> InscripcionesPorEstudiante(int id) {
         List<Inscripcion> list = this.inscripciones.findByEstudiante(id);
         return list;
-      
+
     }
-    
-    public List buscar(String clase,String atributo){
-        switch(clase){
+
+    public List buscar(String clase, String atributo) {
+        switch (clase) {
             case "Profesor":
                 return profesores.findByNombre(atributo);
             case "Curso":
-                
-                
+                 return cursos.findByNombre(atributo);
+            default:
+                return null;
+
         }
+    }
+    public List<Curso> buscarPorOferta(){
+        return cursos.findxOferta();
     }
 
 }

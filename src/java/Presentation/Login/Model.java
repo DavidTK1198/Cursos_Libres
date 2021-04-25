@@ -5,14 +5,19 @@
  */
 package Presentation.Login;
 
+import Logic.Curso;
 import Logic.Usuario;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Model {
 
-    Usuario current;
+    private Usuario current;
+    private List<Curso> cursos;
+    
 
     public Model() {
-        this.setCurrent(new Usuario());
+        reset();
     }
 
     public final Usuario getCurrent() {
@@ -23,7 +28,18 @@ public class Model {
         this.current = current;
     }
 
-    public void reset() {
+    private void reset() {
         setCurrent(new Usuario());
+        this.setCursos(new ArrayList<>());
     }
+
+    public List<Curso> getCursos() {
+        return cursos;
+    }
+
+    public void setCursos(List<Curso> cursos) {
+        this.cursos = cursos;
+    }
+    
+    
 }

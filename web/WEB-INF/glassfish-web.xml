@@ -48,7 +48,7 @@
         <url-pattern>/Presentation/Administrador/GestionP</url-pattern>
         <url-pattern>/Presentation/GestionarCursos</url-pattern>
         <url-pattern>/Presentation/Administrador/Listar</url-pattern>
-         <url-pattern>/Presentation/Administrador/Listar/Profesores</url-pattern>
+        <url-pattern>/Presentation/Administrador/Buscar</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CursosController</servlet-name>
@@ -62,6 +62,9 @@
         <url-pattern>/Presentation/Login</url-pattern>
         <url-pattern>/Presentation/Login/Logout</url-pattern>
         <url-pattern>/Presentation/Registro</url-pattern>
+        <url-pattern>/Presentation/Inicio</url-pattern>
+        <url-pattern>/Presentation/buscarcurnom</url-pattern>
+         
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ProfesorController</servlet-name>
@@ -91,13 +94,14 @@
         <url-pattern>/Presentation/Grupo/AgregarGrupo</url-pattern>
         <url-pattern>/Presentation/Grupo/Show</url-pattern>
         <url-pattern>/Presentation/Digitar/Notas</url-pattern>
-         <url-pattern>/Presentation/Grupo/Notas</url-pattern>
+        <url-pattern>/Presentation/Grupo/Notas</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>RegisterController</servlet-name>
         <url-pattern>/Presentation/Inscripcion/Matricular</url-pattern>
         <url-pattern>/Presentation/MostrarG</url-pattern>
+        <url-pattern>/Presentation/Cursoest</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

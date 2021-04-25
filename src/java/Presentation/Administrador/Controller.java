@@ -7,6 +7,7 @@ package Presentation.Administrador;
 
 
 import Logic.Profesor;
+import Logic.Service;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +23,7 @@ import java.util.List;
  * @author jsanchez
  */
 @WebServlet(name = "AdminController", urlPatterns = {"/Presentation/GestionarG", "/Presentation/Administrador", "/Presentation/Administrador/GestionP",
-"/Presentation/GestionarCursos","/Presentation/Administrador/Listar","/Presentation/Administrador/Listar/Profesores"})
+"/Presentation/GestionarCursos","/Presentation/Administrador/Listar","/Presentation/Administrador/Listar/Profesores","/Presentation/Administrador/Buscar"})
 public class Controller extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request,
@@ -46,7 +47,9 @@ public class Controller extends HttpServlet {
             case "/Presentation/Administrador/Listar/Profesores":
                 viewUrl=this.listarProfesores(request);
                 break;
-                
+            case "/Presentation/Administrador/Buscar":
+                //viewUrl = this.Buscar(request);
+                break;
         }
         
         
@@ -132,5 +135,7 @@ public class Controller extends HttpServlet {
         request.setAttribute("model", m);
         return "/Presentation/Administrador/Profesores/View.jsp";
     }
+    
+
 
 }
