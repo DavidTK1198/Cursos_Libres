@@ -34,7 +34,7 @@
                         <div class = "d-flex justify-content-center">
                             <p>NRC asociado:&nbsp;<%=c.getNrc()%> </p>
                         </div>
-                            <a href=#>Generar Certificado </a>
+                            <a href="${pageContext.request.contextPath}/Presentation/Curso/Pdf?NRC=<%=c.getNrc()%>" target="_blank">Generar Certificado </a>
                        
                     </ul> 
                 </div>

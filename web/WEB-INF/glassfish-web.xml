@@ -89,6 +89,8 @@
         <url-pattern>/Presentation/Curso/AgregarGrupos</url-pattern>
         <url-pattern>/Presentation/Curso/Show</url-pattern>
         <url-pattern>/Presentation/Curso/Imagen</url-pattern>
+        <url-pattern>/Presentation/Curso/Pdf</url-pattern>
+        
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GrupoController</servlet-name>

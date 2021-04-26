@@ -6,13 +6,13 @@
 package Presentation.Curso;
 
 import Logic.Curso;
+import Logic.Grupo;
+import Logic.Inscripcion;
 import Logic.Service;
-import java.io.FileOutputStream;
+import Logic.Usuario;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.FileSystems;
@@ -26,18 +26,27 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import com.itextpdf.io.font.constants.StandardFonts;
+import com.itextpdf.io.image.ImageData;
+import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.element.Paragraph;
+import java.util.List;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Daniel Madrigal
  */
 @WebServlet(name = "CursoController", urlPatterns = {"/Presentation/Curso/Agregar", "/Presentation/Curso/AgregarGrupos",
-    "/Presentation/Curso/Show","/Presentation/Curso/Imagen"})
-@MultipartConfig(location ="C:/Users/Daniel Madrigal/Documents/NetBeansProjects/Cursos_Libres/web/IMG")
+    "/Presentation/Curso/Show", "/Presentation/Curso/Imagen", "/Presentation/Curso/Pdf"})
+@MultipartConfig(location = "C:/AAA/images")
 public class Controller extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -60,6 +69,9 @@ public class Controller extends HttpServlet {
             case "/Presentation/Curso/Imagen":
                 viewUrl = this.image(request, response);
                 break;
+            case "/Presentation/Curso/Pdf":
+                viewUrl = this.print(request, response);
+                break;
 
         }
         request.getRequestDispatcher(viewUrl).forward(request, response);
@@ -67,7 +79,7 @@ public class Controller extends HttpServlet {
 
     private String agregarCurso(HttpServletRequest request) throws IOException, ServletException {
         Model model = (Model) request.getAttribute("model");
-        Map<String, String> errores = this.validar(request); 
+        Map<String, String> errores = this.validar(request);
         final Part imagen;
         try {
             if (errores.isEmpty()) {
@@ -194,126 +206,9 @@ public class Controller extends HttpServlet {
         return "/Presentation/Curso/View.jsp";
     }
 
-    private Map<String, String> isMultipart(HttpServletRequest request) throws FileUploadException {
-        Map<String, String> errores = new HashMap<>();
-        Model model = (Model) request.getAttribute("model");
-        List<FileItem> items = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
-        boolean isMultipart = ServletFileUpload.isMultipartContent(request);
-        if (isMultipart) {
-            try {
-
-                for (FileItem item : items) {
-                    if (item.isFormField()) //your code for getting form fields
-                    {
-                        String name = item.getFieldName();
-                        String value = item.getString();
-                        System.out.println(name + value);
-                        switch (name) {
-                            case "NRC": {
-                                if (value == "") {
-                                    errores.put("NRC", "NRC requerido");
-                                } else {
-                                    int nrc = Integer.parseInt(value);
-                                    model.getCurrent().setNrc(nrc);
-                                }
-                            }
-                            break;
-                            case "nomCur": {
-                                if (value == "") {
-                                    errores.put("nomCur", "Nombre requerido");
-
-                                } else {
-                                    model.getCurrent().setNomCur(value);
-                                }
-                            }
-                            break;
-                            case "desCur": {
-                                if (value == "") {
-                                    errores.put("desCur", "Descripcion requerido");
-                                } else {
-                                    model.getCurrent().setDesCur(value);
-                                }
-                            }
-                            break;
-                            case "oferta": {
-                                if (value == "1") {
-                                    boolean oferta = true;
-                                    model.getCurrent().setOferta(oferta);
-                                } else {
-                                    boolean oferta = false;
-                                    model.getCurrent().setOferta(oferta);
-                                }
-                            }
-                            break;
-                            case "Precio": {
-                                if (value == "") {
-
-                                    errores.put("Precio", "Precio requerido");
-                                } else {
-                                    Float precio = Float.parseFloat(value);
-                                    model.getCurrent().setPrecio(precio);
-                                }
-                            }
-                            break;
-                            case "Tematica": {
-                                if (value == "") {
-                                    errores.put("Tematica", "Tematica requerida");
-                                } else {
-                                    model.getCurrent().setTematica(value);
-                                }
-
-                            }
-
-                        }
-
-                    }
-
-                    if (!item.isFormField()) {
-                        File seshdir = new File("c:\\servlet");
-
-                        if (!seshdir.exists()) {
-                            seshdir.mkdirs();
-                        }
-
-                        byte[] fileBytes = item.get();
-                        File file = new File(seshdir, item.getName());
-
-                        FileOutputStream fileOutputStream = new FileOutputStream(file);
-                        fileOutputStream.write(fileBytes);
-                        fileOutputStream.flush();
-
-// File (or directory) with new name
-                        String nr = Integer.toString(model.getCurrent().getNrc());
-                        boolean p = this.cambiarNombre(file, nr);
-
-                    }
-
-                }
-                return errores;
-            } catch (Exception ex) {
-                return null;
-            }
-
-        }
-        return errores;
-
-    }
-
-    private boolean cambiarNombre(File f, String nrc) {
-        File oldName = new File(f.getPath());
-        File newName = new File("c:/servlet/" + nrc + ".png");
-
-        if (oldName.renameTo(newName)) {
-            System.out.println("renamed");
-            return true;
-        } else {
-            System.out.println("Error");
-            return false;
-        }
-    }
-     private String image(HttpServletRequest request,  HttpServletResponse response) {     
+    private String image(HttpServletRequest request, HttpServletResponse response) {
         String codigo = request.getParameter("NRC");
-        Path path = FileSystems.getDefault().getPath("C:/Users/Daniel Madrigal/Documents/NetBeansProjects/Cursos_Libres/web/IMG", codigo);
+        Path path = FileSystems.getDefault().getPath("C:/AAA/images", codigo);
         try (OutputStream out = response.getOutputStream()) {
             Files.copy(path, out);
             out.flush();
@@ -321,7 +216,73 @@ public class Controller extends HttpServlet {
             // handle exception
         }
         return null;
-    }    
+    }
 
+    private String print(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String codigo = request.getParameter("NRC");
+
+        int cod = Integer.parseInt(codigo);
+        Curso curso;
+        try {
+            curso = Service.getInstance().buscarCurso(cod);
+            Inscripcion ins = this.inscripcionEst(request, cod);
+            if (ins.getNota() >= 70.0f) {
+                ImageData data = ImageDataFactory.create("C:/AAA/images/" + codigo);
+                PdfDocument pdf = new PdfDocument(new PdfWriter(response.getOutputStream()));
+                Document doc = new Document(pdf, PageSize.A4.rotate());
+                PdfFont font = PdfFontFactory.createFont(StandardFonts.HELVETICA);
+                doc.add(new Paragraph("CURSO: " + curso.getNomCur()));
+                Image img = new Image(data);
+                doc.add(img);
+                doc.add(new Paragraph("NRC: " + curso.getNrc()));
+                doc.add(new Paragraph("Descripcion del curso: " + curso.getDesCur()));
+
+                doc.add(new Paragraph("Grupo matriculado: " + ins.getGruponumGrup().getNumGrup()));
+                doc.add(new Paragraph("Nota del curso: " + ins.getNota()));
+                doc.add(new Paragraph("ESTADO DEL CURSO: " + this.determinarEstado(ins.getNota())));
+                doc.close();
+                response.setContentType("application/pdf");
+                response.addHeader("Content-disposition", "inline");
+            } else {
+                return "/Presentation/Inicio/Error";
+            }
+            return "/Presentation/Inicio";
+        } catch (Exception ex) {
+            return "/presentation/Error.jsp";
+        }
+    }
+
+    private Inscripcion inscripcionEst(HttpServletRequest request, int nrc) {
+
+        HttpSession session = request.getSession(true);
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        List<Inscripcion> lista = Service.getInstance().InscripcionesPorEstudiante(usuario.getIdUsu());
+        Grupo grup;
+        if (!lista.isEmpty()) {
+            for (Inscripcion inss : lista) {
+                grup = inss.getGruponumGrup();
+                if (grup.getCurso().getNrc() == nrc) {
+                    return inss;
+                }
+            }
+            return null;
+        }
+        return null;
+    }
+
+    private String determinarEstado(float n) {
+
+        if (n > 0.0f && n < 57.5) {
+            return "Reprobado";
+        }
+        if (n >= 57.5 && n < 67.5) {
+            return "Ampliacion";
+        }
+        if (n >= 67.5 && n <= 100) {
+            return "Aprobado";
+        }
+        return "Sin calificacion asignada";
+
+    }
 
 }
