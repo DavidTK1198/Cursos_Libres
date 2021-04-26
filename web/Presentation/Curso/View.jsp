@@ -15,6 +15,7 @@
 
 <!DOCTYPE html>
 <html>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <%@include file = "/Presentation/head.jsp" %>
     <main class="bg-fixed ">
         <%@include file = "/Presentation/header.jsp" %>
@@ -22,9 +23,9 @@
         <% Map<String, String> errores = (Map<String, String>) request.getAttribute("errores"); %>
         <% Map<String, String[]> form = (errores == null) ? this.getForm(model) : request.getParameterMap();%>
 
-        <div class="container-fluid container-lg container-md container-sm container-xl" id="app1">
+        <div class="container-fluid container-lg container-md container-sm container-xl">
 
-            <form class="text-white mt-5" name="form" enctype="multipart/form-data" action="${pageContext.request.contextPath}/Presentation/GestionarCursos" method="POST" > 
+            <form class="text-white mt-5" enctype="multipart/form-data" action="${pageContext.request.contextPath}/Presentation/Curso/Agregar" method="POST" > 
                 <div class="d-flex justify-content-center" >Registrar Curso</div>
                 <div class="mb-2">
                     <div>NRC</div>
@@ -63,7 +64,7 @@
                     <div><input class="form-control <%=erroneo("Tematica", errores)%>" placeholder="Tematica del curso" type="text" name="Tematica" value="<%=form.get("Tematica")[0]%>" title="<%=title("Tematica", errores)%>"></div>
                 </div>
                 <div class="mb-2">Imagen del Curso
-                    <input type="file" id="img" name="imagen" accept="image/*"></div>
+                    <input type="file" name="imagen" ></div>
                 <div><input type="submit"  class="py-2 px-4 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75" value="Agregar">Registrar </div>
             </form>  
         </div>

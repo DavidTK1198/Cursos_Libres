@@ -34,15 +34,8 @@
         <servlet-class>Presentation.Login.Controller</servlet-class>
     </servlet>
     <servlet>
-        
         <servlet-name>CursoController</servlet-name>
         <servlet-class>Presentation.Curso.Controller</servlet-class>
-        <multipart-config>
-            <location>/IMG</location>
-            <max-file-size>20848820</max-file-size>
-            <max-request-size>418018841</max-request-size>
-            <file-size-threshold>1048576</file-size-threshold>
-        </multipart-config>
     </servlet>
     <servlet>
         <servlet-name>GrupoController</servlet-name>
@@ -95,6 +88,7 @@
         <url-pattern>/Presentation/Curso/Agregar</url-pattern>
         <url-pattern>/Presentation/Curso/AgregarGrupos</url-pattern>
         <url-pattern>/Presentation/Curso/Show</url-pattern>
+        <url-pattern>/Presentation/Curso/Imagen</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GrupoController</servlet-name>

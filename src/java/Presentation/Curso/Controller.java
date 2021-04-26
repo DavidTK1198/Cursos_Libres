@@ -7,17 +7,18 @@ package Presentation.Curso;
 
 import Logic.Curso;
 import Logic.Service;
-import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -27,22 +28,22 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.fileupload.FileUpload;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.io.FileUtils;
 
 /**
  *
  * @author Daniel Madrigal
  */
 @WebServlet(name = "CursoController", urlPatterns = {"/Presentation/Curso/Agregar", "/Presentation/Curso/AgregarGrupos",
-    "/Presentation/Curso/Show"})
-@MultipartConfig(location = "C:/AAA/images")
+    "/Presentation/Curso/Show","/Presentation/Curso/Imagen"})
+@MultipartConfig(location ="C:/Users/Daniel Madrigal/Documents/NetBeansProjects/Cursos_Libres/web/IMG")
 public class Controller extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        String p = request.getParameter("NRC");
         request.setAttribute("model", new Model());
 
         String viewUrl = "";
@@ -56,23 +57,26 @@ public class Controller extends HttpServlet {
             case "/Presentation/Curso/Show":
                 viewUrl = this.showCurso(request);
                 break;
+            case "/Presentation/Curso/Imagen":
+                viewUrl = this.image(request, response);
+                break;
 
         }
         request.getRequestDispatcher(viewUrl).forward(request, response);
     }
 
-    private String agregarCurso(HttpServletRequest request) {
-
-        Map<String, String> errores;
+    private String agregarCurso(HttpServletRequest request) throws IOException, ServletException {
+        Model model = (Model) request.getAttribute("model");
+        Map<String, String> errores = this.validar(request); 
+        final Part imagen;
         try {
-            errores = this.isMultipart(request);
-         
-                  
             if (errores.isEmpty()) {
                 this.updateModel(request);
                 Logic.Service service = Service.getInstance();
-                Model model = (Model) request.getAttribute("model");
+
                 Curso cursito = service.buscarCurso(model.getCurrent().getNrc());
+                imagen = request.getPart("imagen");
+                imagen.write(Integer.toString(model.getCurrent().getNrc()));
                 if (cursito != null) {
                     return "/Presentation/Cursos/ErrorCurso";
                 } else {
@@ -92,6 +96,8 @@ public class Controller extends HttpServlet {
 
     Map<String, String> validar(HttpServletRequest request) {
         Map<String, String> errores = new HashMap<>();
+
+        String n = request.getParameter("nomCur");
         if (request.getParameter("nomCur").isEmpty()) {
             errores.put("nomCur", "Nombre requerido");
         }
@@ -279,7 +285,7 @@ public class Controller extends HttpServlet {
 // File (or directory) with new name
                         String nr = Integer.toString(model.getCurrent().getNrc());
                         boolean p = this.cambiarNombre(file, nr);
-                       
+
                     }
 
                 }
@@ -292,17 +298,30 @@ public class Controller extends HttpServlet {
         return errores;
 
     }
-    private boolean cambiarNombre(File f,String nrc){
+
+    private boolean cambiarNombre(File f, String nrc) {
         File oldName = new File(f.getPath());
-      File newName = new File("c:/servlet/"+nrc+".png");
-      
-      if(oldName.renameTo(newName)) {
-         System.out.println("renamed");
-         return true;
-      } else {
-         System.out.println("Error");
-         return false;
-      }
+        File newName = new File("c:/servlet/" + nrc + ".png");
+
+        if (oldName.renameTo(newName)) {
+            System.out.println("renamed");
+            return true;
+        } else {
+            System.out.println("Error");
+            return false;
+        }
     }
+     private String image(HttpServletRequest request,  HttpServletResponse response) {     
+        String codigo = request.getParameter("NRC");
+        Path path = FileSystems.getDefault().getPath("C:/Users/Daniel Madrigal/Documents/NetBeansProjects/Cursos_Libres/web/IMG", codigo);
+        try (OutputStream out = response.getOutputStream()) {
+            Files.copy(path, out);
+            out.flush();
+        } catch (IOException e) {
+            // handle exception
+        }
+        return null;
+    }    
+
 
 }

@@ -14,6 +14,7 @@
 <!DOCTYPE html>
 <html>
     <%@include file = "/Presentation/head.jsp" %>
+    
     <body class="bg-fixed text-white">
         <main>
             <%@include file = "/Presentation/header.jsp" %>
@@ -32,7 +33,7 @@
                     <% for (Curso c : lista) {%>
                     <div class="col col-sm-8 col-md-4 col-xl-4">
                         <ul class="border border-success">
-                            <img src="${pageContext.request.contextPath}/IMG/4401280-768x432.jpg">
+                            <img src="${pageContext.request.contextPath}/Presentation/Curso/Imagen?NRC=<%=c.getNrc()%>">
                             <div class = "d-flex justify-content-center">
                                 <div>Nombre:&nbsp;<%=c.getNomCur()%></div><br>
                                 <div>NRC:&nbsp;<%=c.getNrc()%></div><br>
