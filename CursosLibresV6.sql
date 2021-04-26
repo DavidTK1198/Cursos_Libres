@@ -73,6 +73,7 @@ CREATE TABLE IF NOT EXISTS `CursosLibres`.`Curso` (
   `Des_Cur` VARCHAR(45) NULL,
   `Oferta` TINYINT NULL,
   `Precio` FLOAT NULL,
+  `Tematica` VARCHAR(45) NULL,
   PRIMARY KEY (`NRC`))
 ENGINE = InnoDB;
 
@@ -81,7 +82,7 @@ ENGINE = InnoDB;
 -- Table `CursosLibres`.`Grupo`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `CursosLibres`.`Grupo` (
-  `num_Grup` INT NOT NULL,
+  `num_Grup` INT NOT NULL AUTO_INCREMENT,
   `Profesor_id_Profe` INT NOT NULL,
   `Horario` VARCHAR(100) NULL,
   `Curso_NRC` INT NOT NULL,
