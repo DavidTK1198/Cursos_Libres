@@ -92,14 +92,15 @@ public class Controller extends HttpServlet {
                 Model model = (Model) request.getAttribute("model");
                 Estudiante pr = Service.getInstance().buscarEstudiante(model.getCurrent().getIdEstudiante());
                 if (pr != null) {
-                    return "/Presentation/Estudiante/ErrorEstudiante.jsp";
+                    request.setAttribute("model", model);
+                    return "/Presentation/Estudiante/Error.jsp";
                 } else {
                    
                     Service.getInstance().agregarUsuario(model.getCurrent().getUsuarioIdUsu());
                      Service.getInstance().agregarEstudiante(model.getCurrent());
-                   
-                   
-                    return "/Presentation/Login/Show";
+                    request.setAttribute("model", model);
+                    return "/Presentation/Estudiante/Success.jsp";
+                    //return "/Presentation/Login/Show";
                 }
             } else {
                 request.setAttribute("errores", errores);
