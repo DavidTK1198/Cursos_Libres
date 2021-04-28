@@ -11,8 +11,27 @@ import Logic.Grupo;
 import Logic.Inscripcion;
 import Logic.Service;
 import Logic.Usuario;
+import com.itextpdf.io.font.constants.StandardFonts;//hola
+import com.itextpdf.io.image.ImageData;
+import com.itextpdf.kernel.colors.Color;
+import com.itextpdf.kernel.colors.ColorConstants;
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.*;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.property.TextAlignment;
+import java.io.*;
+import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.layout.property.UnitValue;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,12 +39,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.io.FileUtils;
 
 /**
  *
  * @author Daniel Madrigal
  */
-@WebServlet(name = "RegisterController", urlPatterns = {"/Presentation/Inscripcion/Matricular", "/Presentation/MostrarG", "/Presentation/Cursoest"})
+@WebServlet(name = "RegisterController", urlPatterns = {"/Presentation/Inscripcion/Matricular", "/Presentation/MostrarG", "/Presentation/Cursoest", "/Presentation/G/Historial"})
 public class Controller extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -42,6 +62,9 @@ public class Controller extends HttpServlet {
                 break;
             case "/Presentation/Cursoest":
                 viewUrl = this.CursosEst(request);
+                break;
+            case "/Presentation/G/Historial":
+                viewUrl = this.generarHistorial(request, response);
                 break;
 
         }
@@ -105,6 +128,73 @@ public class Controller extends HttpServlet {
         return "/Presentation/Grupo/Grupos/View.jsp";
     }
 
+    private String generarHistorial(HttpServletRequest request, HttpServletResponse response) {
+        Date date = new Date();
+        String fech = new SimpleDateFormat("dd/MM/yyyy").format(date);
+        try {
+            HttpSession session = request.getSession(true);
+            Usuario usuario = (Usuario) session.getAttribute("usuario");
+            Model model = (Model) request.getAttribute("model");
+            Estudiante est = Service.getInstance().buscarEstudiante(usuario.getIdUsu());
+            List<Inscripcion> ls = Service.getInstance().InscripcionesPorEstudiante(usuario.getIdUsu());
+            model.setInscripciones(ls);
+            Grupo gr2 = null;
+            Curso cursito = null;
+
+            PdfFont font = PdfFontFactory.createFont(StandardFonts.TIMES_ROMAN);
+            PdfDocument pdf = new PdfDocument(new PdfWriter(response.getOutputStream()));
+            Document document = new Document(pdf, PageSize.A4);
+            document.setMargins(20, 20, 20, 20);
+
+            File imagen1 = new File("C:/AAA/images/logo.png");
+            File imagen2 = new File("C:/AAA/images/imagen.png");
+
+            FileUtils.copyFile(imagen1, imagen2);
+            Service.getInstance().resize(imagen1, imagen2, 150, 150);
+            ImageData data = ImageDataFactory.create("C:/AAA/images/imagen.png");
+            Image img = new Image(data);
+            document.add(img);
+            document.add(new Paragraph("Historial Academico: ").setFont(font).setBold().setFontSize(12f).setTextAlignment(TextAlignment.RIGHT));
+            document.add(new Paragraph(""));
+            document.add(new Paragraph("Fecha: " + fech).setFont(font).setBold().setFontSize(12f).setTextAlignment(TextAlignment.RIGHT));
+            document.add(new Paragraph("Nombre del Estudiante:    " + est.getNomEst()).setFont(font).setBold().setFontSize(12f));
+            document.add(new Paragraph("Cedula del Estudiante: " + est.getIdEstudiante()).setFont(font).setBold().setFontSize(12f));
+            document.add(new Paragraph("Telefono:    " + est.getTelEst()).setFont(font).setBold().setFontSize(12f));
+            document.add(new Paragraph("Correo Electronico:    " + est.getCorreoEst()).setFont(font).setBold().setFontSize(12f));
+            Table table = new Table(3);
+            Cell c;
+            Color bkg = ColorConstants.BLUE;
+            Color frg = ColorConstants.WHITE;
+            c = new Cell();
+            c.add(new Paragraph("Nombre del curso")).setBackgroundColor(bkg).setFontColor(frg);
+            table.addHeaderCell(c);
+            c = new Cell();
+            c.add(new Paragraph("Nota")).setBackgroundColor(bkg).setFontColor(frg);
+            table.addHeaderCell(c);
+            c = new Cell();
+            c.add(new Paragraph("Condición")).setBackgroundColor(bkg).setFontColor(frg);
+            table.addHeaderCell(c);
+            for (Inscripcion s : ls) {
+                gr2 = s.getGruponumGrup();
+                cursito = gr2.getCurso();
+                table.addHeaderCell(cursito.getNomCur());
+                table.addHeaderCell(Float.toString(s.getNota()));
+                table.addHeaderCell(this.determinarEstado(s.getNota()));
+            }
+            table.setWidth(UnitValue.createPercentValue(100));
+            document.add(table);
+            document.close();
+            response.setContentType("application/pdf");
+            response.addHeader("Content-disposition", "inline");
+            return "/Presentation/Inicio";
+        } catch (IOException ex) {
+            System.out.println("hola");
+        } catch (Exception ex) {
+            System.out.println("hola");
+        }
+        return "/Presentation/Inicio";
+    }
+
     public void validadUnicaInscripcion(List<Inscripcion> ls, HttpServletRequest request) throws Exception {
         Model model = (Model) request.getAttribute("model");
         Grupo gr = model.getGrupo();
@@ -122,6 +212,21 @@ public class Controller extends HttpServlet {
             }
 
         }
+    }
+
+    private String determinarEstado(float n) {
+
+        if (n > 0.0f && n < 60.0) {
+            return "Reprobado";
+        }
+        if (n >= 60.0 && n < 66.5) {
+            return "Ampliacion";
+        }
+        if (n >= 67.5 && n <= 100) {
+            return "Aprobado";
+        }
+        return "Sin calificacion asignada";
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -168,7 +273,7 @@ public class Controller extends HttpServlet {
             HttpSession session = request.getSession(true);
             Usuario real = (Usuario) session.getAttribute("usuario");
             Model model = (Model) request.getAttribute("model");
-           
+
             int idd = real.getIdUsu();
 
             Estudiante pr = Service.getInstance().buscarEstudiante(idd);

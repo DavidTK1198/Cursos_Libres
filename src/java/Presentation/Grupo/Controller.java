@@ -194,8 +194,9 @@ public class Controller extends HttpServlet {
         String isEst= request.getParameter("idest");
         int ced_Est=Integer.parseInt(isEst);
         int nFinal=Integer.parseInt(nota);
+        int g=Integer.parseInt(grupo);
         try{
-            Service.getInstance().ActualizarNota(ced_Est, nFinal);
+            Service.getInstance().ActualizarNota(ced_Est, nFinal,g);
         }catch(Exception e){
             return "/Presentation/Profesor/IngresarNotas?num_Grup="+grupo;
         }

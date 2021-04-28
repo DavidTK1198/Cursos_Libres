@@ -1,6 +1,6 @@
 
 
-<footer>
+<footer id="footer">
     <div class="d-flex justify-content-center">
         <a href="https://github.com/DavidTK1198">GitHub
             <i class="fab fa-github"></i>

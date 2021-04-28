@@ -37,8 +37,10 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
+import java.io.File;
 import java.util.List;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.io.FileUtils;
 
 /**
  *
@@ -227,13 +229,17 @@ public class Controller extends HttpServlet {
             curso = Service.getInstance().buscarCurso(cod);
             Inscripcion ins = this.inscripcionEst(request, cod);
             if (ins.getNota() >= 70.0f) {
-                ImageData data = ImageDataFactory.create("C:/AAA/images/" + codigo);
+                File imagen1 = new File("C:/AAA/images/logo.png");
+                File imagen2 = new File("C:/AAA/images/imagen.png");
+                FileUtils.copyFile(imagen1, imagen2);
+                Service.getInstance().resize(imagen1, imagen2, 150, 150);
+                ImageData data = ImageDataFactory.create("C:/AAA/images/imagen.png");
                 PdfDocument pdf = new PdfDocument(new PdfWriter(response.getOutputStream()));
                 Document doc = new Document(pdf, PageSize.A4.rotate());
                 PdfFont font = PdfFontFactory.createFont(StandardFonts.HELVETICA);
-                doc.add(new Paragraph("CURSO: " + curso.getNomCur()));
                 Image img = new Image(data);
                 doc.add(img);
+                doc.add(new Paragraph("CURSO: " + curso.getNomCur()));
                 doc.add(new Paragraph("NRC: " + curso.getNrc()));
                 doc.add(new Paragraph("Descripcion del curso: " + curso.getDesCur()));
 
@@ -272,10 +278,10 @@ public class Controller extends HttpServlet {
 
     private String determinarEstado(float n) {
 
-        if (n > 0.0f && n < 57.5) {
+        if (n > 0.0f && n < 60.0) {
             return "Reprobado";
         }
-        if (n >= 57.5 && n < 67.5) {
+        if (n >= 60.0 && n < 66.5) {
             return "Ampliacion";
         }
         if (n >= 67.5 && n <= 100) {

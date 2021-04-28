@@ -4,12 +4,16 @@
  * and open the template in the editor.
  */
 package Logic;
+
 import java.util.Objects;
+import java.util.Random;
+
 /**
  *
  * @author DavidTK1198
  */
-public class Usuario{
+public class Usuario {
+
     private String rol;
     private int idUsu;
     private String clave;
@@ -62,22 +66,27 @@ public class Usuario{
         }
         return true;
     }
-    public void generarClave(){
+
+    public void generarClave() {
+        Random rand = new Random();
         String contra = "";
-        int n =3;
-        String p = "";
-        for(int i=0; i<5; i++){
-            n =(int) (Math.random() * n) + 1;
-            p = Integer.toString(n);
-            contra = contra.concat(p);
+        int n;
+        char caracter;
+        int i=0;
+        while (true) {
+            n = 1 + rand.nextInt(100);
+            if(i==5){
+                break;
+            }
+            caracter = (char) n;
+            if (Character.isAlphabetic(caracter)) {
+                contra = contra + caracter;
+                i++;
+            }
         }
+
         this.setClave(contra);
     }
-
- 
-  
-
-    
 
     public String getRol() {
         return rol;
@@ -87,7 +96,6 @@ public class Usuario{
         this.rol = rol;
     }
 
-
     public String getClave() {
         return clave;
     }
@@ -96,6 +104,4 @@ public class Usuario{
         this.clave = clave;
     }
 
-
-    
 }

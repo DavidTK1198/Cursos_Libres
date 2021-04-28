@@ -105,6 +105,7 @@
         <url-pattern>/Presentation/Inscripcion/Matricular</url-pattern>
         <url-pattern>/Presentation/MostrarG</url-pattern>
         <url-pattern>/Presentation/Cursoest</url-pattern>
+        <url-pattern>/Presentation/G/Historial</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

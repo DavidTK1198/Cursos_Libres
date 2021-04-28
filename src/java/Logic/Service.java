@@ -6,7 +6,11 @@ import Data.GrupoDao;
 import Data.InscripcionDao;
 import Data.ProfesorDao;
 import Data.UserDao;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.List;
+import javax.imageio.ImageIO;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -45,6 +49,16 @@ public class Service {
 
         return my_instance;
     }
+    
+        public void resize(File original, File nueva, int width, int height) throws Exception {
+        BufferedImage original1 = ImageIO.read(original);
+        BufferedImage nueva1 = new BufferedImage(width, height, original1.getType());
+        Graphics2D g2 = nueva1.createGraphics();
+        g2.drawImage(original1, 0, 0, width, height, null);
+        g2.dispose();
+        ImageIO.write(nueva1, "png", nueva);
+    }
+
 
     public Usuario login(Usuario u) throws Exception {
         Usuario result = users.read(u.getIdUsu());
@@ -131,8 +145,8 @@ public class Service {
         return this.grupos.buscarNota(id, p);
     }
 
-    public boolean ActualizarNota(int id, int nota) throws Exception {
-        inscripciones.actualizarNota(id, nota);
+    public boolean ActualizarNota(int id, int nota,int grupo) throws Exception {
+        inscripciones.actualizarNota(id, nota,grupo);
         return true;
     }
 
@@ -156,5 +170,6 @@ public class Service {
     public List<Curso> buscarPorOferta(){
         return cursos.findxOferta();
     }
-
+    
+  
 }

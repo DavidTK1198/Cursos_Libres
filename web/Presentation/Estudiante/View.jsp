@@ -19,29 +19,6 @@
     <% Map<String, String> errores = (Map<String, String>) request.getAttribute("errores"); %>
     <% Map<String, String[]> form = (errores == null) ? this.getForm(model) : request.getParameterMap();%>
     <main class="bg-fixed text-white container">
-        <div class="modal" id="ventanaModal" tabindex="-1" rol="dialog">
-            <div class="modal-dialog" rol="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 id="titulo">
-                            REGISTRO
-                        </h5>
-                        <button class="close" data-dismissed="modal" aria-label="cerrar"></button>
-                        <span aria-hidden="true"></span>
-                    </div>
-                </div>
-                <div class="modal-body">
-                    <div class="alert alert-success">
-                        <h6><strong>REGISTRADO EXISTOSAMENTE!!!!!</strong>></h6>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-success" type="button">ACEPTAR</button>
-                </div>
-            </div>
-        </div>
-
-
         <div class="container-fluid container-lg container-md container-sm container-xl text-white">
 
             <form name="form" action="${pageContext.request.contextPath}/Presentation/Estudiante/AgregrarEstudiante" method="post" > 

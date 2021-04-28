@@ -40,7 +40,7 @@
                                 <p>
                             </div>
                             <div class="border d-flex justify-content-center">
-                                <a href="${pageContext.request.contextPath}/Presentation/Inscripcion/Matricular?NRC=<%=c.getNrc()%>" class="btn btn-primary">Matricular</a>
+                                <a href="${pageContext.request.contextPath}/Presentation/Login" class="btn btn-primary">Matricular</a>
                                 <div>
                                     </li> 
                                 </div>

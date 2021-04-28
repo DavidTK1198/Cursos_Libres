@@ -58,10 +58,7 @@
             <a href="${pageContext.request.contextPath}/Presentation/Estudiante/Matricular">Matricular</a>
         </div>
         <div>
-            <a href=#>Ver historial</a>
-        </div>
-        <div>
-            <a href=#>Generar Certificado</a>
+            <a href="${pageContext.request.contextPath}/Presentation/G/Historial" target="_blank">Ver historial</a>
         </div>
         <% }%> 
         <div >
@@ -69,7 +66,7 @@
         </div> 
 
         <div >
-            <p>Usuario: </p><%=usuario.getIdUsu()%>
+            <p>Usuario:<%=usuario.getIdUsu()%></p>
         </div> 
 
         <% } %>         

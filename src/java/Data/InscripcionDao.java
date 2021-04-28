@@ -94,11 +94,12 @@ public class InscripcionDao {
         }
     }
 
-    public boolean actualizarNota(int idEst, int nota) throws Exception {
-        String sql = "update inscripcion set Nota=? where Estudiante_id=?";
+    public boolean actualizarNota(int idEst, int nota,int g) throws Exception {
+        String sql = "update inscripcion set Nota=? where Estudiante_id=? AND Grupo_num_Grup = ?";
         PreparedStatement stm = DataBase.instance().prepareStatement(sql);
         stm.setInt(1, nota);
         stm.setInt(2, idEst);
+        stm.setInt(3, g);
         int count = DataBase.instance().executeUpdate(stm);
         if (count == 0) {
             throw new Exception("Error al cargar la nota");
