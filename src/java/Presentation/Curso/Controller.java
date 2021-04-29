@@ -87,17 +87,16 @@ public class Controller extends HttpServlet {
             if (errores.isEmpty()) {
                 this.updateModel(request);
                 Logic.Service service = Service.getInstance();
-
                 Curso cursito = service.buscarCurso(model.getCurrent().getNrc());
                 imagen = request.getPart("imagen");
                 imagen.write(Integer.toString(model.getCurrent().getNrc()));
                 if (cursito != null) {
-                    return "/Presentation/Cursos/ErrorCurso";
+                    request.setAttribute("model", model);
+                    return "/Presentation/Curso/Error.jsp";
                 } else {
                     service.agregarCurso(model.getCurrent());
-                    String s = Integer.toString(model.getCurrent().getNrc());
-                    // imagen.write(s);
-                    return "/Presentation/Administrador/View.jsp";
+                     request.setAttribute("model", model);
+                    return "/Presentation/Curso/Success.jsp";
                 }
             } else {
                 request.setAttribute("errores", errores);

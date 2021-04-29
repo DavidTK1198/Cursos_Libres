@@ -19,27 +19,33 @@
     <%@include file = "/Presentation/head.jsp" %>
     <main class="bg-fixed ">
         <%@include file = "/Presentation/header.jsp" %>
-        <% Model m = (Model)request.getAttribute("model"); %>
+        <% Model m = (Model) request.getAttribute("model"); %>
         <% List<Estudiante> lista = m.getEstudiantes(); %>
-        <% Grupo gr=m.getCurrent(); %>
+        <% Grupo gr = m.getCurrent(); %>
+        <%String nota =(String)request.getAttribute("nota"); %>
+        <%int notaa = 0;%>
+        <%if (nota != null){%>
+        <%notaa = Integer.parseInt(nota); %>
+        <%}%>
         <div class="container-fluid container-lg container-md container-sm container-xl bg-fixed">
             <div  class="text-white row">
                 <% for (Estudiante c : lista) {%>
                 <div class="col col-sm-8 col-md-4 col-xl-4">
                     <ul class="border border-success">
-                        <img src="${pageContext.request.contextPath}/IMG/4401280-768x432.jpg">
+
                         <div class = "d-flex justify-content-center">
-                            <p>Cedula del Estudiante &nbsp;<%=c.getIdEstudiante()%></p>
+                            <p>
+                                Cedula del Estudiante:&nbsp;<%=c.getIdEstudiante()%><br>
+                                Numero del Estudiante:&nbsp;<%=c.getNomEst()%> <br>
+                                Nota asociada al estudiante:&nbsp;<%notaa;%> <br>
+                             </p>
                         </div>
                         <div>
-                            <p>Numero del Estudiante:&nbsp;<%=c.getNomEst()%> </p>
-                        </div>
-                        <div>
-                            <form name="form" action="${pageContext.request.contextPath}/Presentation/Digitar/Notas" method="post">
-                            <input type="number" min ="1" max="100" name="nota">
-                            <input type="hidden" name="idest" value="<%=c.getIdEstudiante()%>">
-                            <input type="hidden" name="num_Grup" value="<%=gr.getNumGrup()%>">
-                            <button type="submit">HACER CLICK</button>
+                            <form name="form" action="${pageContext.request.contextPath}/Presentation/Digitar/Notas" method="post" requested>
+                                <input type="number" min ="1" max="100" name="nota" class="text-black">
+                                <input type="hidden" name="idest" value="<%=c.getIdEstudiante()%>">
+                                <input type="hidden" name="num_Grup" value="<%=gr.getNumGrup()%>">
+                                <button type="submit">HACER CLICK</button>
                             </form>
                         </div>
                     </ul> 

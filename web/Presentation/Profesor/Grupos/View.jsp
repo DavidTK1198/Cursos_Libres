@@ -22,18 +22,19 @@
 
         <div class="container-fluid container-lg container-md container-sm container-xl bg-fixed">
             <div  class="text-white row">
+                <%if(lista.isEmpty()){%>
+                <h1 class="justify-content-center text-white">SIN GRUPOS ASIGNADOS</h1>
+                <%}%>
                 <% for (Grupo c : lista) {%>
                 <div class="col col-sm-8 col-md-4 col-xl-4">
                     <ul class="border border-success">
-                        <img src="${pageContext.request.contextPath}/IMG/4401280-768x432.jpg">
+
                         <div class = "d-flex justify-content-center">
-                            <p>Horario&nbsp;<%=c.getHorario()%></p>
-                        </div>
-                        <div>
-                            <p>Numero de Grupo:&nbsp;<%=c.getNumGrup()%> </p>
-                        </div>
-                         <div>
-                            <p>Curso al que pertenece:&nbsp;<%=c.getCurso().getNrc()%> </p>
+                            <p>
+                                Horario: &nbsp;<%=c.getHorario()%><br>
+                                Numero de Grupo:&nbsp;<%=c.getNumGrup()%><br>
+                                Curso al que pertenece:&nbsp;<%=c.getCurso().getNomCur()%> 
+                            </p>
                         </div>
                         <li class="border">
                             <p class="mr-5" align = "center">

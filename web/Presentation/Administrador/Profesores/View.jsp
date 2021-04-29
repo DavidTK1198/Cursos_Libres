@@ -24,12 +24,11 @@
                 <div class="col col-sm-8 col-md-4 col-xl-4">
                     <ul class="border border-success">
                         <div class = "d-flex justify-content-center">
-                            <p><%=c.getNomProfe()%></p>
-                             <p><%=c.getIdProfe()%></p>
-                        </div>
-                        <li class="border">
+                            <p>
+                                Nombre: &nbsp;<%=c.getNomProfe()%><br>
+                                Cedula: &nbsp;<%=c.getIdProfe()%>
                             </p>
-                        </li>
+                           
                     </ul> 
                 </div>
                 <%}%>

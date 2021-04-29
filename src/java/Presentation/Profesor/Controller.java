@@ -104,14 +104,14 @@ public class Controller extends HttpServlet {
                 Model model = (Model) request.getAttribute("model");
                 Profesor pr = Service.getInstance().buscarProfesor(model.getCurrent().getIdProfe());
                 if (pr != null) {
-                    return "/Presentation/Profesor/ErrorProfesor.jsp";
+                    request.setAttribute("model", model);
+                    return "/Presentation/Profesor/Error.jsp";
                 } else {
 
                     Service.getInstance().agregarUsuario(model.getCurrent().getUsuarioIdUsu());
                     Service.getInstance().agregarProfesor(model.getCurrent());
-
-                    model.reset();
-                    return "/Presentation/Administrador/View.jsp";
+                    request.setAttribute("model", model);
+                    return "/Presentation/Profesor/Success.jsp";
                 }
             } else {
                 request.setAttribute("errores", errores);
@@ -180,12 +180,7 @@ public class Controller extends HttpServlet {
             Profesor pr = Service.getInstance().buscarProfesor(usuario.getIdUsu());
             model.setCurrent(pr);
             List<Grupo> misGrupos = Service.getInstance().obtenerGrupoPorProfesor(pr.getIdProfe());
-            if (!misGrupos.isEmpty()) {
-                model.setMios(misGrupos);
-
-            } else {
-                return ""; //analizar un poco mas...
-            }
+            model.setMios(misGrupos);
             request.setAttribute("model", model);
             return "/Presentation/Profesor/Grupos/View.jsp";
         } catch (Exception ex) {
@@ -235,6 +230,8 @@ public class Controller extends HttpServlet {
         try {
 
             String num = (String) request.getParameter("num_Grup");
+            String n = (String)request.getAttribute("nota");
+            request.setAttribute("Nota", n);
             int numerG = Integer.parseInt(num);
             Grupo gr = Service.getInstance().buscarGrupo(numerG);
             request.setAttribute("Grupo", gr);

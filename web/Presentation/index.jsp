@@ -41,22 +41,22 @@
                             </div>
                             <div class="border d-flex justify-content-center">
                                 <a href="${pageContext.request.contextPath}/Presentation/Login" class="btn btn-primary">Matricular</a>
-                                <div>
-                                    </li> 
-                                </div>
-                                <%}%>
-                                <%}%>
-                                </ul>
                             </div>
+                        </li> 
+                    </div>
+                    <%}%>
+                    <%}%>
+                </ul>
+            </div>
 
-                            <%} else {%>
+            <%} else {%>
 
-                            <%}%>
-                            </main>
+            <%}%>
+        </main>
 
-                            <aside></aside>
-                                <%@include file = "/Presentation/footer.jsp" %>
-                            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" Integeregrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-                            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" Integeregrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-                            </body>
-                            </html>
+        <aside></aside>
+            <%@include file = "/Presentation/footer.jsp" %>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" Integeregrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" Integeregrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+    </body>
+</html>

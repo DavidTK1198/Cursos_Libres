@@ -174,6 +174,8 @@ public class Controller extends HttpServlet {
         try {
             Model m = (Model) request.getAttribute("model");
             Grupo gr = (Grupo) request.getAttribute("Grupo");
+            String nota=(String)request.getAttribute("nota");
+            request.setAttribute("nota", nota);
             HttpSession session = request.getSession(true);
             Usuario usuario = (Usuario) session.getAttribute("usuario");            
             Profesor pr = Service.getInstance().buscarProfesor(usuario.getIdUsu());
@@ -197,6 +199,7 @@ public class Controller extends HttpServlet {
         int g=Integer.parseInt(grupo);
         try{
             Service.getInstance().ActualizarNota(ced_Est, nFinal,g);
+            request.setAttribute("nota", nota);
         }catch(Exception e){
             return "/Presentation/Profesor/IngresarNotas?num_Grup="+grupo;
         }
