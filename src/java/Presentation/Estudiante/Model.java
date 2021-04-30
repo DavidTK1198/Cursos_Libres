@@ -18,6 +18,7 @@ public class Model {
       private Estudiante current;
       private List<Curso> cursosMios;
       
+      
     public Model() {
         this.reset();
         

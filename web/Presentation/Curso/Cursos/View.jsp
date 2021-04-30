@@ -25,13 +25,20 @@
                 <% for (Curso c : lista) {%>
                 <div class="col col-sm-8 col-md-4 col-xl-4">
                     <ul class="border border-success">
-                        <img src="${pageContext.request.contextPath}/IMG/4401280-768x432.jpg">
+                        <img src="${pageContext.request.contextPath}/Presentation/Curso/Imagen?NRC=<%=c.getNrc()%>">
                         <div class = "d-flex justify-content-center">
-                            <p><%=c.getNomCur()%></p>
+                            <p>
+                                <%=c.getNomCur()%><br>
+                                <%if(c.getOferta()==true){%>
+                                    Curso destacado!
+                                <%}else{%>
+                                    Curso normal!
+                                <%}%>
+                            </p>
                         </div>
                         <li class="border">
                             <p class="mr-5">
-                                <a href="${pageContext.request.contextPath}/Presentation/Cursos/Show?NRC=<%=c.getNrc()%>" class="btn btn-primary">Cambiar estatus</a>
+                                <a href="${pageContext.request.contextPath}/Presentation/Cursos/Show?NRC=<%=c.getNrc()%>" class="btn btn-primary">Cambiar Oferta</a>
                                 <a href="${pageContext.request.contextPath}/Presentation/Grupo/Show?NRC=<%=c.getNrc()%>" class="btn btn-primary">Agregar Grupo</a>
                             </p>
                         </li>

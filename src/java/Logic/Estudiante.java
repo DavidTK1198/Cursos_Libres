@@ -108,5 +108,15 @@ public class Estudiante  {
     public String toString() {
         return " ";
     }
+    public void eliminarInscripcion(int n){
+       
+        Inscripcion ins;
+        for(int i=0; i<this.inscripcion.size();i++){
+            ins = inscripcion.get(i);
+            if(ins.getGruponumGrup().getNumGrup()!=n){
+                inscripcion.remove(i);
+            }
+        }
+    }
     
 }

@@ -89,13 +89,20 @@ public class Controller extends HttpServlet {
             } else {
                 this.validadUnicaInscripcion(listaIn, request);
                 Service.getInstance().agregarInscripcion(model.getInscrip());
-                return "/Presentation/PresentarCursos";
+                return "/Presentation/Grupo/Grupos/SuccessMatricula.jsp";
             }
 
         } catch (Exception ex) {
             boolean bandera = false;
             request.setAttribute("bandera", bandera);
-            return "/Presentation/PresentarCursos";//verificar despues
+            if(ex.getMessage()=="hola"){
+               return "/Presentation/Grupo/Grupos/ErrorMatricula.jsp";//verificar despues
+            }
+            if(ex.getMessage()=="Error"){
+                return "/Presentation/Grupo/Grupos/ErrorMatriculaCurso.jsp";
+            }
+            return "";
+          
         }
     }
 
@@ -115,6 +122,7 @@ public class Controller extends HttpServlet {
         insc.setEstudiante(est);
         insc.setGruponumGrup(grupito);
         model.setInscrip(insc);
+        model.setGrupo(grupito);
         request.setAttribute("model", model);
     }
 
@@ -205,7 +213,7 @@ public class Controller extends HttpServlet {
             gr2 = s.getGruponumGrup();
             cursito = gr2.getCurso();
             if (cursito.getNrc() == cursito2.getNrc()) {
-                throw new Exception("hola");
+                throw new Exception("Error");
             }
             if (gr2.getNumGrup() == gr.getNumGrup()) {
                 throw new Exception("hola");
@@ -273,9 +281,7 @@ public class Controller extends HttpServlet {
             HttpSession session = request.getSession(true);
             Usuario real = (Usuario) session.getAttribute("usuario");
             Model model = (Model) request.getAttribute("model");
-
             int idd = real.getIdUsu();
-
             Estudiante pr = Service.getInstance().buscarEstudiante(idd);
             model.setCurrent(pr);
             List<Inscripcion> misIns = Service.getInstance().InscripcionesPorEstudiante(idd);

@@ -26,7 +26,7 @@
                 <h1>Cursos en Oferta</h1>
                 <ul  class="text-black row col-container">
                     <%if (lista.isEmpty()) {%>
-                    <h2>SIN CURSOS DESTACADOS</h2>
+                    <h2 class="text-white">SIN CURSOS DESTACADOS</h2>
                     <%} else {%>
                     <% for (Curso c : lista) {%>
                     <div class="col col-sm-8 col-md-4 col-xl-4" id="col1">
@@ -40,7 +40,7 @@
                                 <p>
                             </div>
                             <div class="border d-flex justify-content-center">
-                                <a href="${pageContext.request.contextPath}/Presentation/Login" class="btn btn-primary">Matricular</a>
+                                <a href="${pageContext.request.contextPath}/Presentation/Login/Show" class="btn btn-primary">Matricular</a>
                             </div>
                         </li> 
                     </div>

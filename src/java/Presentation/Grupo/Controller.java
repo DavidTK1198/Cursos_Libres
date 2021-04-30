@@ -63,8 +63,11 @@ public class Controller extends HttpServlet {
                 if (grupito != null) {
                     return "/Presentation/Grupos/ErrorGrupo";
                 } else {
+                    if(model.getCurrent().getProfesoridProfe() == null){
+                        return "/Presentation/Grupo/Error.jsp";
+                    }
                     service.agregarGrupo(model.getCurrent());
-                    return "/Presentation/Administrador/View.jsp";
+                    return "/Presentation/Grupo/Success.jsp";
                 }
             } else {
                 request.setAttribute("errores", errores);
@@ -73,6 +76,7 @@ public class Controller extends HttpServlet {
         } catch (Exception e) {
             return "/Presentation/Grupo/Show";
         }
+       
     }
     
     Map<String, String> validar(HttpServletRequest request) {
@@ -134,7 +138,6 @@ public class Controller extends HttpServlet {
             model.getCurrent().setHorario(horario);
             HttpSession session = request.getSession(true);
             String nrc = (String) session.getAttribute("NRC");
-            
             int nrcc = Integer.parseInt(nrc);
             String id = request.getParameter("profFld");
             int idProf = Integer.parseInt(id);
@@ -180,6 +183,7 @@ public class Controller extends HttpServlet {
             Usuario usuario = (Usuario) session.getAttribute("usuario");            
             Profesor pr = Service.getInstance().buscarProfesor(usuario.getIdUsu());
             List<Estudiante> lista = Service.getInstance().obtenerEstudiantesG(gr.getNumGrup(), pr);
+            this.SetListaInscripEstudiante(lista, gr);
             m.setCurrent(gr);
             m.setEstudiantes(lista);
             request.setAttribute("model", m);
@@ -199,11 +203,20 @@ public class Controller extends HttpServlet {
         int g=Integer.parseInt(grupo);
         try{
             Service.getInstance().ActualizarNota(ced_Est, nFinal,g);
-            request.setAttribute("nota", nota);
+            request.setAttribute("nota",nota);
         }catch(Exception e){
             return "/Presentation/Profesor/IngresarNotas?num_Grup="+grupo;
         }
         return "/Presentation/Profesor/IngresarNotas?num_Grup="+grupo;
+    }
+    private void SetListaInscripEstudiante(List<Estudiante> es,Grupo gr)throws Exception{
+        for(Estudiante est:es){
+            est.setInscripcion(Service.getInstance().InscripcionesPorEstudiante(est.getIdEstudiante()));
+            est.eliminarInscripcion(gr.getNumGrup());
+        }
+        
+        
+        
     }
 
    

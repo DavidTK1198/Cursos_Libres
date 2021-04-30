@@ -249,7 +249,7 @@ public class Controller extends HttpServlet {
                 response.setContentType("application/pdf");
                 response.addHeader("Content-disposition", "inline");
             } else {
-                return "/Presentation/Inicio/Error";
+                return "/Presentation/Estudiante/Cursos/Notas/View.jsp";
             }
             return "/Presentation/Inicio";
         } catch (Exception ex) {

@@ -16,8 +16,9 @@
             <a href="${pageContext.request.contextPath}/Presentation/Inicio">Inicio</a>
         </div>
          <%if(flag){%>
-        <form  class="text-white mt-5" name="form" action="${pageContext.request.contextPath}/Presentation/buscarcurnom" method="post" > 
-            <input class="form mr-5" type="search" placeholder="Buscar Curso" aria-label="Buscar" name ="id" >
+        <form  class="mt-5" name="form" action="${pageContext.request.contextPath}/Presentation/buscarcurnom" method="post" > 
+           
+            <input class="form mr-5 text-black" type="search" placeholder="Buscar Profesor" aria-label="Buscar" name ="id" >
             <button class="btn btn-outline-info" type="submit">Buscar</button>
         </form>
             <%}%>
@@ -27,7 +28,7 @@
             </a>
             <div class="dropdown-menu " aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="${pageContext.request.contextPath}/Presentation/Curso/Show">Agregar Cursos</a>
-                <a class="dropdown-item" href="${pageContext.request.contextPath}/Presentation/Administrador/Listar">Cambiarle status</a>
+                <a class="dropdown-item" href="${pageContext.request.contextPath}/Presentation/Administrador/Listar">Cambiarle status/Agregar Grupo</a>
                 <div class="dropdown-divider"></div>
 
             </div>

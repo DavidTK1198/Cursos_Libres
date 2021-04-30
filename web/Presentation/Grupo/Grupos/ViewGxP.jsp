@@ -25,7 +25,7 @@
                 <% for (Grupo c : lista) {%>
                 <div class="col col-sm-8 col-md-4 col-xl-4">
                     <ul class="border border-success">
-                        <img src="${pageContext.request.contextPath}/IMG/4401280-768x432.jpg">
+                        <img src="${pageContext.request.contextPath}/Presentation/Curso/Imagen?NRC=<%=c.getCurso().getNrc()%>">
                         <div class = "d-flex justify-content-center">
                             <p>Horario&nbsp;<%=c.getHorario()%></p>
                         </div>

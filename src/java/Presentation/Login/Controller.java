@@ -209,7 +209,7 @@ public class Controller extends HttpServlet {
         List<Curso> lc = Service.getInstance().buscar("Curso", atributo);
         model.setCursos(lc);
         request.setAttribute("model", model);
-        return "/Presentation/index.jsp";
+        return "/Presentation/index.jsp?bandera=1";
     }
 
 }

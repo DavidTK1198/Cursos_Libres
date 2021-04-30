@@ -231,7 +231,7 @@ public class Controller extends HttpServlet {
 
             String num = (String) request.getParameter("num_Grup");
             String n = (String)request.getAttribute("nota");
-            request.setAttribute("Nota", n);
+            request.setAttribute("nota", n);
             int numerG = Integer.parseInt(num);
             Grupo gr = Service.getInstance().buscarGrupo(numerG);
             request.setAttribute("Grupo", gr);
