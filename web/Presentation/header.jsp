@@ -16,7 +16,7 @@
             <a href="${pageContext.request.contextPath}/Presentation/Inicio">Inicio</a>
         </div>
          <%if(flag){%>
-        <form  class="mt-5" name="form" action="${pageContext.request.contextPath}/Presentation/buscarcurnom" method="post" > 
+        <form  class="mt-5" name="form" action="${pageContext.request.contextPath}/Presentation/Administrador/Buscar" method="post" > 
            
             <input class="form mr-5 text-black" type="search" placeholder="Buscar Profesor" aria-label="Buscar" name ="id" >
             <button class="btn btn-outline-info" type="submit">Buscar</button>
@@ -87,6 +87,6 @@
         <% }%>   
     </nav> 
     <div class="d-flex justify-content-center">
-        <img class="border border-secondary border-5 rounded-circle imagen" src="${pageContext.request.contextPath}/IMG/logo.png">
+        <img class="border border-secondary border-5 rounded-circle imagen" src="${pageContext.request.contextPath}/IMG/logo.png" id="logo">
     </div>
 </header>

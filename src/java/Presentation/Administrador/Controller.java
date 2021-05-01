@@ -48,7 +48,7 @@ public class Controller extends HttpServlet {
                 viewUrl=this.listarProfesores(request);
                 break;
             case "/Presentation/Administrador/Buscar":
-                //viewUrl = this.Buscar(request);
+                viewUrl = this.Buscar(request);
                 break;
         }
         
@@ -131,6 +131,15 @@ public class Controller extends HttpServlet {
     private String listarProfesores(HttpServletRequest request) {
         Model m= (Model) request.getAttribute("model");
         List<Profesor> profesores=Service.getInstance().obtenerProfesores();
+        m.setProfesores(profesores);
+        request.setAttribute("model", m);
+        return "/Presentation/Administrador/Profesores/View.jsp?bandera=1";
+    }
+
+    private String Buscar(HttpServletRequest request) {
+        Model m= (Model) request.getAttribute("model");
+         String atributo = request.getParameter("id");
+        List<Profesor> profesores=Service.getInstance().buscar("Profesor", atributo);
         m.setProfesores(profesores);
         request.setAttribute("model", m);
         return "/Presentation/Administrador/Profesores/View.jsp?bandera=1";

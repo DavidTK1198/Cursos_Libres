@@ -15,7 +15,11 @@
 <html>
     <%@include file = "/Presentation/head.jsp" %>
 
-    <body class="bg-fixed text-white">
+    <body class="bg-image text-white">
+        <div class="mask" style="background-color: rgba(0, 0, 0, 0.6)">
+    <div class="d-flex justify-content-center align-items-center h-100">
+    </div>
+  </div>
         <main>
             <%@include file = "/Presentation/header.jsp" %>
             <%if (usuario == null) {%>
@@ -29,9 +33,11 @@
                     <h2 class="text-white">SIN CURSOS DESTACADOS</h2>
                     <%} else {%>
                     <% for (Curso c : lista) {%>
-                    <div class="col col-sm-8 col-md-4 col-xl-4" id="col1">
+                    <div class="col col-sm-8 col-md-4 col-xl-4 d-flex justify-content-center">
                         <li class="border border-primary card">
+                            <div id="imagen">
                             <img src="${pageContext.request.contextPath}/Presentation/Curso/Imagen?NRC=<%=c.getNrc()%>">
+                            </div>
                             <div class = "d-flex justify-content-center">
                                 <p>
                                     Nombre:&nbsp;<%=c.getNomCur()%><br>

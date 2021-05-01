@@ -18,19 +18,23 @@
         <% Model m = (Model) request.getAttribute("model"); %>
         <% List<Profesor> lista = m.getProfesores(); %>
 
-        <div class="container-fluid container-lg container-md container-sm container-xl bg-fixed">
-            <div  class="text-white row">
+        <div class="container-fluid container-lg container-md container-sm container-xl bg-fixed mt-5">
+            <div  class="text-black row">
                 <% for (Profesor c : lista) {%>
-                <div class="col col-sm-8 col-md-4 col-xl-4">
-                    <ul class="border border-success">
-                        <div class = "d-flex justify-content-center">
-                            <p>
+
+                <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                    <div class="card text-center">
+                        <div class="card-header text-black">Disponible</div>
+                        <div class="card-body">
+                            <h5 class="card-title">Especialidad:&nbsp;<%=c.getEspecialidad()%><br></h5>
+                            <p class="card-text">
                                 Nombre: &nbsp;<%=c.getNomProfe()%><br>
                                 Cedula: &nbsp;<%=c.getIdProfe()%>
                             </p>
-                           
-                    </ul> 
+                        </div>
+                    </div>
                 </div>
+
                 <%}%>
             </div>
         </div>

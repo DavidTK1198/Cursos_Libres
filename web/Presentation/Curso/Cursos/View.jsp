@@ -21,11 +21,13 @@
         <% List<Curso> lista = m.getCursos(); %>
 
         <div class="container-fluid container-lg container-md container-sm container-xl bg-fixed">
-            <div  class="text-white row">
+            <ul  class="text-black row col-container">
                 <% for (Curso c : lista) {%>
-                <div class="col col-sm-8 col-md-4 col-xl-4">
-                    <ul class="border border-success">
+                <div class="col col-sm-8 col-md-4 col-xl-4 d-flex justify-content-center">
+                    <li class="border border-primary card">
+                        <div id="imagen">
                         <img src="${pageContext.request.contextPath}/Presentation/Curso/Imagen?NRC=<%=c.getNrc()%>">
+                        </div>
                         <div class = "d-flex justify-content-center">
                             <p>
                                 <%=c.getNomCur()%><br>
@@ -36,15 +38,15 @@
                                 <%}%>
                             </p>
                         </div>
-                        <li class="border">
-                            <p class="mr-5">
-                                <a href="${pageContext.request.contextPath}/Presentation/Cursos/Show?NRC=<%=c.getNrc()%>" class="btn btn-primary">Cambiar Oferta</a>
+                        <div class="border d-flex justify-content-center">
+                          
+                                <a href="${pageContext.request.contextPath}/Presentation/Cursos/Show?NRC=<%=c.getNrc()%>" class="btn btn-primary mr-5">Cambiar Oferta</a>
                                 <a href="${pageContext.request.contextPath}/Presentation/Grupo/Show?NRC=<%=c.getNrc()%>" class="btn btn-primary">Agregar Grupo</a>
-                            </p>
-                        </li>
-                    </ul> 
+                        </div>
+                    </li>
                 </div>
                 <%}%>
+                </ul>
             </div>
         </div>
     </main>
