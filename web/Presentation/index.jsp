@@ -17,9 +17,9 @@
 
     <body class="bg-image text-white">
         <div class="mask" style="background-color: rgba(0, 0, 0, 0.6)">
-    <div class="d-flex justify-content-center align-items-center h-100">
-    </div>
-  </div>
+            <div class="d-flex justify-content-center align-items-center h-100">
+            </div>
+        </div>
         <main>
             <%@include file = "/Presentation/header.jsp" %>
             <%if (usuario == null) {%>
@@ -28,38 +28,47 @@
             <% List<Curso> lista = m.getCursos(); %>
             <div class="container-fluid container-lg container-md container-sm container-xl">
                 <h1>Cursos en Oferta</h1>
-                <ul  class="text-black row col-container">
+                <div  class="text-black row justify-content-center">
                     <%if (lista.isEmpty()) {%>
                     <h2 class="text-white centrar">SIN CURSOS DESTACADOS</h2>
                     <%} else {%>
                     <% for (Curso c : lista) {%>
-                    <div class="col col-sm-8 col-md-4 col-xl-4 d-flex justify-content-center">
-                        <li class="border border-secondary card">
-                            <div id="imagen">
-                            <img src="${pageContext.request.contextPath}/Presentation/Curso/Imagen?NRC=<%=c.getNrc()%>">
+                    <div class="col col-sm-8 col-md-4 col-xl-4 mb-5 border-dark">
+
+
+                        <div class="card" >
+                            <div class="embed-responsive embed-responsive-16by9" id="zoom">
+                                <img src="${pageContext.request.contextPath}/Presentation/Curso/Imagen?NRC=<%=c.getNrc()%>" class="card-img-top embed-responsive-item" alt="...">
                             </div>
-                            <div class = "d-flex justify-content-center" id="contenido">
-                                <p>
-                                    <b>Nombre:&nbsp;<%=c.getNomCur()%></b><br>
-                                    NRC:&nbsp;<%=c.getNrc()%><br>
-                                    Descripcion:&nbsp;<%=c.getDesCur()%><br>
-                                    <b>Tematica:&nbsp;<%=c.getTematica()%></b>
-                                <p>
+                            <div class="card-body border">
+                                <h5 class="card-title"> Nombre:&nbsp;<%=c.getNomCur()%></h5>
+                                <p class="card-text justify-content-center">
+                                    NRC:&nbsp;<%=c.getNrc()%>
+                                    <br>
+                                    Descripcion:&nbsp;<%=c.getDesCur()%>
+                                    <br>
+                                    Tematica:&nbsp;<%=c.getTematica()%>
+                                    <br>
+                                </p>
+                                <div class="d-flex justify-content-center">
+                                    <a href="${pageContext.request.contextPath}/Presentation/Login/Show" class="btn btn-primary">Matricular</a>
+                                </div>
                             </div>
-                            <div class="border d-flex justify-content-center">
-                                <a href="${pageContext.request.contextPath}/Presentation/Login/Show" class="btn btn-primary">Matricular</a>
-                            </div>
-                        </li> 
+                        </div>
+
+
                     </div>
                     <%}%>
                     <%}%>
-                </ul>
+                </div>
             </div>
 
             <%} else {%>
 
             <%}%>
         </main>
+
+
 
         <aside></aside>
             <%@include file = "/Presentation/footer.jsp" %>

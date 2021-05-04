@@ -79,6 +79,24 @@ a{
     padding-left: 22%;
 }
 
+.embed-responsive .card-img-top {
+    object-fit: cover;
+}
+.container{
+    margin-top: 8%;
+}
+
+#zoom{
+    overflow: hidden;
+}
+#zoom img{
+    transition: all 1.5s ease;
+}
+
+#zoom:hover img{
+    transform: scale(1.5);
+}
+
 body {
     position: relative;
     margin: 0;
