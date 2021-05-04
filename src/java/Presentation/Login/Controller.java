@@ -9,6 +9,7 @@ import Logic.Curso;
 import Logic.Service;
 import Logic.Usuario;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -207,7 +208,7 @@ public class Controller extends HttpServlet {
         Model model = (Model) request.getAttribute("model");
         String atributo = request.getParameter("id");
         String valorBus = request.getParameter("busqueda");
-        List<Curso> lc = null;
+        List<Curso> lc  = new ArrayList<>();
         switch (valorBus) {
             case "tematica":
                 lc = Service.getInstance().buscar("Tematica", atributo);

@@ -9,5 +9,6 @@
     <div class="d-flex justify-content-center text-white"><p>Diseñado por David Barrientos y Daniel Madrigal. 2021 ©</p>
     </div>
 </footer>
+</div>
 
 

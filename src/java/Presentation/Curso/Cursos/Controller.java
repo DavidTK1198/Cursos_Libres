@@ -8,6 +8,7 @@ package Presentation.Curso.Cursos;
 import Logic.Curso;
 import Logic.Service;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,7 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "CursosController", urlPatterns = {"/Presentation/Cursos/Show", "/Presentation/Curso/CambiarStatus","/Presentation/PresentarCursos"})
+@WebServlet(name = "CursosController", urlPatterns = {"/Presentation/Cursos/Show", "/Presentation/Curso/CambiarStatus","/Presentation/PresentarCursos","/Presentation/Inscripcion/Buscar"})
 public class Controller extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request,
@@ -35,6 +36,8 @@ public class Controller extends HttpServlet {
             case "/Presentation/PresentarCursos":
                 viewUrl = this.ListarCursos(request);
                 break;
+            case "/Presentation/Inscripcion/Buscar":
+                viewUrl=this.buscar(request);
         }
         request.getRequestDispatcher(viewUrl).forward(request, response);
     }
@@ -118,6 +121,24 @@ public class Controller extends HttpServlet {
         Model model = (Model) request.getAttribute("model");
         List<Curso> c = Service.getInstance().obtenerCursos();
         model.setCursos(c);
+        request.setAttribute("model",model);
+        return "/Presentation/Inscripcion/ViewC.jsp";
+    }
+
+    private String buscar(HttpServletRequest request) {
+         String atributo = request.getParameter("id");
+        String valorBus = request.getParameter("busqueda");
+        Model model = (Model) request.getAttribute("model");
+         List<Curso> lc  = new ArrayList<>();
+         switch (valorBus) {
+            case "tematica":
+                lc = Service.getInstance().buscar("Tematica", atributo);
+                break;
+            case "curso":
+                lc = Service.getInstance().buscar("Curso", atributo);
+                break;
+        }
+        model.setCursos(lc);
         request.setAttribute("model",model);
         return "/Presentation/Inscripcion/ViewC.jsp";
     }

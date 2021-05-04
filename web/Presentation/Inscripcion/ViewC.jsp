@@ -20,7 +20,21 @@
         <% Model m = (Model) request.getAttribute("model"); %>
         <% List<Curso> lista = m.getCursos(); %>
 
+
         <div class="container-fluid container-lg container-md container-sm container-xl bg-fixed">
+
+            <form name="form" action="${pageContext.request.contextPath}/Presentation/Inscripcion/Buscar" method="post" > 
+                <div class="select text-black"> Filtro
+                    <select name="busqueda">
+                        <option value ="tematica">Tematica</option>
+                        <option value="curso" selected="">Curso</option>
+                    </select>
+                </div>
+
+                <input class="form text-black" type="search" placeholder="Buscar Curso" aria-label="Buscar" name ="id" >
+                <button class="btn btn-secondary" type="submit">Buscar</button>
+            </form>
+
             <div  class="text-white row">
                 <% for (Curso c : lista) {%>
                 <div class="col col-sm-8 col-md-4 col-xl-4">

@@ -22,7 +22,6 @@
         <% Model model = (Model) request.getAttribute("model"); %>
         <% Map<String, String> errores = (Map<String, String>) request.getAttribute("errores"); %>
         <% Map<String, String[]> form = (errores == null) ? this.getForm(model) : request.getParameterMap();%>
-
         <div class="container-fluid container-lg container-md container-sm container-xl">
 
             <form class="text-white mt-5" enctype="multipart/form-data" action="${pageContext.request.contextPath}/Presentation/Curso/Agregar" method="POST" > 
@@ -67,7 +66,9 @@
                     <input type="file" name="imagen" accept="image/*" required></div>
                 <div><input type="submit"  class="py-2 px-4 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75" value="Agregar"></div>
             </form>  
+        </div
         </div>
+    
     </main>
 
     <aside></aside>

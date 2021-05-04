@@ -55,6 +55,7 @@
         <url-pattern>/Presentation/Cursos/Show</url-pattern>
         <url-pattern>/Presentation/Curso/CambiarStatus</url-pattern>
         <url-pattern>/Presentation/PresentarCursos</url-pattern>
+       <url-pattern>/Presentation/Inscripcion/Buscar</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
