@@ -162,6 +162,8 @@ public class Service {
                 return profesores.findByNombre(atributo);
             case "Curso":
                  return cursos.findByNombre(atributo);
+            case "Tematica":
+                return cursos.findByTematica(atributo);
             default:
                 return null;
 

@@ -31,7 +31,9 @@
                         </div>
 
                         <div class = "d-flex justify-content-center bg-secondary">
-                            <p id="font"><%=c.getNomCur()%></p>
+                            <p id="font">Nombre: <%=c.getNomCur()%><br>
+                                Tematica: <%=c.getTematica()%>
+                            </p>
                         </div>
                         <li class="border border-success">
                             <div class="text-center bg-dark">

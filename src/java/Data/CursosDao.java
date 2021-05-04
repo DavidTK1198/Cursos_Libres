@@ -80,7 +80,7 @@ public class CursosDao {
     }
      public List<Curso> findByTematica(String tem) {
         List<Curso> r = new ArrayList<>();
-        String sql = "select * from Curso where Tematica=?";
+        String sql = "select * from Curso where Tematica like ?";
         try {
             PreparedStatement stm = DataBase.instance().prepareStatement(sql);
             stm.setString(1, "%" + tem + "%");

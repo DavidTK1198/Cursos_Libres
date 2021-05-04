@@ -206,7 +206,16 @@ public class Controller extends HttpServlet {
     private String Buscar(HttpServletRequest request) {
         Model model = (Model) request.getAttribute("model");
         String atributo = request.getParameter("id");
-        List<Curso> lc = Service.getInstance().buscar("Curso", atributo);
+        String valorBus = request.getParameter("busqueda");
+        List<Curso> lc = null;
+        switch (valorBus) {
+            case "tematica":
+                lc = Service.getInstance().buscar("Tematica", atributo);
+                break;
+            case "curso":
+                lc = Service.getInstance().buscar("Curso", atributo);
+                break;
+        }
         model.setCursos(lc);
         request.setAttribute("model", model);
         return "/Presentation/index.jsp?bandera=1";

@@ -43,6 +43,7 @@
                                     <b>Nombre:&nbsp;<%=c.getNomCur()%></b><br>
                                     NRC:&nbsp;<%=c.getNrc()%><br>
                                     Descripcion:&nbsp;<%=c.getDesCur()%><br>
+                                    <b>Tematica:&nbsp;<%=c.getTematica()%></b>
                                 <p>
                             </div>
                             <div class="border d-flex justify-content-center">
