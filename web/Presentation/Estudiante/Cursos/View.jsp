@@ -22,7 +22,7 @@
         <% List<Curso> lista = m.getLc(); %>
 
         <div class="container-fluid container-lg container-md container-sm container-xl bg-fixed">
-            <h2 class="text-white">MIS CURSOS</h2>
+            <h2 class="text-white">MIS CURSOS MATRICULADOS</h2>
             <div  class="text-white row">
                 <% for (Curso c : lista) {%>
                 <div class="col col-sm-8 col-md-4 col-xl-4">

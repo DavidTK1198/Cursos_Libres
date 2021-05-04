@@ -26,19 +26,20 @@
         <% List<Inscripcion> ls;%>
         <% Inscripcion ins;%>
 
-        <div class="text-center bg-secondary text-white">
-            <h2 id="mensaje">
-                CURSO : <%=m.getCurrent().getCurso().getNomCur()%>
-            </h2>
-            <h3>
-                GRUPO# <%=m.getCurrent().getNumGrup()%>
-            </h3>
-             <h3>
-               ESTUDIANTES MATRICULADOS:
-            </h3>
 
-        </div>
-        <div class="container-fluid container-lg container-md container-sm container-xl bg-fixed">
+        <div class="container-fluid container-lg container-md container-sm container-xl bg-fixed justify-content-center">
+            <div class="text-center bg-secondary text-white mb-5">
+                <h2 id="mensaje">
+                    CURSO : <%=m.getCurrent().getCurso().getNomCur()%>
+                </h2>
+                <h3>
+                    GRUPO# <%=m.getCurrent().getNumGrup()%>
+                </h3>
+                <h3>
+                    ESTUDIANTES MATRICULADOS:
+                </h3>
+
+            </div>
             <div  class="text-black row">
                 <% for (Estudiante c : lista) {%>
                 <%ls = c.getInscripcion();%>
@@ -46,16 +47,16 @@
                 <div class="col col-sm-8 col-md-4 col-xl-4">
                     <ul class="border border-primary">
 
-                        <div class = "d-flex justify-content-center" id="pro">
-                            <p class="text-center">
+                        <div class = "d-flex justify-content-center bg-secondary">
+                            <p class="text-center text-white">
                                 Cedula del Estudiante:&nbsp;<%=c.getIdEstudiante()%><br>
                                 <b> Estudiante:&nbsp;<%=c.getNomEst()%></b> <br>
                                 Nota actual del estudiante:&nbsp;<b><%=ins.getNota()%></b>
                             </p>
                         </div>
-                        <div class="bg-secondary text-white">
+                        <div class="bg-dark text-white">
                             <form name="form" action="${pageContext.request.contextPath}/Presentation/Digitar/Notas" method="post" requested>
-                                <input type="number" min ="1" max="100" name="nota" class="text-black">
+                                <input type="number" min ="1" max="100" name="nota" class="text-black" required>
                                 <input type="hidden" name="idest" value="<%=c.getIdEstudiante()%>">
                                 <input type="hidden" name="num_Grup" value="<%=gr.getNumGrup()%>">
                                 <button type="submit" class="btn btn-secondary" data-toggle="button" aria-pressed="false" autocomplete="off">

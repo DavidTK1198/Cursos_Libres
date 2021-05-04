@@ -20,11 +20,9 @@
         <% Model m = (Model) request.getAttribute("model"); %>
         <% List<Curso> lista = m.getCursos(); %>
 
-
-        <div class="container-fluid container-lg container-md container-sm container-xl bg-fixed">
-
+        <div class="mb-5 justify-content-center text-center mt-5">
             <form name="form" action="${pageContext.request.contextPath}/Presentation/Inscripcion/Buscar" method="post" > 
-                <div class="select text-black"> Filtro
+                <div class="select text-black pr-5"> <p class="text-white mb-0">Filtro</p>
                     <select name="busqueda">
                         <option value ="tematica">Tematica</option>
                         <option value="curso" selected="">Curso</option>
@@ -34,27 +32,37 @@
                 <input class="form text-black" type="search" placeholder="Buscar Curso" aria-label="Buscar" name ="id" >
                 <button class="btn btn-secondary" type="submit">Buscar</button>
             </form>
+        </div>
+        <div class="container-fluid container-lg container-md container-sm container-xl ">
 
-            <div  class="text-white row">
+
+
+            <div class="text-white row justify-content-center">
+
                 <% for (Curso c : lista) {%>
-                <div class="col col-sm-8 col-md-4 col-xl-4">
-                    <ul class="border border-success col-container" id="imagen">
+                <div class="col col-sm-8 col-md-4 col-xl-4 mb-5">
 
-                        <div id="imagen">
-                            <img src="${pageContext.request.contextPath}/Presentation/Curso/Imagen?NRC=<%=c.getNrc()%>">
+                    <div class="card">
+                        <div class="embed-responsive embed-responsive-16by9" id="zoom">
+                            <img src="${pageContext.request.contextPath}/Presentation/Curso/Imagen?NRC=<%=c.getNrc()%>" class="card-img-top embed-responsive-item" alt="...">
                         </div>
 
-                        <div class = "d-flex justify-content-center bg-secondary">
-                            <p id="font">Nombre: <%=c.getNomCur()%><br>
-                                Tematica: <%=c.getTematica()%>
+                        <div class="card-body border">
+                            <h5 class="card-title"> Nombre:&nbsp;<%=c.getNomCur()%></h5>
+                            <p class="card-text text-center text-black">
+                                NRC:&nbsp;<%=c.getNrc()%>
+                                <br>
+                                Descripcion:&nbsp;<%=c.getDesCur()%>
+                                <br>
+                                Tematica:&nbsp;<%=c.getTematica()%>
+                                <br>
                             </p>
-                        </div>
-                        <li class="border border-success">
-                            <div class="text-center bg-dark">
+                            <div class="text-center bg-light d-flex justify-content-center">
                                 <b><a href="${pageContext.request.contextPath}/Presentation/MostrarG?NRC=<%=c.getNrc()%>" class="btn btn-success">Elegir Grupo</a></b>
                             </div>
-                        </li>
-                    </ul> 
+
+                        </div>
+                    </div>
                 </div>
                 <%}%>
             </div>

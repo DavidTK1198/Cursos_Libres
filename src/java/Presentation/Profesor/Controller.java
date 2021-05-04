@@ -210,12 +210,8 @@ public class Controller extends HttpServlet {
                 }
             }
 
-            if (!misCursos.isEmpty()) {
-                model.setMisCursos(misCursos);
+             model.setMisCursos(misCursos);
 
-            } else {
-                return ""; //analizar un poco mas...
-            }
             request.setAttribute("model", model);
             return "/Presentation/Profesor/Cursos/View.jsp";
 
@@ -230,7 +226,7 @@ public class Controller extends HttpServlet {
         try {
 
             String num = (String) request.getParameter("num_Grup");
-            String n = (String)request.getAttribute("nota");
+            String n = (String) request.getAttribute("nota");
             request.setAttribute("nota", n);
             int numerG = Integer.parseInt(num);
             Grupo gr = Service.getInstance().buscarGrupo(numerG);
