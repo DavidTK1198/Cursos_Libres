@@ -26,13 +26,13 @@
         <div class="container-fluid container-lg container-md container-sm container-xl" id="app1">
 
             <form class="text-white mt-5" name="form" action="${pageContext.request.contextPath}/Presentation/Curso/AgregarGrupos" method="post" > 
-                <div class="d-flex justify-content-center" >Registrar Grupo</div>
+                <div class="d-flex justify-content-center h1" ><b>Registrar Grupo</b></div>
                 <div class="mb-2">
-                    <div>Horario</div>
+                    <div><b>Horario</b></div>
                     <div><input class="form-control <%=erroneo("horFld", errores)%>" placeholder="Horario del grupo" type="text" name="horFld" value="<%=form.get("horFld")[0]%>" title="<%=title("horFld", errores)%>"></div>
                 </div>
-                <div class="select">
-                    <p>Elija un Profesor</p>
+                <div class="select text-black">
+                    <p id="profe" class="text-white"><b>Elija un Profesor</b></p>
                     <select name="profFld">
                         <% for (Profesor c : lista) {%>
                         <option value="<%=c.getIdProfe()%>"><%=c.getNomProfe()%>/<%=c.getIdProfe()%></option>

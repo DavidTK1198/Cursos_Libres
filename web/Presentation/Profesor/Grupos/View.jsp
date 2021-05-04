@@ -21,26 +21,24 @@
         <% List<Grupo> lista = m.getMios(); %>
 
         <div class="container-fluid container-lg container-md container-sm container-xl bg-fixed">
-            <div  class="text-white row">
+            <div  class="text-black row" id="bor">
                 <%if(lista.isEmpty()){%>
                 <h1 class="justify-content-center text-white">SIN GRUPOS ASIGNADOS</h1>
                 <%}%>
                 <% for (Grupo c : lista) {%>
                 <div class="col col-sm-8 col-md-4 col-xl-4">
-                    <ul class="border border-success">
+                    <ul>
 
-                        <div class = "d-flex justify-content-center">
-                            <p>
+                        <div class = "d-flex justify-content-center bg-secondary">
+                            <p class="text-center" id="bor">
                                 Horario: &nbsp;<%=c.getHorario()%><br>
-                                Numero de Grupo:&nbsp;<%=c.getNumGrup()%><br>
-                                Curso al que pertenece:&nbsp;<%=c.getCurso().getNomCur()%> 
+                                <b>Numero de Grupo:&nbsp;<%=c.getNumGrup()%></b><br>
+                                <b>Curso al que pertenece:&nbsp;<%=c.getCurso().getNomCur()%> </b>
                             </p>
                         </div>
-                        <li class="border">
-                            <p class="mr-5" align = "center">
-                                <a href="${pageContext.request.contextPath}/Presentation/Profesor/IngresarNotas?num_Grup=<%=c.getNumGrup()%>" class="btn btn-primary">Agregar Notas</a>
-
-                            </p>
+                        <li class="border" id="profG">
+                          
+                            <div class="d-flex justify-content-center"> <a href="${pageContext.request.contextPath}/Presentation/Profesor/IngresarNotas?num_Grup=<%=c.getNumGrup()%>" class="btn btn-secondary">Agregar Notas</a></div>
                         </li>
                     </ul> 
                 </div>

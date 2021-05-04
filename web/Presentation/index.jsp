@@ -30,17 +30,17 @@
                 <h1>Cursos en Oferta</h1>
                 <ul  class="text-black row col-container">
                     <%if (lista.isEmpty()) {%>
-                    <h2 class="text-white">SIN CURSOS DESTACADOS</h2>
+                    <h2 class="text-white centrar">SIN CURSOS DESTACADOS</h2>
                     <%} else {%>
                     <% for (Curso c : lista) {%>
                     <div class="col col-sm-8 col-md-4 col-xl-4 d-flex justify-content-center">
-                        <li class="border border-primary card">
+                        <li class="border border-secondary card">
                             <div id="imagen">
                             <img src="${pageContext.request.contextPath}/Presentation/Curso/Imagen?NRC=<%=c.getNrc()%>">
                             </div>
-                            <div class = "d-flex justify-content-center">
+                            <div class = "d-flex justify-content-center" id="contenido">
                                 <p>
-                                    Nombre:&nbsp;<%=c.getNomCur()%><br>
+                                    <b>Nombre:&nbsp;<%=c.getNomCur()%></b><br>
                                     NRC:&nbsp;<%=c.getNrc()%><br>
                                     Descripcion:&nbsp;<%=c.getDesCur()%><br>
                                 <p>

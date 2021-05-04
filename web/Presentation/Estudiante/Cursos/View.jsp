@@ -22,19 +22,19 @@
         <% List<Curso> lista = m.getLc(); %>
 
         <div class="container-fluid container-lg container-md container-sm container-xl bg-fixed">
-            <h2>MIS CURSOS</h2>
+            <h2 class="text-white">MIS CURSOS</h2>
             <div  class="text-white row">
                 <% for (Curso c : lista) {%>
                 <div class="col col-sm-8 col-md-4 col-xl-4">
                     <ul class="border border-success">
                         <img src="${pageContext.request.contextPath}/Presentation/Curso/Imagen?NRC=<%=c.getNrc()%>">
-                        <div class = "d-flex justify-content-center">
+                        <div class = "d-flex justify-content-center bg-secondary">
                             <p>Nombre del curso: &nbsp;<%=c.getNomCur() %></p>
                         </div>
-                        <div class = "d-flex justify-content-center">
+                        <div class = "d-flex justify-content-center bg-secondary">
                             <p>NRC asociado:&nbsp;<%=c.getNrc()%> </p>
                         </div>
-                            <a href="${pageContext.request.contextPath}/Presentation/Curso/Pdf?NRC=<%=c.getNrc()%>" target="_blank">Generar Certificado </a>
+                            <div class="text-center bg-light" id="certifi"><a href="${pageContext.request.contextPath}/Presentation/Curso/Pdf?NRC=<%=c.getNrc()%>" target="_blank">Generar Certificado </a></div>
                        
                     </ul> 
                 </div>

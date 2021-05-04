@@ -12,9 +12,9 @@
     <%@include file = "/Presentation/head.jsp" %>
     <% Model model = (Model) request.getAttribute("model"); %>
     <% Usuario us = model.getCurrent().getUsuarioIdUsu();%>
-    <body>
+    <body id="centrar">
         
-            <h1 class='text-center'>ESTUDIANTE REGISTRADO CORRECTAMENTE!!!</h1>
+            <h1 class='text-center text-white'>ESTUDIANTE REGISTRADO CORRECTAMENTE!!!</h1>
             <div class="container-fluid container-lg container-md container-sm container-xl">
                 <div class="d-flex justify-content-center row">
                     <div class="col-3 col-sm-8 col-md-4 col-xl-4">

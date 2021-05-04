@@ -17,23 +17,26 @@
     <%@include file = "/Presentation/head.jsp" %>
     <main class="bg-fixed ">
         <%@include file = "/Presentation/header.jsp" %>
-        <% Model m = (Model)request.getAttribute("model"); %>
+        <% Model m = (Model) request.getAttribute("model"); %>
         <% List<Curso> lista = m.getCursos(); %>
 
         <div class="container-fluid container-lg container-md container-sm container-xl bg-fixed">
             <div  class="text-white row">
                 <% for (Curso c : lista) {%>
                 <div class="col col-sm-8 col-md-4 col-xl-4">
-                    <ul class="border border-success">
-                        <img src="${pageContext.request.contextPath}/Presentation/Curso/Imagen?NRC=<%=c.getNrc()%>">
-                        <div class = "d-flex justify-content-center">
-                            <p><%=c.getNomCur()%></p>
+                    <ul class="border border-success col-container" id="imagen">
+
+                        <div id="imagen">
+                            <img src="${pageContext.request.contextPath}/Presentation/Curso/Imagen?NRC=<%=c.getNrc()%>">
                         </div>
-                        <li class="border">
-                            <p class="mr-5">
-                                <a href="${pageContext.request.contextPath}/Presentation/MostrarG?NRC=<%=c.getNrc()%>" class="btn btn-primary">Elegir Grupo</a>
-                              
-                            </p>
+
+                        <div class = "d-flex justify-content-center bg-secondary">
+                            <p id="font"><%=c.getNomCur()%></p>
+                        </div>
+                        <li class="border border-success">
+                            <div class="text-center bg-dark">
+                                <b><a href="${pageContext.request.contextPath}/Presentation/MostrarG?NRC=<%=c.getNrc()%>" class="btn btn-success">Elegir Grupo</a></b>
+                            </div>
                         </li>
                     </ul> 
                 </div>

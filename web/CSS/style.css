@@ -13,10 +13,34 @@
 }
 
 .navegacion{
-    background-color: black !important;
-    height: 25%;
+    background-color:#bfc9ca;
+    height: 20%;
 }
-
+.navegacion a{
+    float: left;
+    display: block;
+    color: darkslategray;
+    text-align: center;
+    padding: 10px 12px;
+    text-decoration: none;
+    font-size: 20px;
+    border-bottom: 3px solid transparent;
+}
+.navegacion a:hover{
+    border-bottom: 3px solid green;
+}
+#usuario p{
+    font-size: 20px;
+    padding: 14px 16px;
+    color: darkslategray;
+    text-align: center;
+}
+#contenido{
+    background-color: lightblue;
+}
+.navegacion a:active{
+    border-bottom: 3px darkblue;
+}
 #logo{
     width: 200px;
     height: 200px;
@@ -29,14 +53,31 @@
 
 
 #imagen{
-    height: 100%;
-    margin: 0 auto;
+    max-width:100%;
+    max-height:100%;
+}
+#centrar a{
+    color: whitesmoke;
+    text-align: center;
+    padding: 14px 16px;
+    font-size: 25px;
+    display: block;
+    font-weight: bold;
 }
 
 a{
     text-decoration: none;
 }
+#profe{
+    margin: 0;
 
+}
+#centrar{
+    max-width: 75%;
+    max-height: 60%;
+    padding-top: 22%;
+    padding-left: 22%;
+}
 
 body {
     position: relative;
@@ -56,7 +97,7 @@ body {
     right: 0;
     bottom: 0;
     left: 0;
-    background: #000 !important;
+    background-color:#bfc9ca;
     text-align: center;
 }
 .card {
@@ -106,7 +147,27 @@ input:focus{
     background-image: none;
     border-color: #28a745;
 }
-
+#pro{
+    border-style: solid;
+    
+}
+#font{
+    font-size: 20px;
+    color:black;
+}
+#certifi a{
+    color: red;
+    font-size: 25px;
+}
+#profG{
+    background-color: white;
+}
+#bor{
+   font-size: 17px;
+}
+#mensaje{
+    font-size: 25px;
+}
 .form-control {
     display: block;
     width: 100%;

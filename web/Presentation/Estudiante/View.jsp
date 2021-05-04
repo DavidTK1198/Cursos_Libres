@@ -23,13 +23,13 @@
 
             <form name="form" action="${pageContext.request.contextPath}/Presentation/Estudiante/AgregrarEstudiante" method="post" > 
                 <div class="text-white">
-                    <div class="d-flex justify-content-center text-white mt-5">Registrar Estudiante</div>
+                    <div class="d-flex justify-content-center text-white mt-5 h1">Registrar Estudiante</div>
                     <div class="mb-2">
-                        <div class>Cedula</div>
-                        <div class="campo"><input class="form-control <%=erroneo("cedulaFld", errores)%>" placeholder="Cedula del Estudiante" type="text" name="cedulaFld" value="<%=form.get("cedulaFld")[0]%>" title="<%=title("cedulaFld", errores)%>"></div>
+                        <div class="etiqueta">Cedula</div>
+                        <div class="campo"><input class="form-control <%=erroneo("cedulaFld", errores)%>" placeholder="Cedula del Estudiante" type="text" name="cedulaFld" value="<%=form.get("cedulaFld")[0]%>" title="<%=title("cedulaFld", errores)%>" required></div>
                     </div>
-                    <div class>
-                        <div class="mb-2">Nombre</div>
+                    <div class="mb-2">
+                        <div class="etiqueta">Nombre</div>
                         <div><input class="form-control <%=erroneo("NombreFld", errores)%>" placeholder="Nombre del Estudiante" type="text" name="NombreFld" value="<%=form.get("NombreFld")[0]%>" title="<%=title("NombreFld", errores)%>"></div>
                     </div>
                     <div class="mb-2">

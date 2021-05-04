@@ -19,7 +19,7 @@
         <% List<Profesor> lista = m.getProfesores(); %>
 
         <div class="container-fluid container-lg container-md container-sm container-xl bg-fixed mt-5">
-            <div  class="text-black row">
+            <div class="text-black row">
                 <% for (Profesor c : lista) {%>
 
                 <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">

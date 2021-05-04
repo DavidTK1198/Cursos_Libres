@@ -24,20 +24,22 @@
             <div  class="text-white row">
                 <% for (Grupo c : lista) {%>
                 <div class="col col-sm-8 col-md-4 col-xl-4">
-                    <ul class="border border-success">
-                        <img src="${pageContext.request.contextPath}/IMG/4401280-768x432.jpg">
-                        <div class = "d-flex justify-content-center">
+                    <ul class="border border-primary">
+
+                        <div class = "d-flex justify-content-center text-black bg-secondary">
                             <p>Horario&nbsp;<%=c.getHorario()%></p>
                         </div>
-                         <div class = "d-flex justify-content-center">
-                             <p>Profesor&nbsp;<%=c.getProfesoridProfe().getNomProfe() %></p>
+                        <div class = "d-flex justify-content-center text-black bg-secondary">
+                            <p><b>Profesor: &nbsp;<%=c.getProfesoridProfe().getNomProfe()%></b></p>
                         </div>
-                        <li class="border">
-                            <p class="mr-5">
-                                <a href="${pageContext.request.contextPath}/Presentation/Inscripcion/Matricular?num_Grup=<%=c.getNumGrup()%>" class="btn btn-primary">Matricular</a>
-                             
-                            </p>
-                        </li>
+                        <div class = "d-flex justify-content-center text-black bg-secondary">
+                            <p><b>Grupo#&nbsp;<%=c.getNumGrup()%></b></p>
+                        </div>
+                        
+                            <div class="text-center bg-dark" id="font"><a href="${pageContext.request.contextPath}/Presentation/Inscripcion/Matricular?num_Grup=<%=c.getNumGrup()%>" class="btn btn-secondary">Matricular</a></div>
+
+
+                        
                     </ul> 
                 </div>
                 <%}%>

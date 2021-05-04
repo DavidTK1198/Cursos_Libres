@@ -9,12 +9,17 @@
 <!DOCTYPE html>
 <html>
     <%@include file = "/Presentation/head.jsp" %>
-     <% Model model = (Model) request.getAttribute("model"); %>
+    <% Model model = (Model) request.getAttribute("model");%>
     <body>
-        <div>
-            <h1 class='text-center'>YA EXISTE UN ESTUDIANTE CON LA CEDULA: <%=model.getCurrent().getIdEstudiante()%></h1>
+        <div class="align-items-center" id="centrar">
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <td class="text-center" scope="row">YA EXISTE UN ESTUDIANTE CON LA CEDULA: <%=model.getCurrent().getIdEstudiante()%></th>
+                    </tr>
+                </thead>
+            </table>
             <div class="text-center"><a href="${pageContext.request.contextPath}/Presentation/Estudiante/Show">Regresar al registro</a></div>
-
         </div>
 
 

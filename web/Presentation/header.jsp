@@ -8,7 +8,7 @@
 <%}else{%>
 <%flag=false;}%>
 <header class="bg-fixed">
-    <nav  class="navbar navegacion text-white">
+    <nav  class="navbar navegacion text-white navbar-light">
         <% if (usuario != null) { %>
         <% int rol = Integer.parseInt(usuario.getRol()); %>
         <%if (rol == 1) {  %>
@@ -16,10 +16,10 @@
             <a href="${pageContext.request.contextPath}/Presentation/Inicio">Inicio</a>
         </div>
          <%if(flag){%>
-        <form  class="mt-5" name="form" action="${pageContext.request.contextPath}/Presentation/Administrador/Buscar" method="post" > 
+        <form name="form" action="${pageContext.request.contextPath}/Presentation/Administrador/Buscar" method="post" > 
            
-            <input class="form mr-5 text-black" type="search" placeholder="Buscar Profesor" aria-label="Buscar" name ="id" >
-            <button class="btn btn-outline-info" type="submit">Buscar</button>
+            <input class="form text-black" type="search" placeholder="Buscar Profesor" aria-label="Buscar" name ="id" >
+            <button class="btn btn-secondary" type="submit">Buscar</button>
         </form>
             <%}%>
         <li class="nav-item dropdown lista">
@@ -66,8 +66,11 @@
             <a  href="${pageContext.request.contextPath}/Presentation/Login/Logout">Salir</a>
         </div> 
 
-        <div >
-            <p>Usuario:<%=usuario.getIdUsu()%></p>
+        <div id="usuario">
+            <p>
+                Usuario:<%=usuario.getIdUsu()%><br>
+                <%=determinaRol(rol)%>
+            </p>
         </div> 
 
         <% } %>         
@@ -76,9 +79,9 @@
             <a href="${pageContext.request.contextPath}/Presentation/Inicio">Inicio</a>
         </div>
         <%if(flag){%>
-        <form  class="text-white mt-5" name="form" action="${pageContext.request.contextPath}/Presentation/buscarcurnom" method="post" > 
-            <input class="form mr-5" type="search" placeholder="Buscar Curso" aria-label="Buscar" name ="id" >
-            <button class="btn btn-outline-info" type="submit">Buscar</button>
+        <form  class="text-white" name="form" action="${pageContext.request.contextPath}/Presentation/buscarcurnom" method="post" > 
+            <input class="form text-black" type="search" placeholder="Buscar Curso" aria-label="Buscar" name ="id" >
+            <button class="btn btn-secondary" type="submit">Buscar</button>
         </form>
             <%}%>
         <div><a href="${pageContext.request.contextPath}/Presentation/Estudiante/Show">Registrarse</a></div>
@@ -90,3 +93,18 @@
         <img class="border border-secondary border-5 rounded-circle imagen" src="${pageContext.request.contextPath}/IMG/logo.png" id="logo">
     </div>
 </header>
+    
+<%!
+    private String determinaRol(int rol){
+       
+        switch(rol){
+            case 1: return "Administrador"; 
+            case 2: return "Profesor"; 
+            case 3: return "Estudiante"; 
+        }
+        return "";
+    }    
+
+
+
+%>
